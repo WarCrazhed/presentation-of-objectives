@@ -1,0 +1,6 @@
+export * from './Home'
+export * from './Platforms'
+export * from './Questions'
+export * from './OperatingExpenses'
+export * from './StrategicObjective'
+export * from './EmergingProject'
