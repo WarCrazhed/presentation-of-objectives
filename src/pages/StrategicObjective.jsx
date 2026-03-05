@@ -1,3 +1,5 @@
+import { Fragment } from 'react';
+
 export const StrategicObjective = () => {
     const strategicObjectives = [
         {
@@ -140,7 +142,7 @@ export const StrategicObjective = () => {
                             </thead>
                             <tbody className="divide-y divide-zinc-200 dark:divide-zinc-700">
                                 {strategicObjectives.map((objective) => (
-                                    <>
+                                    <Fragment key={objective.id}>
                                         {/* Fila del objetivo principal */}
                                         <tr key={objective.id} className="bg-lime-50/50 dark:bg-lime-900/20">
                                             <td className="px-4 py-3 text-sm font-bold text-zinc-900 dark:text-zinc-100" colSpan={16}>
@@ -149,7 +151,7 @@ export const StrategicObjective = () => {
                                         </tr>
 
                                         {/* Descripción del objetivo */}
-                                        <tr className="bg-zinc-50/50 dark:bg-zinc-800/50">
+                                        <tr key={`${objective.id}-desc`} className="bg-zinc-50/50 dark:bg-zinc-800/50">
                                             <td className="px-4 py-2 text-sm text-zinc-600 dark:text-zinc-400 italic pl-8" colSpan={16}>
                                                 {objective.description}
                                             </td>
@@ -187,7 +189,7 @@ export const StrategicObjective = () => {
                                                 ))}
                                             </tr>
                                         ))}
-                                    </>
+                                    </Fragment>
                                 ))}
                             </tbody>
                         </table>
