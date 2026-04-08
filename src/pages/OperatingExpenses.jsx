@@ -19,12 +19,12 @@ export const OperatingExpenses = () => {
             icon: "👥"
         },
         {
-            name: "Resend (Envío de correo)",
-            amount: 0.00,
-            currency: "USD",
+            name: "Resend (Envío de correos)",
+            amount: 732.62,
+            currency: "MXN",
             period: "Mensual",
             description: "Servicio de infraestructura de correo electrónico.",
-            status: "Pendiente de pago",
+            status: "Pagado",
             icon: "📧"
         },
         {
@@ -33,6 +33,15 @@ export const OperatingExpenses = () => {
             currency: "MXN",
             period: "Variable",
             description: "Servicios de Inteligencia Artificial para aplicaciones.",
+            status: "Versión Pro",
+            icon: "✨"
+        },
+        {
+            name: "Gemini AI",
+            amount: 2000.00,
+            currency: "MXN",
+            period: "Mensual",
+            description: "Inteligencia Artificial.",
             status: "Versión Pro",
             icon: "✨"
         }
@@ -91,8 +100,8 @@ export const OperatingExpenses = () => {
                             <span className="font-bold">✓</span>
                         </div>
                         <p className="text-sm font-medium leading-tight">
-                            Presupuesto optimizado <br />
-                            <span className="text-indigo-200">Sincronizado con tesorería</span>
+                            Presupuesto actualizado <br />
+                            <span className="text-indigo-200">Sincronizado con Administración</span>
                         </p>
                     </div>
                 </div>

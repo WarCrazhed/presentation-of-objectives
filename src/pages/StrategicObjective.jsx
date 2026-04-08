@@ -7,9 +7,9 @@ export const StrategicObjective = () => {
             name: "SuiteDO",
             description: "Implementar y Pivotear SuiteDO",
             initiatives: [
-                { id: "1.1.1", name: "Implementación", meta: "100%", responsable: "Mario Zamora", avance: 1, meses: [0, 1] }, // E, F
-                { id: "1.1.2", name: "Pivoteo", meta: "3 Clientes", responsable: "Funcionalidad Tecnológica", avance: 0, meses: [0, 1, 2, 4, 5] }, // E, F, M, M, J
-                { id: "1.1.3", name: "Implmentar IA Diagnosticos", meta: "100% Diagnósticos", responsable: "Funcionalidad Tecnológica", meses: [2, 3, 4] } // M, A, M
+                { id: "1.1.1", name: "Despliegue", meta: "100%", responsable: "Mario Zamora", avance: 1, meses: [0, 1] }, // E, F
+                { id: "1.1.2", name: "Pivoteo", meta: "3 Clientes", responsable: "Funcionalidad Tecnológica", avance: 0.33, meses: [0, 1, 2, 4, 5] }, // E, F, M, M, J
+                { id: "1.1.3", name: "Implementar IA Diagnosticos", meta: "100% Diagnósticos", responsable: "Funcionalidad Tecnológica", meses: [2, 3, 4] } // M, A, M
             ]
         },
         {
@@ -31,7 +31,7 @@ export const StrategicObjective = () => {
                 { id: "3.1.2", name: "Planificación y diseño", meta: "100%", avance: 1, responsable: "Funcionalidad Tecnológica", meses: [0] }, // E
                 { id: "3.1.3", name: "Desarrollar Funcionalidad", meta: "100%", avance: 1, responsable: "Funcionalidad Tecnológica", meses: [1, 2] }, // F, M
                 { id: "3.1.4", name: "Realizar Pruebas", meta: "100%", avance: 1, responsable: "Funcionalidad Tecnológica", meses: [3, 4] }, // A, M
-                { id: "3.1.5", name: "Implementar", meta: "suitedo.com", avance: 1, responsable: "Mario Zamora", meses: [3, 4] } // A, M
+                { id: "3.1.5", name: "Despliegue", meta: "suitedo.com", avance: 1, responsable: "Mario Zamora", meses: [3, 4] } // A, M
             ]
         },
         {
@@ -42,7 +42,7 @@ export const StrategicObjective = () => {
                 { id: "4.1.1", name: "Implementar API", meta: "(1-2) Modelo", responsable: "Funcionalidad Tecnológica", avance: 1, meses: [2, 3] }, // M, A
                 { id: "4.1.2", name: "Entrenar Modelo de IA", meta: "100%", responsable: "Funcionalidad Tecnológica", avance: 1, meses: [3, 4] }, // A, M
                 { id: "4.1.3", name: "Realizar Pruebas", meta: "100%", responsable: "Funcionalidad Tecnológica", avance: 1, meses: [4, 5] }, // M, J
-                { id: "4.1.4", name: "Implementar", meta: "Humana11.com", responsable: "Mario Zamora", avance: 1, meses: [5] } // J
+                { id: "4.1.4", name: "Despliegue", meta: "Humana11.com", responsable: "Mario Zamora", avance: 1, meses: [5] } // J
             ]
         },
         {
@@ -54,7 +54,7 @@ export const StrategicObjective = () => {
                 { id: "5.1.2", name: "Planificación y diseño", meta: "100%", responsable: "Funcionalidad Tecnológica", meses: [4] }, // M
                 { id: "5.1.3", name: "Desarrollar Funcionalidad", meta: "100%", responsable: "Funcionalidad Tecnológica", meses: [5] }, // J
                 { id: "5.1.4", name: "Realizar Pruebas", meta: "100%", responsable: "Funcionalidad Tecnológica", meses: [6] }, // J
-                { id: "5.1.5", name: "Implementar", meta: "UHE", responsable: "Mario Zamora", meses: [6] } // J
+                { id: "5.1.5", name: "Despliegue", meta: "UHE", responsable: "Mario Zamora", meses: [6] } // J
             ]
         },
         {
@@ -76,7 +76,7 @@ export const StrategicObjective = () => {
                 { id: "6.1.7", name: "Planificación y diseño", meta: "100%", responsable: "Funcionalidad Tecnológica", meses: [6, 7] }, // J, A
                 { id: "6.1.8", name: "Desarrollar Funcionalidad", meta: "100%", responsable: "Funcionalidad Tecnológica", meses: [7, 8, 9] }, // A, S, O
                 { id: "6.1.9", name: "Realizar Pruebas", meta: "100%", responsable: "Funcionalidad Tecnológica", meses: [9, 10] }, // O, N
-                { id: "6.1.10", name: "Implementar", meta: "Play Store y App Store", responsable: "Mario Zamora", meses: [11] } // D
+                { id: "6.1.10", name: "Despliegue", meta: "Play Store y App Store", responsable: "Mario Zamora", meses: [11] } // D
             ]
         },
         {
@@ -84,10 +84,10 @@ export const StrategicObjective = () => {
             name: "App Assesment",
             description: "Desarrollar Plataforma para assesment",
             initiatives: [
-                { id: "6.1.11", name: "Planificación y diseño", meta: "100%", responsable: "Funcionalidad Tecnológica", avance: 1, meses: [1] }, // F
-                { id: "6.1.12", name: "Desarrollar Funcionalidad", meta: "100%", responsable: "Funcionalidad Tecnológica", avance: 1, meses: [1, 2] }, // F, M
-                { id: "6.1.13", name: "Realizar Pruebas", meta: "100%", responsable: "Funcionalidad Tecnológica", avance: 0.25, meses: [2] }, // M
-                { id: "6.1.14", name: "Implementar", meta: "Talento", responsable: "Mario Zamora", meses: [2, 3] } // M, A
+                { id: "6.1.11", name: "Planificación y diseño", meta: "100%", responsable: "Funcionalidad Tecnológica", avance: 0.75, meses: [1] }, // F
+                { id: "6.1.12", name: "Desarrollar Funcionalidad", meta: "100%", responsable: "Funcionalidad Tecnológica", avance: 0.75, meses: [1, 2] }, // F, M
+                { id: "6.1.13", name: "Realizar Pruebas", meta: "100%", responsable: "Funcionalidad Tecnológica", avance: 0.50, meses: [2] }, // M
+                { id: "6.1.14", name: "Despliegue", meta: "Talento", responsable: "Mario Zamora", avance: 0.50, meses: [2, 3] } // M, A
             ]
         },
         {
@@ -99,7 +99,7 @@ export const StrategicObjective = () => {
                 { id: "9.1.2", name: "Planificación y diseño", meta: "100%", responsable: "Funcionalidad Tecnológica", meses: [0] }, // E
                 { id: "9.1.3", name: "Desarrollar Funcionalidad", meta: "100%", responsable: "Funcionalidad Tecnológica", meses: [1] }, // F
                 { id: "9.1.4", name: "Realizar Pruebas", meta: "100%", responsable: "Funcionalidad Tecnológica", meses: [1] }, // F
-                { id: "9.1.5", name: "Implementar", meta: "H11 | NAS", responsable: "Mario Zamora", meses: [2] } // M
+                { id: "9.1.5", name: "Despliegue", meta: "H11 | NAS", responsable: "Mario Zamora", meses: [2] } // M
             ]
         }
     ];

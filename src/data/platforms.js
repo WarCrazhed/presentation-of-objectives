@@ -6,27 +6,51 @@ export const platforms = [
         description: "Plataforma de desarrollo organizacional",
         records: [
             {
-                name: "Diagnostico DNC | ARCHIVO DEL ESTADO",
-                date_start: "23 Enero 2026",
-                date_end: "04 Febrero 2026",
-                status: "Completado"
-            },
-            {
                 name: "Diagnostico Clima Laboral | LITO ETIQUETAS",
                 date_start: "16 Febrero 2026",
                 date_end: "07 Marzo 2026",
                 status: "En Proceso"
             },
             {
-                name: "Diagnostico Customizado | DIAGNÓSTICO - AGROSERVICIOS NIETO",
-                date_start: "04 Febrero 2026",
-                date_end: "11 Febrero 2026",
+                name: "Diagnostico Clima Laboral | Diagnóstico de Seguridad y Almacenamiento de Información",
+                date_start: "12 de marzo 2026",
+                date_end: "19 de marzo 2026",
                 status: "Completado"
             },
             {
-                name: "Diagnostico NPS | +P (Valeria Calva)",
-                date_start: "29 Enero 2026",
-                date_end: "28 Febrero 2026",
+                name: "Diagnostico Clima Laboral | MB MOTOS - CONSTITUYENTES",
+                date_start: "24 de marzo 2026",
+                date_end: "2 de abril 2026",
+                status: "Completado"
+            },
+            {
+                name: "Diagnostico Clima Laboral | MB MOTOS - PLANTA - GABINO",
+                date_start: "25 de marzo 2026",
+                date_end: "2 de abril 2026",
+                status: "Completado"
+            },
+            {
+                name: "Diagnostico Customizado | IDC Componentes",
+                date_start: "25 de marzo 2026",
+                date_end: "15 de abril 2026",
+                status: "Completado"
+            },
+            {
+                name: "Diagnostico Customizado | LITO ETIQUETAS CEO",
+                date_start: "25 de marzo 2026",
+                date_end: "31 de marzo 2026",
+                status: "Completado"
+            },
+            {
+                name: "Diagnostico Customizado | DIAGNÓSTICO- SEGADI",
+                date_start: "31 de marzo 2026",
+                date_end: "7 de abril 2026",
+                status: "Completado"
+            },
+            {
+                name: "Diagnostico Customizado | Insight Demand",
+                date_start: "25 de marzo 2026",
+                date_end: "15 de abril 2026",
                 status: "Completado"
             },
             {
@@ -54,18 +78,6 @@ export const platforms = [
                 status: "En Proceso"
             },
             {
-                name: "Diagnostico NPS | PREMIUM SYSTEMS (Jhoana Hernández)",
-                date_start: "29 Enero 2026",
-                date_end: "09 Febrero 2026",
-                status: "Completado"
-            },
-            {
-                name: "Diagnostico NPS | SEGADI (Laura Gonzalez)",
-                date_start: "29 Enero 2026",
-                date_end: "05 Febrero 2026",
-                status: "Completado"
-            },
-            {
                 name: "Diagnostico NPS | DUBACANO (Rafael Trillo)",
                 date_start: "30 Enero 2026",
                 date_end: "08 Marzo 2026",
@@ -85,22 +97,22 @@ export const platforms = [
                 status: "En Proceso"
             },
             {
-                name: "Diagnostico NPS | MB MOTOS (Paulina Valle)",
+                name: "Diagnostico NPS | +P (Victor Perez)",
                 date_start: "30 Enero 2026",
                 date_end: "08 Marzo 2026",
                 status: "En Proceso"
+            },
+            {
+                name: "Diagnostico NPS | MB MOTOS (Paulina Valle)",
+                date_start: "30 Enero 2026",
+                date_end: "08 Marzo 2026",
+                status: "Completado"
             },
             {
                 name: "Diagnostico NPS | MB MOTOS (Pablo Sahagún)",
                 date_start: "30 Enero 2026",
                 date_end: "08 Marzo 2026",
                 status: "En Proceso"
-            },
-            {
-                name: "Diagnostico NPS | MB MOTOS (Roberto Sahagún)",
-                date_start: "29 Enero 2026",
-                date_end: "08 Febrero 2026",
-                status: "Completado"
             },
             {
                 name: "Diagnostico NPS | MAGNETIKA (Daniela Flores Saiffe)",
@@ -136,13 +148,13 @@ export const platforms = [
                 name: "Diagnostico NPS | BELTICOS (Andrea)",
                 date_start: "02 Febrero 2026",
                 date_end: "08 Marzo 2026",
-                status: "En Proceso"
+                status: "Completado"
             },
             {
                 name: "Diagnostico NPS | CAPEM (Paulo Tejeda)",
                 date_start: "02 Febrero 2026",
                 date_end: "08 Marzo 2026",
-                status: "En Proceso"
+                status: "Completado"
             },
             {
                 name: "Diagnostico NPS | GRUPO AGC (Paola Torres)",
@@ -154,7 +166,7 @@ export const platforms = [
                 name: "Diagnostico NPS | AGROSERVICIOS NIETO (Jesús Diaz Mena)",
                 date_start: "04 Febrero 2026",
                 date_end: "30 Abril 2026",
-                status: "En Proceso"
+                status: "Completado"
             },
             {
                 name: "Diagnostico NPS | DACOMSA (Marisol Canto Buendia)",
@@ -165,8 +177,8 @@ export const platforms = [
             {
                 name: "Diagnostico NPS | VIMIFOS (J. Delgado)",
                 date_start: "09 Febrero 2026",
-                date_end: "28 Febrero 2026",
-                status: "Completado"
+                date_end: "31 de marzo 2026",
+                status: "En Proceso"
             }
         ],
     },
@@ -177,14 +189,38 @@ export const platforms = [
         description: "Página web de Humana11",
         records: [
             {
-                name: "Entrada Blog | El desarrollo organizacional como ventaja competitiva sostenible (Pablo Rico)",
-                date_start: "20 Febrero 2026",
+                name: "Entrada Blog | El desarrollo organizacional como ventaja competitiva sostenible (Pablo Rico).",
+                date_start: "10 de Marzo 2026",
                 date_end: null,
                 status: "Publicado"
             },
             {
-                name: "Cliente | LITO ETIQUETAS",
-                date_start: "09 Febrero 2026",
+                name: "Nuevo ciclo: formar vendedores con mentalidad consultiva.",
+                date_start: "12 de Marzo 2026",
+                date_end: null,
+                status: "Publicado"
+            },
+            {
+                name: "Como hacer tu CV para AUMENTAR tus posibilidades de contratación.",
+                date_start: "13 de Marzo 2026",
+                date_end: null,
+                status: "Publicado"
+            },
+            {
+                name: "Inteligencia Artificial: Automatización estratégica para la evolución del talento humano.",
+                date_start: "17 de Marzo 2026",
+                date_end: null,
+                status: "Publicado"
+            },
+            {
+                name: "La Estrategia Empresarial en el entorno VUCA.",
+                date_start: "24 de Marzo 2026",
+                date_end: null,
+                status: "Publicado"
+            },
+            {
+                name: "¿Cómo destacar tus logros y experiencia laboral?",
+                date_start: "30 de Marzo 2026",
                 date_end: null,
                 status: "Publicado"
             },
@@ -197,32 +233,34 @@ export const platforms = [
         description: "Universidad Humana Empresaria",
         records: [
             {
-                name: "Diseño e Implementación de KPI's y OKR's",
-                date_start: "06 Febrero 2026",
-                date_end: null,
-                status: "Activo"
-            },
-            {
-                name: "Informe Final",
-                date_start: "11 Febrero 2026",
-                date_end: null,
-                status: "Activo"
-            },
-            {
-                name: "IA como Herramienta Organizacional",
-                date_start: "12 Febrero 2026",
-                date_end: null,
-                status: "Activo"
-            },
-            {
-                name: "EGD-002",
-                date_start: "20 Febrero 2026",
-                date_end: null,
-                status: "Activo"
-            },
-            {
                 name: "Ontología del tomador de Decisiones",
-                date_start: "05 Marzo 2026",
+                date_start: "05 de Marzo 2026",
+                date_end: null,
+                status: "Activo"
+            },
+        ]
+    },
+    {
+        id: 4,
+        name: "Talento",
+        img: "https://talento11.com/img/talento.png",
+        description: "Universidad Humana Empresaria",
+        records: [
+            {
+                name: "Director Ejecutivo (General) - MB MOTOS",
+                date_start: "05 de Marzo 2026",
+                date_end: null,
+                status: "Activo"
+            },
+            {
+                name: "Ejecutivo Comercial (Food Service) - D CONSUMO",
+                date_start: "05 de Marzo 2026",
+                date_end: null,
+                status: "Activo"
+            },
+            {
+                name: "Gerente Comercial - PROFILO",
+                date_start: "05 de Marzo 2026",
                 date_end: null,
                 status: "Activo"
             },

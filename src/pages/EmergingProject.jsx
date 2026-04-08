@@ -5,24 +5,43 @@ export const EmergingProject = () => {
             name: "Nuevo diagnóstico de Patrones de conducta",
             description: "Diagnóstico especializado para el mes de Marzo",
             initiatives: [
-                { id: "E1.1.1", name: "Planificación y diseño", meta: "100%", responsable: "Funcionalidad Tecnológica", avance: 0, meses: [2] }, // M
-                { id: "E1.1.2", name: "Desarrollar Funcionalidad", meta: "100%", responsable: "Funcionalidad Tecnológica", avance: 0, meses: [2] }, // M
-                { id: "E1.1.3", name: "Realizar Pruebas", meta: "100%", responsable: "Funcionalidad Tecnológica", avance: 0, meses: [2] }, // M
-                { id: "E1.1.4", name: "Implementar", meta: "100%", responsable: "Mario Zamora", avance: 0, meses: [2] } // M
+                { id: "E1.1.1", name: "Planificación y diseño", meta: "100%", responsable: "Funcionalidad Tecnológica", avance: 1, meses: [2] }, // M
+                { id: "E1.1.2", name: "Desarrollar Funcionalidad", meta: "100%", responsable: "Funcionalidad Tecnológica", avance: 1, meses: [2] }, // M
+                { id: "E1.1.3", name: "Realizar Pruebas", meta: "100%", responsable: "Funcionalidad Tecnológica", avance: 1, meses: [2] }, // M
+                { id: "E1.1.4", name: "Despliegue", meta: "100%", responsable: "Mario Zamora", avance: 1, meses: [2] } // M
             ]
         },
         {
             id: "E2.0",
-            name: "IA Chatbot Linkedin",
-            description: "Desarrollar chatbot inteligente para integración con Linkedin",
+            name: "Desarrollar Diagnóstico Customizado para Consejo Magnetika",
+            description: "Diagnóstico especializado para el mes de Marzo",
             initiatives: [
-                { id: "E2.1.1", name: "Tomar curso N8N", meta: "100%", responsable: "Funcionalidad Tecnológica", avance: 0, meses: [2] }, // M
-                { id: "E2.1.2", name: "Montar N8N en contenedor Docker", meta: "100%", responsable: "Funcionalidad Tecnológica", avance: 0, meses: [2] }, // M
-                { id: "E2.1.3", name: "Integrar IA", meta: "100%", responsable: "Funcionalidad Tecnológica", avance: 0, meses: [2, 3] }, // M, A
-                { id: "E2.1.4", name: "Planificar", meta: "100%", responsable: "Mario Zamora", avance: 0, meses: [2] }, // M
-                { id: "E2.1.5", name: "Implementar (Local o Web)", meta: "100%", responsable: "Mario Zamora", avance: 0, meses: [3] } // A
+                { id: "E2.1.1", name: "Planificación y diseño", meta: "100%", responsable: "Funcionalidad Tecnológica", avance: 1, meses: [2] }, // M
+                { id: "E2.1.2", name: "Desarrollar Funcionalidad", meta: "100%", responsable: "Funcionalidad Tecnológica", avance: 1, meses: [2] }, // M
+                { id: "E2.1.3", name: "Realizar Pruebas", meta: "100%", responsable: "Funcionalidad Tecnológica", avance: 1, meses: [3] }, // M
+                { id: "E2.1.4", name: "Despliegue", meta: "100%", responsable: "Mario Zamora", avance: 1, meses: [3] } // M
             ]
-        }
+        },
+        {
+            id: "E3.0",
+            name: "Desarrollar Diagnóstico para página web Humana11",
+            description: "Diagnóstico especializado para el mes de Marzo",
+            initiatives: [
+                { id: "E3.1.3", name: "Desarrollar y adaptar", meta: "100%", responsable: "Funcionalidad Tecnológica", avance: 1, meses: [3] }, // M
+                { id: "E3.1.4", name: "Despliegue", meta: "100%", responsable: "Mario Zamora", avance: 1, meses: [3] } // M
+            ]
+        },
+        {
+            id: "E4.0",
+            name: "Desarrollar Diagnóstico Customizado tipo Forms (EuropCar)",
+            description: "Diagnóstico especializado para el mes de Marzo",
+            initiatives: [
+                { id: "E4.1.1", name: "Planificación y diseño", meta: "100%", responsable: "Funcionalidad Tecnológica", avance: 1, meses: [2] }, // M
+                { id: "E4.1.2", name: "Desarrollar Funcionalidad", meta: "100%", responsable: "Funcionalidad Tecnológica", avance: 0.50, meses: [2] }, // M
+                { id: "E4.1.3", name: "Realizar Pruebas", meta: "100%", responsable: "Funcionalidad Tecnológica", avance: 0, meses: [3] }, // M
+                { id: "E4.1.4", name: "Despliegue", meta: "100%", responsable: "Mario Zamora", avance: 0, meses: [3] } // M
+            ]
+        },
     ];
 
     const months = ['E', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D'];
@@ -115,7 +134,6 @@ export const EmergingProject = () => {
                             </tbody>
                         </table>
                     </div>
-
                     <div className="mt-4 text-xs text-zinc-500 dark:text-zinc-400 text-right">
                         <span className="inline-flex items-center gap-4">
                             <span className="flex items-center gap-1"><span className="text-orange-600 dark:text-orange-400 font-bold">X</span> Mes previsto</span>
