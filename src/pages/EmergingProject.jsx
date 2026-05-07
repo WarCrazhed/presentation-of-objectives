@@ -53,6 +53,25 @@ export const EmergingProject = () => {
                 { id: "E5.1.4", name: "Despliegue", meta: "100%", responsable: "Mario Zamora", avance: 1, meses: [3] }
             ]
         },
+        {
+            id: "E6.0",
+            name: "Hacer inventario de las cuentas de Humana11",
+            description: "Inventario de todas las cuentas asociadas a Humana11",
+            initiatives: [
+                { id: "E6.1.1", name: "Realizar inventario", meta: "100%", responsable: "Funcionalidad Tecnológica", avance: 0.75, meses: [3, 4] }
+            ]
+        },
+        {
+            id: "E7.0",
+            name: "Añadir módulo gestor de contraseñas en panel administrativo de Humana11",
+            description: "Desarrollar módulo para gestionar contraseñas de Humana11",
+            initiatives: [
+                { id: "E7.1.1", name: "Planificación y diseño", meta: "100%", responsable: "Funcionalidad Tecnológica", avance: 0, meses: [4] },
+                { id: "E7.1.2", name: "Desarrollar Funcionalidad", meta: "100%", responsable: "Funcionalidad Tecnológica", avance: 0, meses: [4] },
+                { id: "E7.1.3", name: "Realizar Pruebas", meta: "100%", responsable: "Funcionalidad Tecnológica", avance: 0, meses: [5] },
+                { id: "E7.1.4", name: "Despliegue", meta: "100%", responsable: "Mario Zamora", avance: 0, meses: [5] }
+            ]
+        },
     ];
 
     const months = ['E', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D'];

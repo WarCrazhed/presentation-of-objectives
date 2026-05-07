@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Home, Questions, Platforms, OperatingExpenses, StrategicObjective, EmergingProject } from './pages'
+import { Home, Questions, Platforms, OperatingExpenses, StrategicObjective, EmergingProject, SubscriptionAccounts } from './pages'
 import { Layout } from './components/Layout'
 
 export const App = () => {
@@ -43,6 +43,10 @@ export const App = () => {
         {
             content: "emerging",
             view: <EmergingProject />
+        },
+        {
+            content: "subscriptions",
+            view: <SubscriptionAccounts />
         },
         {
             content: "operating-expenses",
