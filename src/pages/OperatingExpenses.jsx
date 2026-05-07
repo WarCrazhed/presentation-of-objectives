@@ -20,7 +20,7 @@ export const OperatingExpenses = () => {
         },
         {
             name: "Resend (Envío de correos)",
-            amount: 732.62,
+            amount: 367.00,
             currency: "MXN",
             period: "Mensual",
             description: "Servicio de infraestructura de correo electrónico.",

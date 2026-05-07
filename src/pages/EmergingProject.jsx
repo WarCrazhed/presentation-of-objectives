@@ -37,9 +37,20 @@ export const EmergingProject = () => {
             description: "Diagnóstico especializado para el mes de Marzo",
             initiatives: [
                 { id: "E4.1.1", name: "Planificación y diseño", meta: "100%", responsable: "Funcionalidad Tecnológica", avance: 1, meses: [2] }, // M
-                { id: "E4.1.2", name: "Desarrollar Funcionalidad", meta: "100%", responsable: "Funcionalidad Tecnológica", avance: 0.50, meses: [2] }, // M
-                { id: "E4.1.3", name: "Realizar Pruebas", meta: "100%", responsable: "Funcionalidad Tecnológica", avance: 0, meses: [3] }, // M
-                { id: "E4.1.4", name: "Despliegue", meta: "100%", responsable: "Mario Zamora", avance: 0, meses: [3] } // M
+                { id: "E4.1.2", name: "Desarrollar Funcionalidad", meta: "100%", responsable: "Funcionalidad Tecnológica", avance: 1, meses: [2] }, // M
+                { id: "E4.1.3", name: "Realizar Pruebas", meta: "100%", responsable: "Funcionalidad Tecnológica", avance: 1, meses: [3] }, // M
+                { id: "E4.1.4", name: "Despliegue", meta: "100%", responsable: "Mario Zamora", avance: 1, meses: [3] } // M
+            ]
+        },
+    {
+            id: "E5.0",
+            name: "Ingresar desde un QR a un diagnóstico",
+            description: "Permitir acceso directo a diagnóstico mediante código QR (SuiteDO)",
+            initiatives: [
+                { id: "E5.1.1", name: "Planificación y diseño", meta: "100%", responsable: "Funcionalidad Tecnológica", avance: 1, meses: [3] },
+                { id: "E5.1.2", name: "Desarrollar Funcionalidad", meta: "100%", responsable: "Funcionalidad Tecnológica", avance: 1, meses: [3] },
+                { id: "E5.1.3", name: "Realizar Pruebas", meta: "100%", responsable: "Funcionalidad Tecnológica", avance: 1, meses: [3] },
+                { id: "E5.1.4", name: "Despliegue", meta: "100%", responsable: "Mario Zamora", avance: 1, meses: [3] }
             ]
         },
     ];

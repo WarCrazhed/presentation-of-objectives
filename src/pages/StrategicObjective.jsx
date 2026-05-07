@@ -17,9 +17,9 @@ export const StrategicObjective = () => {
             name: "NPS",
             description: "Desarrollar NPS (Aplicable a todos los servicios)",
             initiatives: [
-                { id: "2.1.1", name: "DO", meta: "100%", responsable: "Funcionalidad Tecnológica", avance: .75, meses: [0, 1] }, // E, F
-                { id: "2.1.2", name: "UHE", meta: "100%", responsable: "Funcionalidad Tecnológica", meses: [0, 1] }, // E, F
-                { id: "2.1.3", name: "TALENTO", meta: "100%", responsable: "Funcionalidad Tecnológica", meses: [1, 2] } // F, M
+                { id: "2.1.1", name: "DO", meta: "100%", responsable: "Funcionalidad Tecnológica", avance: 1, meses: [0, 1] }, // E, F
+                { id: "2.1.2", name: "UHE", meta: "100%", responsable: "Funcionalidad Tecnológica", avance: 1, meses: [0, 1] }, // E, F
+                { id: "2.1.3", name: "TALENTO", meta: "100%", responsable: "Funcionalidad Tecnológica",  meses: [1, 2] } // F, M
             ]
         },
         {
@@ -86,8 +86,8 @@ export const StrategicObjective = () => {
             initiatives: [
                 { id: "6.1.11", name: "Planificación y diseño", meta: "100%", responsable: "Funcionalidad Tecnológica", avance: 0.75, meses: [1] }, // F
                 { id: "6.1.12", name: "Desarrollar Funcionalidad", meta: "100%", responsable: "Funcionalidad Tecnológica", avance: 0.75, meses: [1, 2] }, // F, M
-                { id: "6.1.13", name: "Realizar Pruebas", meta: "100%", responsable: "Funcionalidad Tecnológica", avance: 0.50, meses: [2] }, // M
-                { id: "6.1.14", name: "Despliegue", meta: "Talento", responsable: "Mario Zamora", avance: 0.50, meses: [2, 3] } // M, A
+                { id: "6.1.13", name: "Realizar Pruebas", meta: "100%", responsable: "Funcionalidad Tecnológica", avance: 0.75, meses: [2] }, // M
+                { id: "6.1.14", name: "Despliegue", meta: "Talento", responsable: "Mario Zamora", avance: 0.75, meses: [2, 3] } // M, A
             ]
         },
         {
