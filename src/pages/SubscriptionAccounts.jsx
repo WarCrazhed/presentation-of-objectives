@@ -17,7 +17,7 @@ export const SubscriptionAccounts = () => {
         { name: "Calendly", category: "Citas", icon: "📅", count: 1, paidCount: 0 },
         { name: "Cámara de Comercio", category: "Cámara", icon: "🏛️", count: 1, paidCount: 0 },
         { name: "Canva", category: "Diseño", icon: "🎨", count: 3, paidCount: 0 },
-        { name: "ChatGPT", category: "IA", icon: "💬", count: 3, paidCount: 0 },
+        { name: "ChatGPT", category: "IA", icon: "💬", count: 3, paidCount: 1 },
         { name: "Círculos Empresariales", category: "Cámara", icon: "🔄", count: 1, paidCount: 0 },
         { name: "Coparmex", category: "Cámara", icon: "🏢", count: 1, paidCount: 0 },
         { name: "Corporate Growth", category: "Cámara", icon: "📈", count: 1, paidCount: 0 },
@@ -36,7 +36,8 @@ export const SubscriptionAccounts = () => {
         { name: "Volaris", category: "Viajes", icon: "✈️", count: 1, paidCount: 0 },
         { name: "Cemefi", category: "Cámara", icon: "🏛️", count: 1, paidCount: 0 },
         { name: "CUCEA", category: "Convenios", icon: "🤝", count: 1, paidCount: 0 },
-        { name: "Soni", category: "Servicios", icon: "🔊", count: 1, paidCount: 0 }
+        { name: "Soni", category: "Servicios", icon: "🔊", count: 1, paidCount: 0 },
+        { name: "NotebookLM", category: "Herramienta de IA", icon: "🔊", count: 1, paidCount: 1 }
     ];
 
     const categories = [...new Set(accounts.map(a => a.category))];
