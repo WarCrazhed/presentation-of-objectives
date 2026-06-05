@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import { Home, Questions, Platforms, OperatingExpenses, StrategicObjective, EmergingProject, SubscriptionAccounts } from './pages'
+import { useState, useEffect } from 'react'
+import { Home, Questions, Platforms, OperatingExpenses, StrategicObjective, EmergingProject, AIUsage } from './pages'
 import { Layout } from './components/Layout'
 
 export const App = () => {
@@ -7,6 +7,10 @@ export const App = () => {
     const [isAuthenticated, setIsAuthenticated] = useState(false)
     const [password, setPassword] = useState('')
     const [error, setError] = useState(false)
+
+    useEffect(() => {
+        window.scrollTo({ top: 0, behavior: 'smooth' })
+    }, [currentSlide])
 
     const handleLogin = (e) => {
         e.preventDefault()
@@ -45,8 +49,8 @@ export const App = () => {
             view: <EmergingProject />
         },
         {
-            content: "subscriptions",
-            view: <SubscriptionAccounts />
+            content: "ai-usage",
+            view: <AIUsage />
         },
         {
             content: "operating-expenses",

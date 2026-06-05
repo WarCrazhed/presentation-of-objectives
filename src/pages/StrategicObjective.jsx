@@ -50,11 +50,11 @@ export const StrategicObjective = () => {
             name: "Cursos Virtuales UHE",
             description: "Desarrollar la plataforma UHE para cursos virtuales",
             initiatives: [
-                { id: "5.1.1", name: "Desarrollar BD", meta: "100%", responsable: "Mario Zamora", meses: [4] }, // M
-                { id: "5.1.2", name: "Planificación y diseño", meta: "100%", responsable: "Funcionalidad Tecnológica", meses: [4] }, // M
-                { id: "5.1.3", name: "Desarrollar Funcionalidad", meta: "100%", responsable: "Funcionalidad Tecnológica", meses: [5] }, // J
-                { id: "5.1.4", name: "Realizar Pruebas", meta: "100%", responsable: "Funcionalidad Tecnológica", meses: [6] }, // J
-                { id: "5.1.5", name: "Despliegue", meta: "UHE", responsable: "Mario Zamora", meses: [6] } // J
+                { id: "5.1.1", name: "Desarrollar BD", meta: "100%", responsable: "Mario Zamora", meses: [6] }, // J (Julio)
+                { id: "5.1.2", name: "Planificación y diseño", meta: "100%", responsable: "Funcionalidad Tecnológica", meses: [6] }, // J (Julio)
+                { id: "5.1.3", name: "Desarrollar Funcionalidad", meta: "100%", responsable: "Funcionalidad Tecnológica", meses: [7] }, // A (Agosto)
+                { id: "5.1.4", name: "Realizar Pruebas", meta: "100%", responsable: "Funcionalidad Tecnológica", meses: [8] }, // S (Septiembre)
+                { id: "5.1.5", name: "Despliegue", meta: "UHE", responsable: "Mario Zamora", meses: [8] } // S (Septiembre)
             ]
         },
         {
@@ -62,9 +62,9 @@ export const StrategicObjective = () => {
             name: "Vacantes Talento",
             description: "Mostrar las vacantes disponibles de talento (Tráfico Talento y Humana11)",
             initiatives: [
-                { id: "6.1.1", name: "Mostrar Vacantes Talento", meta: "100%", responsable: "Ernesto y Marlett", meses: [3] }, // A
-                { id: "6.1.2", name: "Ligar H11 a Talento", meta: "100%", responsable: "Funcionalidad Tecnológica", meses: [3] }, // A
-                { id: "6.1.3", name: "Postularte como Candidato", meta: "100%", responsable: "Funcionalidad Tecnológica", meses: [4] } // M
+                { id: "6.1.1", name: "Mostrar Vacantes Talento", meta: "100%", responsable: "Ernesto y Marlett", meses: [5] }, // J (Junio)
+                { id: "6.1.2", name: "Ligar H11 a Talento", meta: "100%", responsable: "Funcionalidad Tecnológica", meses: [5] }, // J (Junio)
+                { id: "6.1.3", name: "Postularte como Candidato", meta: "100%", responsable: "Funcionalidad Tecnológica", meses: [6] } // J (Julio)
             ]
         },
         {
@@ -84,10 +84,10 @@ export const StrategicObjective = () => {
             name: "App Assesment",
             description: "Desarrollar Plataforma para assesment",
             initiatives: [
-                { id: "6.1.11", name: "Planificación y diseño", meta: "100%", responsable: "Funcionalidad Tecnológica", avance: 0.75, meses: [1] }, // F
-                { id: "6.1.12", name: "Desarrollar Funcionalidad", meta: "100%", responsable: "Funcionalidad Tecnológica", avance: 0.75, meses: [1, 2] }, // F, M
-                { id: "6.1.13", name: "Realizar Pruebas", meta: "100%", responsable: "Funcionalidad Tecnológica", avance: 0.75, meses: [2] }, // M
-                { id: "6.1.14", name: "Despliegue", meta: "Talento", responsable: "Mario Zamora", avance: 0.75, meses: [2, 3] } // M, A
+                { id: "6.1.11", name: "Planificación y diseño", meta: "100%", responsable: "Funcionalidad Tecnológica", avance: 0.95, meses: [1] }, // F
+                { id: "6.1.12", name: "Desarrollar Funcionalidad", meta: "100%", responsable: "Funcionalidad Tecnológica", avance: 0.95, meses: [1, 2] }, // F, M
+                { id: "6.1.13", name: "Realizar Pruebas", meta: "100%", responsable: "Funcionalidad Tecnológica", avance: 0.95, meses: [2] }, // M
+                { id: "6.1.14", name: "Despliegue", meta: "Talento", responsable: "Mario Zamora", avance: 0.95, meses: [2, 3] } // M, A
             ]
         },
         {
@@ -95,11 +95,11 @@ export const StrategicObjective = () => {
             name: "Sistema de Consulta",
             description: "Desarrollar Sistema para consultar Puestos (Web y NAS)",
             initiatives: [
-                { id: "9.1.1", name: "Diseñar BD", meta: "100%", responsable: "Mario Zamora", meses: [0] }, // E
-                { id: "9.1.2", name: "Planificación y diseño", meta: "100%", responsable: "Funcionalidad Tecnológica", meses: [0] }, // E
-                { id: "9.1.3", name: "Desarrollar Funcionalidad", meta: "100%", responsable: "Funcionalidad Tecnológica", meses: [1] }, // F
-                { id: "9.1.4", name: "Realizar Pruebas", meta: "100%", responsable: "Funcionalidad Tecnológica", meses: [1] }, // F
-                { id: "9.1.5", name: "Despliegue", meta: "H11 | NAS", responsable: "Mario Zamora", meses: [2] } // M
+                { id: "9.1.1", name: "Diseñar BD", meta: "100%", responsable: "Mario Zamora", meses: [5] }, // J (Junio)
+                { id: "9.1.2", name: "Planificación y diseño", meta: "100%", responsable: "Funcionalidad Tecnológica", meses: [5] }, // J (Junio)
+                { id: "9.1.3", name: "Desarrollar Funcionalidad", meta: "100%", responsable: "Funcionalidad Tecnológica", meses: [5] }, // J (Junio)
+                { id: "9.1.4", name: "Realizar Pruebas", meta: "100%", responsable: "Funcionalidad Tecnológica", meses: [6] }, // J (Julio)
+                { id: "9.1.5", name: "Despliegue", meta: "H11 | NAS", responsable: "Mario Zamora", meses: [6] } // J (Julio)
             ]
         }
     ];

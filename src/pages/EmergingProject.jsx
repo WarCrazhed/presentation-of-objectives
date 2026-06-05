@@ -1,3 +1,5 @@
+import { Fragment } from 'react';
+
 export const EmergingProject = () => {
     const emergingProjects = [
         {
@@ -58,18 +60,7 @@ export const EmergingProject = () => {
             name: "Hacer inventario de las cuentas de Humana11",
             description: "Inventario de todas las cuentas asociadas a Humana11",
             initiatives: [
-                { id: "E6.1.1", name: "Realizar inventario", meta: "100%", responsable: "Funcionalidad Tecnológica", avance: 0.75, meses: [3, 4] }
-            ]
-        },
-        {
-            id: "E7.0",
-            name: "Añadir módulo gestor de contraseñas en panel administrativo de Humana11",
-            description: "Desarrollar módulo para gestionar contraseñas de Humana11",
-            initiatives: [
-                { id: "E7.1.1", name: "Planificación y diseño", meta: "100%", responsable: "Funcionalidad Tecnológica", avance: 0, meses: [4] },
-                { id: "E7.1.2", name: "Desarrollar Funcionalidad", meta: "100%", responsable: "Funcionalidad Tecnológica", avance: 0, meses: [4] },
-                { id: "E7.1.3", name: "Realizar Pruebas", meta: "100%", responsable: "Funcionalidad Tecnológica", avance: 0, meses: [5] },
-                { id: "E7.1.4", name: "Despliegue", meta: "100%", responsable: "Mario Zamora", avance: 0, meses: [5] }
+                { id: "E6.1.1", name: "Realizar inventario", meta: "100%", responsable: "Funcionalidad Tecnológica", avance: 1, meses: [3, 4] }
             ]
         },
     ];
@@ -112,9 +103,9 @@ export const EmergingProject = () => {
                             </thead>
                             <tbody className="divide-y divide-zinc-200 dark:divide-zinc-700">
                                 {emergingProjects.map((objective) => (
-                                    <>
+                                    <Fragment key={objective.id}>
                                         {/* Fila del objetivo principal */}
-                                        <tr key={objective.id} className="bg-orange-50/50 dark:bg-orange-900/20">
+                                        <tr className="bg-orange-50/50 dark:bg-orange-900/20">
                                             <td className="px-4 py-3 text-sm font-bold text-zinc-900 dark:text-zinc-100" colSpan={16}>
                                                 {objective.id} {objective.name}
                                             </td>
@@ -159,7 +150,7 @@ export const EmergingProject = () => {
                                                 ))}
                                             </tr>
                                         ))}
-                                    </>
+                                    </Fragment>
                                 ))}
                             </tbody>
                         </table>

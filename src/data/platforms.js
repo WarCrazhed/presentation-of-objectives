@@ -6,46 +6,82 @@ export const platforms = [
         description: "Plataforma de desarrollo organizacional",
         records: [
             {
-                "name": "Consultores",
-                "date_start": "02 Abril 2026",
-                "date_end": "30 Mayo 2026",
+                "name": "Encuesta de Satisfacción - Evento - Cata de vino",
+                "date_start": "08 Mayo 2026",
+                "date_end": "13 Septiembre 2026",
                 "status": "En Proceso"
             },
             {
-                "name": "ANS&CAR - ING ANTONIO SAINZ - DIAGNÓSTICO INICIAL",
-                "date_start": "06 Abril 2026",
+                "name": "EGD002 - 08",
+                "date_start": "12 Mayo 2026",
+                "date_end": "12 Septiembre 2026",
+                "status": "En Proceso"
+            },
+            {
+                "name": "Diagnóstico Inicial",
+                "date_start": "13 Mayo 2026",
                 "date_end": "31 Mayo 2026",
+                "status": "Completado"
+            },
+            {
+                "name": "EGD002 - 09",
+                "date_start": "15 Mayo 2026",
+                "date_end": "14 Septiembre 2026",
                 "status": "En Proceso"
             },
             {
-                "name": "DIAGNÓSTICO INICIAL- AGROSERVICIOS NIETO",
-                "date_start": "07 Abril 2026",
-                "date_end": "30 Abril 2026",
-                "status": "Completado"
-            },
-            {
-                "name": "EVALUACIÓN CONSEJO MAGNETIKA",
-                "date_start": "07 Abril 2026",
-                "date_end": "13 Abril 2026",
-                "status": "Completado"
-            },
-            {
-                "name": "Diagnóstico Inicial ABORDO",
-                "date_start": "16 Abril 2026",
-                "date_end": "02 Mayo 2026",
-                "status": "Completado"
-            },
-            {
-                "name": "DIAGNÓSTICO GLOBAL- PREMIUM SYSTEMS",
-                "date_start": "27 Abril 2026",
-                "date_end": "08 Mayo 2026",
+                "name": "EGD002 - 10",
+                "date_start": "15 Mayo 2026",
+                "date_end": "14 Septiembre 2026",
                 "status": "En Proceso"
             },
             {
-                "name": "EGD",
-                "date_start": "28 Abril 2026",
-                "date_end": "29 Abril 2026",
+                "name": "Hotel Colli",
+                "date_start": "20 Mayo 2026",
+                "date_end": "01 Junio 2026",
                 "status": "Completado"
+            },
+            {
+                "name": "Accountability Europcar",
+                "date_start": "22 Mayo 2026",
+                "date_end": "30 Mayo 2026",
+                "status": "Completado"
+            },
+            {
+                "name": "Código de Ética y Conducta",
+                "date_start": "27 Mayo 2026",
+                "date_end": "05 Junio 2026",
+                "status": "En Proceso"
+            },
+            {
+                "name": "Cátedra Evolutiva: Estructurando y potenciando la experiencia de cátedra con IA",
+                "date_start": "28 Mayo 2026",
+                "date_end": "30 Junio 2026",
+                "status": "En Proceso"
+            },
+            {
+                "name": "EGD002 - 11",
+                "date_start": "28 Mayo 2026",
+                "date_end": "15 Septiembre 2026",
+                "status": "En Proceso"
+            },
+            {
+                "name": "Cátedra Evolutiva",
+                "date_start": "01 Junio 2026",
+                "date_end": "12 Septiembre 2026",
+                "status": "En Proceso"
+            },
+            {
+                "name": "NPS- IA- PROCESOS",
+                "date_start": "02 Junio 2026",
+                "date_end": "09 Junio 2026",
+                "status": "En Proceso"
+            },
+            {
+                "name": "Diagnóstico Inicial Pepitorias Sinaloense",
+                "date_start": "04 Junio 2026",
+                "date_end": "20 Junio 2026",
+                "status": "En Proceso"
             },
             {
                 "name": "EGD002 - 07",
@@ -59,228 +95,6 @@ export const platforms = [
                 "date_end": "31 Mayo 2026",
                 "status": "En Proceso"
             },
-            {
-                "name": "JA UNIVERSITY 1ra Generación",
-                "date_start": "09 Junio 2025",
-                "date_end": "14 Junio 2025",
-                "status": "Completado"
-            },
-            {
-                "name": "NPS- MÁS PROTECCIÓN",
-                "date_start": "29 Enero 2026",
-                "date_end": "28 Febrero 2026",
-                "status": "Completado"
-            },
-            {
-                "name": "NPS-  MÁS PROTECCIÓN",
-                "date_start": "29 Enero 2026",
-                "date_end": "18 Abril 2026",
-                "status": "Completado"
-            },
-            {
-                "name": "NPS- JA DEL RIO",
-                "date_start": "29 Enero 2026",
-                "date_end": "30 Abril 2026",
-                "status": "Completado"
-            },
-            {
-                "name": "NPS- EUROPCAR",
-                "date_start": "29 Enero 2026",
-                "date_end": "30 Abril 2026",
-                "status": "Completado"
-            },
-            {
-                "name": "NPS- KFC",
-                "date_start": "29 Enero 2026",
-                "date_end": "30 Abril 2026",
-                "status": "Completado"
-            },
-            {
-                "name": "NPS- PREMIUM SYSTEMS",
-                "date_start": "29 Enero 2026",
-                "date_end": "09 Febrero 2026",
-                "status": "Completado"
-            },
-            {
-                "name": "NPS- SEGADI",
-                "date_start": "29 Enero 2026",
-                "date_end": "05 Febrero 2026",
-                "status": "Completado"
-            },
-            {
-                "name": "NPS- DUBACANO",
-                "date_start": "30 Enero 2026",
-                "date_end": "08 Marzo 2026",
-                "status": "Completado"
-            },
-            {
-                "name": "NPS - DUBACANO",
-                "date_start": "30 Enero 2026",
-                "date_end": "08 Marzo 2026",
-                "status": "Completado"
-            },
-            {
-                "name": "NPS- REFACIONES ZARAGOZA",
-                "date_start": "30 Enero 2026",
-                "date_end": "30 Abril 2026",
-                "status": "Completado"
-            },
-            {
-                "name": "NPS- MÁS PROTECCIÓN",
-                "date_start": "30 Enero 2026",
-                "date_end": "08 Marzo 2026",
-                "status": "Completado"
-            },
-            {
-                "name": "NPS - MB MOTOS",
-                "date_start": "30 Enero 2026",
-                "date_end": "08 Marzo 2026",
-                "status": "Completado"
-            },
-            {
-                "name": "NPS - MB MOTOS",
-                "date_start": "30 Enero 2026",
-                "date_end": "08 Marzo 2026",
-                "status": "Completado"
-            },
-            {
-                "name": "NPS - MB MOTOS",
-                "date_start": "29 Enero 2026",
-                "date_end": "08 Febrero 2026",
-                "status": "Completado"
-            },
-            {
-                "name": "NPS - MAGNETIKA",
-                "date_start": "29 Enero 2026",
-                "date_end": "30 Abril 2026",
-                "status": "Completado"
-            },
-            {
-                "name": "NPS - SONY",
-                "date_start": "29 Enero 2026",
-                "date_end": "30 Abril 2026",
-                "status": "Completado"
-            },
-            {
-                "name": "NPS - APEX SYSTEMS",
-                "date_start": "29 Enero 2026",
-                "date_end": "30 Abril 2026",
-                "status": "Completado"
-            },
-            {
-                "name": "NPS - APEX SYSTEMS",
-                "date_start": "02 Febrero 2026",
-                "date_end": "30 Abril 2026",
-                "status": "Completado"
-            },
-            {
-                "name": "NPS - BELTICOS",
-                "date_start": "02 Febrero 2026",
-                "date_end": "08 Marzo 2026",
-                "status": "Completado"
-            },
-            {
-                "name": "NPS - BELTICOS",
-                "date_start": "02 Febrero 2026",
-                "date_end": "08 Marzo 2026",
-                "status": "Completado"
-            },
-            {
-                "name": "NPS - CAPEM",
-                "date_start": "02 Febrero 2026",
-                "date_end": "08 Marzo 2026",
-                "status": "Completado"
-            },
-            {
-                "name": "NPS- GRUPO AGC",
-                "date_start": "03 Febrero 2026",
-                "date_end": "30 Abril 2026",
-                "status": "Completado"
-            },
-            {
-                "name": "NPS-  AGROSERVICIOS NIETO",
-                "date_start": "04 Febrero 2026",
-                "date_end": "30 Abril 2026",
-                "status": "Completado"
-            },
-            {
-                "name": "DACOMSA",
-                "date_start": "10 Febrero 2026",
-                "date_end": "30 Abril 2026",
-                "status": "Completado"
-            },
-            {
-                "name": "VIMIFOS NPS",
-                "date_start": "09 Febrero 2026",
-                "date_end": "31 Marzo 2026",
-                "status": "Completado"
-            },
-            {
-                "name": "PRUEBA 1.1",
-                "date_start": "25 Marzo 2025",
-                "date_end": "25 Diciembre 2025",
-                "status": "Completado"
-            },
-            {
-                "name": "STONIA/MAGMA",
-                "date_start": "01 Abril 2025",
-                "date_end": "30 Abril 2025",
-                "status": "Completado"
-            },
-            {
-                "name": "DUBACANO- CLIMA",
-                "date_start": "14 Mayo 2025",
-                "date_end": "30 Septiembre 2025",
-                "status": "Completado"
-            },
-            {
-                "name": "CLIMA LABORAL HOSPITAL DE PADUA",
-                "date_start": "20 Mayo 2025",
-                "date_end": "20 Junio 2025",
-                "status": "Completado"
-            },
-            {
-                "name": "HUMANA 11- CLIMA",
-                "date_start": "22 Mayo 2025",
-                "date_end": "29 Mayo 2025",
-                "status": "Completado"
-            },
-            {
-                "name": "CLIMA LABORAL MB MOTOS SEP 2025",
-                "date_start": "09 Septiembre 2025",
-                "date_end": "30 Septiembre 2025",
-                "status": "Completado"
-            },
-            {
-                "name": "ROW",
-                "date_start": "05 Noviembre 2025",
-                "date_end": "12 Noviembre 2025",
-                "status": "Completado"
-            },
-            {
-                "name": "LITO ETIQUETAS - CLIMA LABORAL",
-                "date_start": "16 Febrero 2026",
-                "date_end": "23 Marzo 2026",
-                "status": "Completado"
-            },
-            {
-                "name": "Diagnóstico de Seguridad y Almacenamiento de Información",
-                "date_start": "12 Marzo 2026",
-                "date_end": "19 Marzo 2026",
-                "status": "Completado"
-            },
-            {
-                "name": "MB MOTOS - CONSTITUYENTES - CLIMA LABORAL",
-                "date_start": "24 Marzo 2026",
-                "date_end": "02 Abril 2026",
-                "status": "Completado"
-            },
-            {
-                "name": "MB MOTOS - PLANTA - GABINO - CLIMA LABORAL",
-                "date_start": "25 Marzo 2026",
-                "date_end": "02 Abril 2026",
-                "status": "Completado"
-            },
         ],
     },
     {
@@ -289,6 +103,30 @@ export const platforms = [
         img: "https://humana11.com/img/logos/humana11.webp",
         description: "Página web de Humana11",
         records: [
+            {
+                "name": "Entrada Blog | Tecnología en Desarrollo Organizacional: del “Piloto IA” al rediseño del Sistema de Trabajo",
+                "date_start": "01 de Junio 2026",
+                "date_end": null,
+                "status": "Publicado"
+            },
+            {
+                "name": "Entrada Blog | La presión de lo inmediato: por qué el “sesgo de acción” está saboteando la estrategia de tu empresa",
+                "date_start": "29 de Mayo 2026",
+                "date_end": null,
+                "status": "Publicado"
+            },
+            {
+                "name": "Entrada Blog | De leads a aliados: por qué las empresas más rentables no venden, construyen relaciones",
+                "date_start": "20 de Mayo 2026",
+                "date_end": null,
+                "status": "Publicado"
+            },
+            {
+                "name": "Entrada Blog | El Liderazgo Innovador de Bridgit Mendler",
+                "date_start": "13 de Mayo 2026",
+                "date_end": null,
+                "status": "Publicado"
+            },
             {
                 "name": "Entrada Blog | ¿Cómo hablar de mis debilidades laborales?",
                 "date_start": "07 de Mayo 2026",
@@ -334,6 +172,42 @@ export const platforms = [
         description: "Universidad Humana Empresaria",
         records: [
             {
+                "name": "Programa | ESR",
+                "date_start": "01 de Junio 2026",
+                "date_end": null,
+                "status": "Activo"
+            },
+            {
+                "name": "Módulo | Gobernanza",
+                "date_start": "01 de Junio 2026",
+                "date_end": null,
+                "status": "Activo"
+            },
+            {
+                "name": "Módulo | Global",
+                "date_start": "01 de Junio 2026",
+                "date_end": null,
+                "status": "Activo"
+            },
+            {
+                "name": "Módulo | Social",
+                "date_start": "01 de Junio 2026",
+                "date_end": null,
+                "status": "Activo"
+            },
+            {
+                "name": "Módulo | Ambiental",
+                "date_start": "01 de Junio 2026",
+                "date_end": null,
+                "status": "Activo"
+            },
+            {
+                "name": "Módulo | Desarrollo ejecutivo gerencial 2: Proyección y toma de decisiones",
+                "date_start": "18 de Mayo 2026",
+                "date_end": null,
+                "status": "Activo"
+            },
+            {
                 "name": "Especialidad | Networking",
                 "date_start": "23 de Abril 2026",
                 "date_end": null,
@@ -354,6 +228,26 @@ export const platforms = [
             {
                 "name": "EGD® 1G Sesión de Clausura",
                 "date_start": "07 de Mayo 2026",
+                "date_end": null,
+                "status": "Activo"
+            },
+        ]
+    },
+    {
+        id: 4,
+        name: "Talento",
+        img: "https://talento11.com/img/talento.png",
+        description: "Reclutamiento y assessment psicométrico",
+        records: [
+            {
+                "name": "Vacante | Nueva vacante",
+                "date_start": "04 de Junio 2026",
+                "date_end": null,
+                "status": "Activo"
+            },
+            {
+                "name": "Candidato | Jossue Refugio Ramirez Avila",
+                "date_start": "06 de Mayo 2026",
                 "date_end": null,
                 "status": "Activo"
             },

@@ -20,7 +20,7 @@ export const OperatingExpenses = () => {
         },
         {
             name: "Resend (Envío de correos)",
-            amount: 367.00,
+            amount: 310.00,
             currency: "MXN",
             period: "Mensual",
             description: "Servicio de infraestructura de correo electrónico.",
@@ -37,13 +37,13 @@ export const OperatingExpenses = () => {
             icon: "✨"
         },
         {
-            name: "Gemini AI",
-            amount: 2000.00,
+            name: "Claude Max (2 cuentas)",
+            amount: 3000.00,
             currency: "MXN",
             period: "Mensual",
-            description: "Inteligencia Artificial.",
-            status: "Versión Pro",
-            icon: "✨"
+            description: "Asistente de IA para desarrollo (Claude Code). 2 cuentas del área.",
+            status: "Versión Max",
+            icon: "🤖"
         }
     ];
 
