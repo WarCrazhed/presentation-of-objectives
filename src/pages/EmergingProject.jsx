@@ -86,16 +86,16 @@ export const EmergingProject = () => {
                         Última actualización: {new Date(lastUpdate).toLocaleDateString('es-MX', { year: 'numeric', month: 'long', day: 'numeric' })}
                     </p>
 
-                    <div className="overflow-x-auto bg-white/80 dark:bg-zinc-900/80 backdrop-blur-sm rounded-xl shadow-lg">
+                    <div className="overflow-auto max-h-[70vh] bg-white/80 dark:bg-zinc-900/80 backdrop-blur-sm rounded-xl shadow-lg">
                         <table className="min-w-full divide-y divide-zinc-200 dark:divide-zinc-700">
                             <thead className="bg-zinc-50 dark:bg-zinc-800/50">
                                 <tr>
-                                    <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">Proyecto / Iniciativa</th>
-                                    <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">Meta</th>
-                                    <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">Responsable(s)</th>
-                                    <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">Avance</th>
+                                    <th scope="col" className="sticky top-0 z-20 bg-zinc-50 dark:bg-zinc-800 px-4 py-3 text-left text-xs font-medium text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">Proyecto / Iniciativa</th>
+                                    <th scope="col" className="sticky top-0 z-20 bg-zinc-50 dark:bg-zinc-800 px-4 py-3 text-left text-xs font-medium text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">Meta</th>
+                                    <th scope="col" className="sticky top-0 z-20 bg-zinc-50 dark:bg-zinc-800 px-4 py-3 text-left text-xs font-medium text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">Responsable(s)</th>
+                                    <th scope="col" className="sticky top-0 z-20 bg-zinc-50 dark:bg-zinc-800 px-4 py-3 text-left text-xs font-medium text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">Avance</th>
                                     {months.map((month, index) => (
-                                        <th key={index} scope="col" className="px-2 py-3 text-center text-xs font-medium text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">
+                                        <th key={index} scope="col" className="sticky top-0 z-20 bg-zinc-50 dark:bg-zinc-800 px-2 py-3 text-center text-xs font-medium text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">
                                             {month}
                                         </th>
                                     ))}

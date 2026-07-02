@@ -132,36 +132,6 @@ export const platforms = [
                 "date_start": "07 de Mayo 2026",
                 "date_end": null,
                 "status": "Publicado"
-            },
-            {
-                "name": "Entrada Blog | Marisa Lazo, una historia inspiradora sobre liderazgo femenino.",
-                "date_start": "24 de Abril 2026",
-                "date_end": null,
-                "status": "Publicado"
-            },
-            {
-                "name": "Entrada Blog | El Impacto de la Inteligencia Artificial en el Sector Financiero",
-                "date_start": "16 de Abril 2026",
-                "date_end": null,
-                "status": "Publicado"
-            },
-            {
-                "name": "Entrada Blog | Liderazgo y Gobernanza como Ventaja Competitiva Sostenible",
-                "date_start": "13 de Abril 2026",
-                "date_end": null,
-                "status": "Publicado"
-            },
-            {
-                "name": "Entrada Blog | Decidir bajo presión: cómo manejar el estrés cuando el liderazgo exige claridad",
-                "date_start": "08 de Abril 2026",
-                "date_end": null,
-                "status": "Publicado"
-            },
-            {
-                "name": "Entrada Blog | Tendencias en Formación Empresarial - Cómo Aprendemos Hoy",
-                "date_start": "01 de Abril 2026",
-                "date_end": null,
-                "status": "Publicado"
             }
         ]
     },
@@ -204,24 +174,6 @@ export const platforms = [
             {
                 "name": "Módulo | Desarrollo ejecutivo gerencial 2: Proyección y toma de decisiones",
                 "date_start": "18 de Mayo 2026",
-                "date_end": null,
-                "status": "Activo"
-            },
-            {
-                "name": "Especialidad | Networking",
-                "date_start": "23 de Abril 2026",
-                "date_end": null,
-                "status": "Activo"
-            },
-            {
-                "name": "Networking",
-                "date_start": "23 de Abril 2026",
-                "date_end": null,
-                "status": "Activo"
-            },
-            {
-                "name": "Masterclass de Upskilling Directivo",
-                "date_start": "30 de Abril 2026",
                 "date_end": null,
                 "status": "Activo"
             },

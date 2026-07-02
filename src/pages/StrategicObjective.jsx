@@ -9,7 +9,7 @@ export const StrategicObjective = () => {
             initiatives: [
                 { id: "1.1.1", name: "Despliegue", meta: "100%", responsable: "Mario Zamora", avance: 1, meses: [0, 1] }, // E, F
                 { id: "1.1.2", name: "Pivoteo", meta: "3 Clientes", responsable: "Funcionalidad Tecnológica", avance: 0.33, meses: [0, 1, 2, 4, 5] }, // E, F, M, M, J
-                { id: "1.1.3", name: "Implementar IA Diagnosticos", meta: "100% Diagnósticos", responsable: "Funcionalidad Tecnológica", meses: [2, 3, 4] } // M, A, M
+                { id: "1.1.3", name: "Implementar IA Diagnosticos", meta: "100% Diagnósticos", responsable: "Funcionalidad Tecnológica", avance: 1, meses: [2, 3, 4] } // M, A, M
             ]
         },
         {
@@ -62,9 +62,9 @@ export const StrategicObjective = () => {
             name: "Vacantes Talento",
             description: "Mostrar las vacantes disponibles de talento (Tráfico Talento y Humana11)",
             initiatives: [
-                { id: "6.1.1", name: "Mostrar Vacantes Talento", meta: "100%", responsable: "Ernesto y Marlett", meses: [5] }, // J (Junio)
-                { id: "6.1.2", name: "Ligar H11 a Talento", meta: "100%", responsable: "Funcionalidad Tecnológica", meses: [5] }, // J (Junio)
-                { id: "6.1.3", name: "Postularte como Candidato", meta: "100%", responsable: "Funcionalidad Tecnológica", meses: [6] } // J (Julio)
+                { id: "6.1.1", name: "Mostrar Vacantes Talento", meta: "100%", responsable: "Ernesto y Marlett", meses: [5, 6] }, // J (Junio), J (Julio)
+                { id: "6.1.2", name: "Ligar H11 a Talento", meta: "100%", responsable: "Funcionalidad Tecnológica", meses: [5, 6] }, // J (Junio), J (Julio)
+                { id: "6.1.3", name: "Postularte como Candidato", meta: "100%", responsable: "Funcionalidad Tecnológica", meses: [6, 7] } // J (Julio), A (Agosto)
             ]
         },
         {
@@ -84,10 +84,10 @@ export const StrategicObjective = () => {
             name: "App Assesment",
             description: "Desarrollar Plataforma para assesment",
             initiatives: [
-                { id: "6.1.11", name: "Planificación y diseño", meta: "100%", responsable: "Funcionalidad Tecnológica", avance: 0.95, meses: [1] }, // F
-                { id: "6.1.12", name: "Desarrollar Funcionalidad", meta: "100%", responsable: "Funcionalidad Tecnológica", avance: 0.95, meses: [1, 2] }, // F, M
-                { id: "6.1.13", name: "Realizar Pruebas", meta: "100%", responsable: "Funcionalidad Tecnológica", avance: 0.95, meses: [2] }, // M
-                { id: "6.1.14", name: "Despliegue", meta: "Talento", responsable: "Mario Zamora", avance: 0.95, meses: [2, 3] } // M, A
+                { id: "6.1.11", name: "Planificación y diseño", meta: "100%", responsable: "Funcionalidad Tecnológica", avance: 1, meses: [1] }, // F
+                { id: "6.1.12", name: "Desarrollar Funcionalidad", meta: "100%", responsable: "Funcionalidad Tecnológica", avance: 1, meses: [1, 2] }, // F, M
+                { id: "6.1.13", name: "Realizar Pruebas", meta: "100%", responsable: "Funcionalidad Tecnológica", avance: 1, meses: [2] }, // M
+                { id: "6.1.14", name: "Despliegue", meta: "Talento", responsable: "Mario Zamora", avance: 1, meses: [2, 3] } // M, A
             ]
         },
         {
@@ -125,16 +125,16 @@ export const StrategicObjective = () => {
                         Última actualización: {new Date(lastUpdate).toLocaleDateString('es-MX', { year: 'numeric', month: 'long', day: 'numeric' })}
                     </p>
 
-                    <div className="overflow-x-auto bg-white/80 dark:bg-zinc-900/80 backdrop-blur-sm rounded-xl shadow-lg">
+                    <div className="overflow-auto max-h-[70vh] bg-white/80 dark:bg-zinc-900/80 backdrop-blur-sm rounded-xl shadow-lg">
                         <table className="min-w-full divide-y divide-zinc-200 dark:divide-zinc-700">
                             <thead className="bg-zinc-50 dark:bg-zinc-800/50">
                                 <tr>
-                                    <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">Objetivos e Intenciones Estratégicas</th>
-                                    <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">Meta</th>
-                                    <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">Responsable(s)</th>
-                                    <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">Avance</th>
+                                    <th scope="col" className="sticky top-0 z-20 bg-zinc-50 dark:bg-zinc-800 px-4 py-3 text-left text-xs font-medium text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">Objetivos e Intenciones Estratégicas</th>
+                                    <th scope="col" className="sticky top-0 z-20 bg-zinc-50 dark:bg-zinc-800 px-4 py-3 text-left text-xs font-medium text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">Meta</th>
+                                    <th scope="col" className="sticky top-0 z-20 bg-zinc-50 dark:bg-zinc-800 px-4 py-3 text-left text-xs font-medium text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">Responsable(s)</th>
+                                    <th scope="col" className="sticky top-0 z-20 bg-zinc-50 dark:bg-zinc-800 px-4 py-3 text-left text-xs font-medium text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">Avance</th>
                                     {months.map((month, index) => (
-                                        <th key={index} scope="col" className="px-2 py-3 text-center text-xs font-medium text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">
+                                        <th key={index} scope="col" className="sticky top-0 z-20 bg-zinc-50 dark:bg-zinc-800 px-2 py-3 text-center text-xs font-medium text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">
                                             {month}
                                         </th>
                                     ))}

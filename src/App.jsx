@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Home, Questions, Platforms, OperatingExpenses, StrategicObjective, EmergingProject, AIUsage } from './pages'
+import { Home, Questions, Platforms, OperatingExpenses, StrategicObjective, EmergingProject, AIUsage, PeriodActivity } from './pages'
 import { Layout } from './components/Layout'
 
 export const App = () => {
@@ -39,6 +39,10 @@ export const App = () => {
         {
             content: "platforms",
             view: <Platforms />
+        },
+        {
+            content: "period-activity",
+            view: <PeriodActivity />
         },
         {
             content: "strategy",
