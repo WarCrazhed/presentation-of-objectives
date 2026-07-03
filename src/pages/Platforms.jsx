@@ -16,8 +16,8 @@ export const Platforms = () => {
     };
 
     return (
-        <div className="min-h-screen bg-radial-[at_50%_75%] from-sky-100 via-zinc-100 to-slate-100 dark:from-slate-800 dark:via-zinc-900 dark:to-zinc-950 to-90% py-20">
-            <div className="container mx-auto p-6 space-y-8">
+        <div className="min-h-screen bg-radial-[at_50%_75%] from-sky-100 via-zinc-100 to-slate-100 dark:from-slate-800 dark:via-zinc-900 dark:to-zinc-950 to-90% py-12 md:py-20">
+            <div className="container mx-auto p-4 md:p-6 space-y-8">
                 {/* Header */}
                 <div className="text-center md:text-left space-y-2">
                     <h1 className="text-4xl md:text-6xl font-black bg-clip-text text-transparent bg-gradient-to-r from-lime-500 to-indigo-600">
@@ -29,7 +29,7 @@ export const Platforms = () => {
                 </div>
 
                 {/* Platforms Grid */}
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-8">
                     {platforms.map((platform) => (
                         <div
                             key={platform.id}
@@ -49,7 +49,7 @@ export const Platforms = () => {
                                         />
                                     </div>
                                     <div>
-                                        <h2 className="text-2xl font-bold text-zinc-800 dark:text-zinc-100">
+                                        <h2 className="text-xl sm:text-2xl font-bold text-zinc-800 dark:text-zinc-100">
                                             {platform.name}
                                         </h2>
                                         <p className="text-zinc-600 dark:text-zinc-400">
@@ -115,7 +115,7 @@ export const Platforms = () => {
                     ].map((stat, index) => (
                         <div key={index} className="bg-white/80 dark:bg-zinc-800/80 backdrop-blur-sm rounded-xl p-4 border border-zinc-200 dark:border-zinc-700">
                             <p className="text-sm text-zinc-600 dark:text-zinc-400">{stat.label}</p>
-                            <p className={`text-2xl font-bold bg-gradient-to-r ${stat.color} bg-clip-text text-transparent`}>
+                            <p className={`text-xl sm:text-2xl font-bold bg-gradient-to-r ${stat.color} bg-clip-text text-transparent`}>
                                 {stat.value}
                             </p>
                         </div>

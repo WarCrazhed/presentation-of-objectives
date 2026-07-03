@@ -32,8 +32,8 @@ export const PeriodActivity = () => {
 
     return (
         <div>
-            <div className="flex flex-col bg-radial-[at_50%_75%] from-violet-50 via-zinc-100 to-fuchsia-50 dark:from-slate-800 dark:via-zinc-900 dark:to-zinc-950 to-90% py-20">
-                <div className="container m-auto p-8">
+            <div className="flex flex-col bg-radial-[at_50%_75%] from-violet-50 via-zinc-100 to-fuchsia-50 dark:from-slate-800 dark:via-zinc-900 dark:to-zinc-950 to-90% py-12 md:py-20">
+                <div className="container m-auto p-4 md:p-8">
                     <h1 className="text-2xl md:text-4xl lg:text-6xl font-black bg-clip-text text-transparent bg-gradient-to-r from-violet-500 to-fuchsia-600 mb-4">
                         Actividad del Periodo
                     </h1>
@@ -47,9 +47,9 @@ export const PeriodActivity = () => {
                     {/* Tarjetas KPI */}
                     <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-10">
                         {kpis.map((kpi) => (
-                            <div key={kpi.label} className="bg-white/80 dark:bg-zinc-900/80 backdrop-blur-sm rounded-2xl shadow-lg p-6 border border-zinc-200 dark:border-zinc-800 transition-all hover:scale-105">
+                            <div key={kpi.label} className="bg-white/80 dark:bg-zinc-900/80 backdrop-blur-sm rounded-2xl shadow-lg p-4 md:p-6 border border-zinc-200 dark:border-zinc-800 transition-all hover:scale-105">
                                 <span className="text-3xl">{kpi.icon}</span>
-                                <p className="text-4xl font-black text-violet-600 dark:text-violet-400 mt-2">{kpi.value}</p>
+                                <p className="text-3xl sm:text-4xl font-black text-violet-600 dark:text-violet-400 mt-2">{kpi.value}</p>
                                 <p className="text-sm font-bold text-zinc-800 dark:text-zinc-100 mt-1">{kpi.label}</p>
                             </div>
                         ))}

@@ -52,8 +52,8 @@ export const OperatingExpenses = () => {
         .reduce((acc, curr) => acc + curr.amount, 0);
 
     return (
-        <div className="flex flex-col min-h-screen bg-radial-[at_50%_75%] from-sky-100 via-zinc-100 to-slate-100 dark:from-slate-800 dark:via-zinc-900 dark:to-zinc-950 to-90% py-20">
-            <div className="container m-auto p-8">
+        <div className="flex flex-col min-h-screen bg-radial-[at_50%_75%] from-sky-100 via-zinc-100 to-slate-100 dark:from-slate-800 dark:via-zinc-900 dark:to-zinc-950 to-90% py-12 md:py-20">
+            <div className="container m-auto p-4 md:p-8">
                 <div className="mb-12">
                     <h1 className="text-2xl md:text-4xl lg:text-6xl font-black bg-clip-text text-transparent bg-gradient-to-r from-lime-500 to-indigo-600 mb-4">
                         Gastos Operativos
@@ -78,7 +78,7 @@ export const OperatingExpenses = () => {
                             <h3 className="text-lg font-bold text-zinc-800 dark:text-zinc-100 mb-1">{expense.name}</h3>
                             <p className="text-sm text-zinc-500 dark:text-zinc-400 mb-4 h-10 line-clamp-2">{expense.description}</p>
                             <div className="flex items-baseline gap-1">
-                                <span className="text-2xl font-black text-indigo-600 dark:text-indigo-400">
+                                <span className="text-xl sm:text-2xl font-black text-indigo-600 dark:text-indigo-400">
                                     {expense.amount.toLocaleString('es-MX', { style: 'currency', currency: expense.currency })}
                                 </span>
                                 <span className="text-xs font-bold text-zinc-400 uppercase">{expense.currency}</span>
@@ -88,7 +88,7 @@ export const OperatingExpenses = () => {
                     ))}
                 </div>
 
-                <div className="bg-gradient-to-r from-indigo-600 to-violet-700 rounded-3xl p-8 text-white shadow-2xl flex flex-col md:flex-row items-center justify-between gap-8">
+                <div className="bg-gradient-to-r from-indigo-600 to-violet-700 rounded-3xl p-6 md:p-8 text-white shadow-2xl flex flex-col md:flex-row items-center justify-between gap-6 md:gap-8">
                     <div className="space-y-2 text-center md:text-left">
                         <h4 className="text-indigo-100 font-medium uppercase tracking-widest text-sm">Resumen de Inversión Mensual</h4>
                         <p className="text-3xl md:text-5xl font-black">

@@ -115,8 +115,8 @@ export const AIUsage = () => {
 
     return (
         <div>
-            <div className="flex flex-col bg-radial-[at_50%_75%] from-cyan-50 via-zinc-100 to-teal-50 dark:from-slate-800 dark:via-zinc-900 dark:to-zinc-950 to-90% py-20">
-                <div className="container m-auto p-8">
+            <div className="flex flex-col bg-radial-[at_50%_75%] from-cyan-50 via-zinc-100 to-teal-50 dark:from-slate-800 dark:via-zinc-900 dark:to-zinc-950 to-90% py-12 md:py-20">
+                <div className="container m-auto p-4 md:p-8">
                     <h1 className="text-2xl md:text-4xl lg:text-6xl font-black bg-clip-text text-transparent bg-gradient-to-r from-cyan-500 to-teal-600 mb-4">
                         Uso de IA
                     </h1>
@@ -131,17 +131,17 @@ export const AIUsage = () => {
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
                         <div className="bg-white/80 dark:bg-zinc-900/80 backdrop-blur-sm rounded-xl shadow-lg p-6">
                             <p className="text-xs font-medium text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">Estimado manual</p>
-                            <p className="text-3xl font-black text-zinc-900 dark:text-zinc-100 mt-1">{totalManual} h</p>
+                            <p className="text-2xl sm:text-3xl font-black text-zinc-900 dark:text-zinc-100 mt-1">{totalManual} h</p>
                             <p className="text-sm text-zinc-500 dark:text-zinc-400">~{(totalManual / 8).toFixed(0)} días de trabajo</p>
                         </div>
                         <div className="bg-white/80 dark:bg-zinc-900/80 backdrop-blur-sm rounded-xl shadow-lg p-6">
                             <p className="text-xs font-medium text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">Con apoyo de IA</p>
-                            <p className="text-3xl font-black text-cyan-600 dark:text-cyan-400 mt-1">{totalIA} h</p>
+                            <p className="text-2xl sm:text-3xl font-black text-cyan-600 dark:text-cyan-400 mt-1">{totalIA} h</p>
                             <p className="text-sm text-zinc-500 dark:text-zinc-400">~{(totalIA / 8).toFixed(0)} días de trabajo</p>
                         </div>
                         <div className="bg-gradient-to-br from-cyan-500 to-teal-600 rounded-xl shadow-lg p-6">
                             <p className="text-xs font-medium text-cyan-50 uppercase tracking-wider">Ahorro estimado</p>
-                            <p className="text-3xl font-black text-white mt-1">{totalAhorro} h · {ahorroPct}%</p>
+                            <p className="text-2xl sm:text-3xl font-black text-white mt-1">{totalAhorro} h · {ahorroPct}%</p>
                             <p className="text-sm text-cyan-50">~{(totalAhorro / 8).toFixed(0)} días recuperados</p>
                         </div>
                     </div>
