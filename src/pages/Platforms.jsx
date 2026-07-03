@@ -16,7 +16,7 @@ export const Platforms = () => {
     };
 
     return (
-        <div className="min-h-screen bg-radial-[at_50%_75%] from-sky-100 via-zinc-100 to-slate-100 dark:from-slate-800 dark:via-zinc-900 dark:to-zinc-950 to-90% py-12 md:py-20">
+        <div className="min-h-screen py-12 md:py-20">
             <div className="container mx-auto p-4 md:p-6 space-y-8">
                 {/* Header */}
                 <div className="text-center md:text-left space-y-2">

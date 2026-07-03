@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//Applications/Google Chrome.app/**)",
+      "Read(//Applications/**)",
+      "Bash(npm init *)",
+      "Bash(npm install *)"
+    ]
+  }
+}

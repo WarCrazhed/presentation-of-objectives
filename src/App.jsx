@@ -1,6 +1,9 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, lazy, Suspense } from 'react'
 import { Home, Questions, Platforms, OperatingExpenses, StrategicObjective, EmergingProject, AIUsage, PeriodActivity } from './pages'
 import { Layout } from './components/Layout'
+
+// Carga diferida: three.js pesa ~500 kB; la escena es decorativa y no bloquea el primer render.
+const Scene3D = lazy(() => import('./components/Scene3D').then((m) => ({ default: m.Scene3D })))
 
 export const App = () => {
     const [currentSlide, setCurrentSlide] = useState(() => Number(sessionStorage.getItem('h11_slide')) || 0)
@@ -77,7 +80,10 @@ export const App = () => {
     if (!isAuthenticated) {
         return (
             <Layout>
-                <div className="min-h-screen flex items-center justify-center bg-radial-[at_50%_75%] from-sky-100 via-zinc-100 to-slate-100 dark:from-slate-800 dark:via-zinc-900 dark:to-zinc-950 py-12 px-4 sm:px-6 lg:px-8">
+                <Suspense fallback={<div className="fixed inset-0 z-0 bg-[#e8eef7] dark:bg-[#0a0a14]" />}>
+                    <Scene3D currentSlide={0} totalSlides={slides.length} />
+                </Suspense>
+                <div className="relative z-10 min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
                     <div className="max-w-md w-full space-y-8 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-xl p-10 rounded-3xl shadow-2xl border border-zinc-200 dark:border-zinc-800">
                         <div>
                             <div className="w-20 h-20 bg-gradient-to-tr from-lime-500 to-indigo-600 rounded-2xl mx-auto flex items-center justify-center text-4xl shadow-lg ring-4 ring-lime-500/20">
@@ -127,8 +133,13 @@ export const App = () => {
 
     return (
         <Layout>
-            {slides[currentSlide].view}
-            <footer className="fixed bottom-0 left-0 right-0 bg-zinc-100/80 dark:bg-zinc-900/80 backdrop-blur-md border-t border-lime-600/50">
+            <Suspense fallback={<div className="fixed inset-0 z-0 bg-[#e8eef7] dark:bg-[#0a0a14]" />}>
+                <Scene3D currentSlide={currentSlide} totalSlides={slides.length} />
+            </Suspense>
+            <div className="relative z-10">
+                {slides[currentSlide].view}
+            </div>
+            <footer className="fixed bottom-0 left-0 right-0 z-40 bg-zinc-100/80 dark:bg-zinc-900/80 backdrop-blur-md border-t border-lime-600/50">
                 <div className="max-w-7xl mx-auto px-4 sm:px-8 py-3 sm:py-4">
                     <div className="flex items-center justify-between text-zinc-50">
                         <button

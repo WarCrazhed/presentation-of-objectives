@@ -128,7 +128,7 @@ export const StrategicObjective = () => {
 
     return (
         <div>
-            <div className="flex flex-col bg-radial-[at_50%_75%] from-sky-100 via-zinc-100 to-slate-100 dark:from-slate-800 dark:via-zinc-900 dark:to-zinc-950 to-90% py-12 md:py-20">
+            <div className="flex flex-col py-12 md:py-20">
                 <div className="container m-auto p-4 md:p-8">
                     <h1 className="text-2xl md:text-4xl lg:text-6xl font-black bg-clip-text text-transparent bg-gradient-to-r from-lime-500 to-indigo-600 mb-4">
                         Objetivos Estratégicos y Avances

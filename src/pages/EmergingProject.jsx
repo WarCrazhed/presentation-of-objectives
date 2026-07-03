@@ -89,7 +89,7 @@ export const EmergingProject = () => {
 
     return (
         <div>
-            <div className="flex flex-col bg-radial-[at_50%_75%] from-amber-50 via-zinc-100 to-orange-50 dark:from-slate-800 dark:via-zinc-900 dark:to-zinc-950 to-90% py-12 md:py-20">
+            <div className="flex flex-col py-12 md:py-20">
                 <div className="container m-auto p-4 md:p-8">
                     <h1 className="text-2xl md:text-4xl lg:text-6xl font-black bg-clip-text text-transparent bg-gradient-to-r from-orange-500 to-amber-600 mb-4">
                         Proyectos Emergentes
