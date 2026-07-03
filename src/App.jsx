@@ -3,18 +3,20 @@ import { Home, Questions, Platforms, OperatingExpenses, StrategicObjective, Emer
 import { Layout } from './components/Layout'
 
 export const App = () => {
-    const [currentSlide, setCurrentSlide] = useState(0)
-    const [isAuthenticated, setIsAuthenticated] = useState(false)
+    const [currentSlide, setCurrentSlide] = useState(() => Number(sessionStorage.getItem('h11_slide')) || 0)
+    const [isAuthenticated, setIsAuthenticated] = useState(() => sessionStorage.getItem('h11_auth') === 'true')
     const [password, setPassword] = useState('')
     const [error, setError] = useState(false)
 
     useEffect(() => {
+        sessionStorage.setItem('h11_slide', String(currentSlide))
         window.scrollTo({ top: 0, behavior: 'smooth' })
     }, [currentSlide])
 
     const handleLogin = (e) => {
         e.preventDefault()
         if (password === '2026_H11') {
+            sessionStorage.setItem('h11_auth', 'true')
             setIsAuthenticated(true)
             setError(false)
         } else {
@@ -65,6 +67,12 @@ export const App = () => {
             view: <Questions />
         }
     ]
+
+    useEffect(() => {
+        if (currentSlide > slides.length - 1) {
+            setCurrentSlide(slides.length - 1)
+        }
+    }, [currentSlide, slides.length])
 
     if (!isAuthenticated) {
         return (

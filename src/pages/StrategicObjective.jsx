@@ -1,6 +1,7 @@
-import { Fragment } from 'react';
+import { Fragment, useState } from 'react';
 
 export const StrategicObjective = () => {
+    const [query, setQuery] = useState('');
     const strategicObjectives = [
         {
             id: "1.0",
@@ -111,6 +112,20 @@ export const StrategicObjective = () => {
         return initiativeMeses?.includes(monthIndex) || false;
     };
 
+    const q = query.trim().toLowerCase();
+    const filteredObjectives = q
+        ? strategicObjectives
+            .map((objective) => {
+                const objMatch = `${objective.id} ${objective.name} ${objective.description}`.toLowerCase().includes(q);
+                if (objMatch) return objective;
+                const initiatives = objective.initiatives.filter((it) =>
+                    `${it.id} ${it.name} ${it.meta ?? ''} ${it.responsable ?? ''}`.toLowerCase().includes(q)
+                );
+                return initiatives.length ? { ...objective, initiatives } : null;
+            })
+            .filter(Boolean)
+        : strategicObjectives;
+
     return (
         <div>
             <div className="flex flex-col bg-radial-[at_50%_75%] from-sky-100 via-zinc-100 to-slate-100 dark:from-slate-800 dark:via-zinc-900 dark:to-zinc-950 to-90% py-20">
@@ -124,6 +139,26 @@ export const StrategicObjective = () => {
                     <p className="text-sm text-zinc-500 dark:text-zinc-400 mb-8">
                         Última actualización: {new Date(lastUpdate).toLocaleDateString('es-MX', { year: 'numeric', month: 'long', day: 'numeric' })}
                     </p>
+
+                    <div className="mb-4 relative max-w-md">
+                        <input
+                            type="text"
+                            value={query}
+                            onChange={(e) => setQuery(e.target.value)}
+                            placeholder="Buscar objetivo, iniciativa o responsable…"
+                            className="w-full px-4 py-2 pr-10 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-sm text-sm text-zinc-800 dark:text-zinc-100 placeholder-zinc-400 dark:placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-lime-500/50"
+                        />
+                        {query && (
+                            <button
+                                type="button"
+                                onClick={() => setQuery('')}
+                                className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-200"
+                                aria-label="Limpiar búsqueda"
+                            >
+                                ✕
+                            </button>
+                        )}
+                    </div>
 
                     <div className="overflow-auto max-h-[70vh] bg-white/80 dark:bg-zinc-900/80 backdrop-blur-sm rounded-xl shadow-lg">
                         <table className="min-w-full divide-y divide-zinc-200 dark:divide-zinc-700">
@@ -141,7 +176,14 @@ export const StrategicObjective = () => {
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-zinc-200 dark:divide-zinc-700">
-                                {strategicObjectives.map((objective) => (
+                                {filteredObjectives.length === 0 && (
+                                    <tr>
+                                        <td colSpan={16} className="px-4 py-8 text-center text-sm text-zinc-500 dark:text-zinc-400">
+                                            No se encontraron resultados para “{query}”.
+                                        </td>
+                                    </tr>
+                                )}
+                                {filteredObjectives.map((objective) => (
                                     <Fragment key={objective.id}>
                                         {/* Fila del objetivo principal */}
                                         <tr key={objective.id} className="bg-lime-50/50 dark:bg-lime-900/20">

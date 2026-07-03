@@ -1,6 +1,7 @@
-import { Fragment } from 'react';
+import { Fragment, useState } from 'react';
 
 export const AIUsage = () => {
+    const [query, setQuery] = useState('');
     // Tareas de junio 2026 apoyadas con IA. Horas: estimaciones comparativas (manual vs. asistido con IA).
     const tareas = [
         // SuiteDO
@@ -89,12 +90,24 @@ export const AIUsage = () => {
     const totalAhorro = totalManual - totalIA;
     const ahorroPct = Math.round((totalAhorro / totalManual) * 100);
 
+    // Filtrado por búsqueda (tarea, plataforma o categoría).
+    const q = query.trim().toLowerCase();
+    const tareasFiltradas = q
+        ? tareas.filter((t) => `${t.tarea} ${t.plataforma} ${t.cat}`.toLowerCase().includes(q))
+        : tareas;
+
     // Agrupar por plataforma preservando orden de aparición.
-    const plataformas = [...new Set(tareas.map((t) => t.plataforma))];
+    const plataformas = [...new Set(tareasFiltradas.map((t) => t.plataforma))];
     const grupos = plataformas.map((p) => ({
         plataforma: p,
-        items: tareas.filter((t) => t.plataforma === p),
+        items: tareasFiltradas.filter((t) => t.plataforma === p),
     }));
+
+    // Totales del pie de tabla reflejan lo visible (filtrado).
+    const footManual = tareasFiltradas.reduce((acc, t) => acc + t.manualHoras, 0);
+    const footIA = tareasFiltradas.reduce((acc, t) => acc + t.iaHoras, 0);
+    const footAhorro = footManual - footIA;
+    const footPct = footManual ? Math.round((footAhorro / footManual) * 100) : 0;
 
     const lastUpdate = "2026-06-30 00:00:00";
 
@@ -142,6 +155,26 @@ export const AIUsage = () => {
                         ))}
                     </div>
 
+                    <div className="mb-4 relative max-w-md">
+                        <input
+                            type="text"
+                            value={query}
+                            onChange={(e) => setQuery(e.target.value)}
+                            placeholder="Buscar tarea, plataforma o categoría…"
+                            className="w-full px-4 py-2 pr-10 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-sm text-sm text-zinc-800 dark:text-zinc-100 placeholder-zinc-400 dark:placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/50"
+                        />
+                        {query && (
+                            <button
+                                type="button"
+                                onClick={() => setQuery('')}
+                                className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-200"
+                                aria-label="Limpiar búsqueda"
+                            >
+                                ✕
+                            </button>
+                        )}
+                    </div>
+
                     <div className="overflow-auto max-h-[70vh] bg-white/80 dark:bg-zinc-900/80 backdrop-blur-sm rounded-xl shadow-lg">
                         <table className="min-w-full divide-y divide-zinc-200 dark:divide-zinc-700">
                             <thead className="bg-zinc-50 dark:bg-zinc-800/50">
@@ -155,6 +188,13 @@ export const AIUsage = () => {
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-zinc-200 dark:divide-zinc-700">
+                                {grupos.length === 0 && (
+                                    <tr>
+                                        <td colSpan={6} className="px-4 py-8 text-center text-sm text-zinc-500 dark:text-zinc-400">
+                                            No se encontraron resultados para “{query}”.
+                                        </td>
+                                    </tr>
+                                )}
                                 {grupos.map((grupo) => (
                                     <Fragment key={grupo.plataforma}>
                                         <tr className="bg-cyan-50/50 dark:bg-cyan-900/20">
@@ -190,10 +230,10 @@ export const AIUsage = () => {
                             </tbody>
                             <tfoot className="bg-zinc-100 dark:bg-zinc-800">
                                 <tr>
-                                    <td className="px-4 py-3 text-sm font-black text-zinc-900 dark:text-zinc-100" colSpan={3}>Total</td>
-                                    <td className="px-4 py-3 text-sm font-black text-zinc-900 dark:text-zinc-100 whitespace-nowrap">{totalManual} h</td>
-                                    <td className="px-4 py-3 text-sm font-black text-cyan-600 dark:text-cyan-400 whitespace-nowrap">{totalIA} h</td>
-                                    <td className="px-4 py-3 text-sm font-black text-teal-600 dark:text-teal-400 whitespace-nowrap">−{totalAhorro} h · {ahorroPct}%</td>
+                                    <td className="px-4 py-3 text-sm font-black text-zinc-900 dark:text-zinc-100" colSpan={3}>{q ? 'Total (filtrado)' : 'Total'}</td>
+                                    <td className="px-4 py-3 text-sm font-black text-zinc-900 dark:text-zinc-100 whitespace-nowrap">{footManual} h</td>
+                                    <td className="px-4 py-3 text-sm font-black text-cyan-600 dark:text-cyan-400 whitespace-nowrap">{footIA} h</td>
+                                    <td className="px-4 py-3 text-sm font-black text-teal-600 dark:text-teal-400 whitespace-nowrap">−{footAhorro} h · {footPct}%</td>
                                 </tr>
                             </tfoot>
                         </table>
