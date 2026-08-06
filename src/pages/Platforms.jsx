@@ -9,7 +9,7 @@ export const Platforms = () => {
             'Activo': 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900 dark:text-emerald-300',
             'Cerrado': 'bg-rose-100 text-rose-800 dark:bg-rose-900 dark:text-rose-300'
         };
-        return colors[status] || 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300';
+        return colors[status] || 'bg-zinc-100 text-zinc-800 dark:bg-zinc-700 dark:text-zinc-300';
     };
 
     const formatDate = (date) => {
@@ -22,10 +22,10 @@ export const Platforms = () => {
             <div className="container mx-auto p-4 md:p-6 space-y-8">
                 {/* Header */}
                 <div className="text-center md:text-left space-y-2">
-                    <h1 className="text-4xl md:text-6xl font-black bg-clip-text text-transparent bg-gradient-to-r from-lime-500 to-indigo-600">
+                    <h1 className="text-2xl md:text-4xl lg:text-6xl font-black text-zinc-900 dark:text-white">
                         Uso de Plataformas
                     </h1>
-                    <p className="text-lg md:text-2xl font-semibold text-zinc-600 dark:text-zinc-400">
+                    <p className="text-xl md:text-2xl font-bold text-zinc-600 dark:text-zinc-300">
                         Seguimiento de actividades y diagnósticos
                     </p>
                 </div>
@@ -63,7 +63,7 @@ export const Platforms = () => {
                                     <span className="text-zinc-500 dark:text-zinc-400">
                                         Total registros: {platform.records.length}
                                     </span>
-                                    <span className="px-3 py-1 bg-indigo-100 dark:bg-indigo-900 text-indigo-800 dark:text-indigo-300 rounded-full text-xs font-medium">
+                                    <span className="px-3 py-1 bg-lime-100 dark:bg-lime-900 text-lime-800 dark:text-lime-300 rounded-full text-xs font-medium">
                                         {platform.records.filter(r => r.status === 'En Proceso').length} en proceso
                                     </span>
                                 </div>
@@ -74,7 +74,7 @@ export const Platforms = () => {
                                 {platform.records.map((record, index) => (
                                     <div
                                         key={index}
-                                        className="bg-zinc-50 dark:bg-zinc-900/50 rounded-xl p-4 border border-zinc-200 dark:border-zinc-700 hover:border-indigo-300 dark:hover:border-lime-700 transition-all duration-200"
+                                        className="bg-zinc-50 dark:bg-zinc-900/50 rounded-xl p-4 border border-zinc-200 dark:border-zinc-700 hover:border-lime-400 dark:hover:border-lime-700 transition-all duration-200"
                                     >
                                         <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3">
                                             <div className="flex-1">
@@ -110,10 +110,10 @@ export const Platforms = () => {
                 {/* Summary Footer */}
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
                     {[
-                        { label: 'Total Plataformas', value: platforms.length, color: 'from-blue-500 to-blue-600' },
-                        { label: 'Total Registros', value: platforms.reduce((acc, p) => acc + p.records.length, 0), color: 'from-indigo-500 to-indigo-600' },
-                        { label: 'En Proceso', value: platforms.reduce((acc, p) => acc + p.records.filter(r => r.status === 'En Proceso').length, 0), color: 'from-amber-500 to-amber-600' },
-                        { label: 'Completados', value: platforms.reduce((acc, p) => acc + p.records.filter(r => r.status === 'Completado' || r.status === 'Publicado').length, 0), color: 'from-lime-500 to-lime-600' },
+                        { label: 'Total Plataformas', value: platforms.length, color: 'from-zinc-500 to-zinc-700' },
+                        { label: 'Total Registros', value: platforms.reduce((acc, p) => acc + p.records.length, 0), color: 'from-lime-500 to-lime-700' },
+                        { label: 'En Proceso', value: platforms.reduce((acc, p) => acc + p.records.filter(r => r.status === 'En Proceso').length, 0), color: 'from-zinc-400 to-zinc-600' },
+                        { label: 'Completados', value: platforms.reduce((acc, p) => acc + p.records.filter(r => r.status === 'Completado' || r.status === 'Publicado').length, 0), color: 'from-lime-600 to-lime-800' },
                     ].map((stat, index) => (
                         <div key={index} className="bg-white/80 dark:bg-zinc-800/80 backdrop-blur-sm rounded-xl p-4 border border-zinc-200 dark:border-zinc-700">
                             <p className="text-sm text-zinc-600 dark:text-zinc-400">{stat.label}</p>

@@ -94,7 +94,6 @@ export const StrategicObjective = () => {
     ];
 
     const months = ['E', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D'];
-    const lastUpdate = "2025-12-02 00:00:00";
 
     const isMonthActive = (initiativeMeses, monthIndex) => {
         return initiativeMeses?.includes(monthIndex) || false;
@@ -118,14 +117,11 @@ export const StrategicObjective = () => {
         <div>
             <div className="flex flex-col py-12 md:py-20">
                 <div className="container m-auto p-4 md:p-8">
-                    <h1 className="text-2xl md:text-4xl lg:text-6xl font-black bg-clip-text text-transparent bg-gradient-to-r from-lime-500 to-indigo-600 mb-4">
+                    <h1 className="text-2xl md:text-4xl lg:text-6xl font-black text-zinc-900 dark:text-white mb-4">
                         Objetivos Estratégicos y Avances
                     </h1>
-                    <p className="text-xl md:text-2xl font-bold text-zinc-600 dark:text-zinc-300 mb-2">
+                    <p className="text-xl md:text-2xl font-bold text-zinc-600 dark:text-zinc-300 mb-8">
                         En este apartado se presentan los objetivos estratégicos del departamento de Funcionalidad Tecnológica.
-                    </p>
-                    <p className="text-sm text-zinc-500 dark:text-zinc-400 mb-8">
-                        Última actualización: {new Date(lastUpdate).toLocaleDateString('es-MX', { year: 'numeric', month: 'long', day: 'numeric' })}
                     </p>
 
                     <div className="mb-4 relative max-w-md">

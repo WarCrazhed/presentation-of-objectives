@@ -5,7 +5,7 @@ export const Home = () => {
         <div className="flex flex-col min-h-screen">
             <div className="container m-auto p-4 flex flex-col md:flex-row items-center justify-center gap-8 md:gap-12">
                 <div className="text-center md:text-left">
-                    <h1 className="text-2xl md:text-4xl lg:text-6xl font-black bg-clip-text text-transparent bg-linear-to-r from-lime-500 to-indigo-600 mb-2">
+                    <h1 className="text-2xl md:text-4xl lg:text-6xl font-black text-zinc-900 dark:text-white mb-2">
                         Funcionalidad Tecnológica
                     </h1>
                     <p className="text-xl sm:text-2xl font-bold text-zinc-600 dark:text-zinc-300">José Mario Zamora</p>

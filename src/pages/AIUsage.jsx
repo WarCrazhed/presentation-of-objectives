@@ -133,40 +133,35 @@ export const AIUsage = () => {
     const footAhorro = footManual - footIA;
     const footPct = footManual ? Math.round((footAhorro / footManual) * 100) : 0;
 
-    const lastUpdate = "2026-08-06 00:00:00";
-
     const fmtHoras = (h) => `${h} h (~${(h / 8).toFixed(1)} d)`;
 
     return (
         <div>
             <div className="flex flex-col py-12 md:py-20">
                 <div className="container m-auto p-4 md:p-8">
-                    <h1 className="text-2xl md:text-4xl lg:text-6xl font-black bg-clip-text text-transparent bg-gradient-to-r from-cyan-500 to-teal-600 mb-4">
+                    <h1 className="text-2xl md:text-4xl lg:text-6xl font-black text-zinc-900 dark:text-white mb-4">
                         Uso de IA
                     </h1>
-                    <p className="text-xl md:text-2xl font-bold text-zinc-600 dark:text-zinc-300 mb-2">
+                    <p className="text-xl md:text-2xl font-bold text-zinc-600 dark:text-zinc-300 mb-8">
                         Tareas del área de Funcionalidad Tecnológica desarrolladas con apoyo de Inteligencia Artificial durante julio y agosto, y el tiempo de desarrollo que representaron frente al trabajo manual.
-                    </p>
-                    <p className="text-sm text-zinc-500 dark:text-zinc-400 mb-8">
-                        Última actualización: {new Date(lastUpdate).toLocaleDateString('es-MX', { year: 'numeric', month: 'long', day: 'numeric' })}
                     </p>
 
                     {/* Tarjetas resumen */}
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
-                        <div className="bg-white/80 dark:bg-zinc-900/80 backdrop-blur-sm rounded-xl shadow-lg p-6">
+                        <div className="bg-white/80 dark:bg-zinc-900/80 backdrop-blur-sm rounded-2xl shadow-lg p-6">
                             <p className="text-xs font-medium text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">Estimado manual</p>
                             <p className="text-2xl sm:text-3xl font-black text-zinc-900 dark:text-zinc-100 mt-1">{totalManual} h</p>
                             <p className="text-sm text-zinc-500 dark:text-zinc-400">~{(totalManual / 8).toFixed(0)} días de trabajo</p>
                         </div>
-                        <div className="bg-white/80 dark:bg-zinc-900/80 backdrop-blur-sm rounded-xl shadow-lg p-6">
+                        <div className="bg-white/80 dark:bg-zinc-900/80 backdrop-blur-sm rounded-2xl shadow-lg p-6">
                             <p className="text-xs font-medium text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">Con apoyo de IA</p>
-                            <p className="text-2xl sm:text-3xl font-black text-cyan-600 dark:text-cyan-400 mt-1">{totalIA} h</p>
+                            <p className="text-2xl sm:text-3xl font-black text-lime-600 dark:text-lime-400 mt-1">{totalIA} h</p>
                             <p className="text-sm text-zinc-500 dark:text-zinc-400">~{(totalIA / 8).toFixed(0)} días de trabajo</p>
                         </div>
-                        <div className="bg-gradient-to-br from-cyan-500 to-teal-600 rounded-xl shadow-lg p-6">
-                            <p className="text-xs font-medium text-cyan-50 uppercase tracking-wider">Ahorro estimado</p>
+                        <div className="bg-gradient-to-br from-lime-500 to-lime-700 rounded-2xl shadow-lg p-6">
+                            <p className="text-xs font-medium text-lime-50 uppercase tracking-wider">Ahorro estimado</p>
                             <p className="text-2xl sm:text-3xl font-black text-white mt-1">{totalAhorro} h · {ahorroPct}%</p>
-                            <p className="text-sm text-cyan-50">~{(totalAhorro / 8).toFixed(0)} días recuperados</p>
+                            <p className="text-sm text-lime-50">~{(totalAhorro / 8).toFixed(0)} días recuperados</p>
                         </div>
                     </div>
 
@@ -185,7 +180,7 @@ export const AIUsage = () => {
                             value={query}
                             onChange={(e) => setQuery(e.target.value)}
                             placeholder="Buscar tarea, plataforma o categoría…"
-                            className="w-full px-4 py-2 pr-10 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-sm text-sm text-zinc-800 dark:text-zinc-100 placeholder-zinc-400 dark:placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/50"
+                            className="w-full px-4 py-2 pr-10 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-sm text-sm text-zinc-800 dark:text-zinc-100 placeholder-zinc-400 dark:placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-lime-500/50"
                         />
                         {query && (
                             <button
@@ -199,7 +194,7 @@ export const AIUsage = () => {
                         )}
                     </div>
 
-                    <div className="overflow-auto max-h-[70vh] bg-white/80 dark:bg-zinc-900/80 backdrop-blur-sm rounded-xl shadow-lg">
+                    <div className="overflow-auto max-h-[70vh] bg-white/80 dark:bg-zinc-900/80 backdrop-blur-sm rounded-2xl shadow-lg">
                         <table className="min-w-full divide-y divide-zinc-200 dark:divide-zinc-700">
                             <thead className="bg-zinc-50 dark:bg-zinc-800/50">
                                 <tr>
@@ -221,7 +216,7 @@ export const AIUsage = () => {
                                 )}
                                 {grupos.map((grupo) => (
                                     <Fragment key={grupo.plataforma}>
-                                        <tr className="bg-cyan-50/50 dark:bg-cyan-900/20">
+                                        <tr className="bg-lime-50/50 dark:bg-lime-900/20">
                                             <td className="px-4 py-3 text-sm font-bold text-zinc-900 dark:text-zinc-100" colSpan={6}>
                                                 {grupo.plataforma}
                                                 <span className="ml-2 font-normal text-zinc-500 dark:text-zinc-400">({grupo.items.length})</span>
@@ -242,7 +237,7 @@ export const AIUsage = () => {
                                                     <td className="px-4 py-2 text-sm text-zinc-600 dark:text-zinc-400 whitespace-nowrap">{fmtHoras(item.manualHoras)}</td>
                                                     <td className="px-4 py-2 text-sm text-zinc-600 dark:text-zinc-400 whitespace-nowrap">{fmtHoras(item.iaHoras)}</td>
                                                     <td className="px-4 py-2 text-sm whitespace-nowrap">
-                                                        <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-cyan-100 text-cyan-800 dark:bg-cyan-900 dark:text-cyan-200">
+                                                        <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-lime-100 text-lime-800 dark:bg-lime-900 dark:text-lime-200">
                                                             −{ahorro} h · {pct}%
                                                         </span>
                                                     </td>
@@ -256,24 +251,24 @@ export const AIUsage = () => {
                                 <tr>
                                     <td className="px-4 py-3 text-sm font-black text-zinc-900 dark:text-zinc-100" colSpan={3}>{q ? 'Total (filtrado)' : 'Total'}</td>
                                     <td className="px-4 py-3 text-sm font-black text-zinc-900 dark:text-zinc-100 whitespace-nowrap">{footManual} h</td>
-                                    <td className="px-4 py-3 text-sm font-black text-cyan-600 dark:text-cyan-400 whitespace-nowrap">{footIA} h</td>
-                                    <td className="px-4 py-3 text-sm font-black text-teal-600 dark:text-teal-400 whitespace-nowrap">−{footAhorro} h · {footPct}%</td>
+                                    <td className="px-4 py-3 text-sm font-black text-lime-600 dark:text-lime-400 whitespace-nowrap">{footIA} h</td>
+                                    <td className="px-4 py-3 text-sm font-black text-lime-700 dark:text-lime-300 whitespace-nowrap">−{footAhorro} h · {footPct}%</td>
                                 </tr>
                             </tfoot>
                         </table>
                     </div>
 
                     {/* Justificación / mejora del flujo de trabajo */}
-                    <div className="mt-8 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-sm rounded-xl shadow-lg p-6">
+                    <div className="mt-8 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-sm rounded-2xl shadow-lg p-6">
                         <h2 className="text-xl font-black text-zinc-900 dark:text-zinc-100 mb-3">Mejora en el flujo de trabajo</h2>
                         <p className="text-sm text-zinc-600 dark:text-zinc-300 mb-4">
                             El apoyo de IA permitió al área de Funcionalidad Tecnológica atender en dos meses {tareas.length} tareas en {plataformas.length} plataformas del ecosistema, cubriendo seguridad, funcionalidades nuevas, experiencia de usuario, deuda técnica y capacidades con IA.
                         </p>
                         <ul className="space-y-2 text-sm text-zinc-600 dark:text-zinc-300">
-                            <li className="flex items-start gap-2"><span className="text-cyan-600 dark:text-cyan-400 font-bold">▸</span> Seguridad reforzada: FormRequests, API Resources, rate limit de contraseñas, protección contra inyección por payload, captcha, 2FA y «recordar dispositivo» replicados en las plataformas.</li>
-                            <li className="flex items-start gap-2"><span className="text-cyan-600 dark:text-cyan-400 font-bold">▸</span> Diagnósticos ampliados: NOM-035 y Cultura refactorizados, evaluación 360° en Excel, y diagnósticos con plantillas y NPS integrados a Talento.</li>
-                            <li className="flex items-start gap-2"><span className="text-cyan-600 dark:text-cyan-400 font-bold">▸</span> Capacidades con IA: chatbot Humi con opciones fijas y con IA, e informes/reportes 360° generados automáticamente.</li>
-                            <li className="flex items-start gap-2"><span className="text-cyan-600 dark:text-cyan-400 font-bold">▸</span> Experiencia y calidad: onboarding tours con Driver.js, optimización de imágenes y accesibilidad (SEO) en el frontend, migración a TypeScript 7 y estándares con pruebas de código.</li>
+                            <li className="flex items-start gap-2"><span className="text-lime-600 dark:text-lime-400 font-bold">▸</span> Seguridad reforzada: FormRequests, API Resources, rate limit de contraseñas, protección contra inyección por payload, captcha, 2FA y «recordar dispositivo» replicados en las plataformas.</li>
+                            <li className="flex items-start gap-2"><span className="text-lime-600 dark:text-lime-400 font-bold">▸</span> Diagnósticos ampliados: NOM-035 y Cultura refactorizados, evaluación 360° en Excel, y diagnósticos con plantillas y NPS integrados a Talento.</li>
+                            <li className="flex items-start gap-2"><span className="text-lime-600 dark:text-lime-400 font-bold">▸</span> Capacidades con IA: chatbot Humi con opciones fijas y con IA, e informes/reportes 360° generados automáticamente.</li>
+                            <li className="flex items-start gap-2"><span className="text-lime-600 dark:text-lime-400 font-bold">▸</span> Experiencia y calidad: onboarding tours con Driver.js, optimización de imágenes y accesibilidad (SEO) en el frontend, migración a TypeScript 7 y estándares con pruebas de código.</li>
                         </ul>
                     </div>
 
