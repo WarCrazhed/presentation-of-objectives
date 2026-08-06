@@ -1,31 +1,29 @@
 import { useEffect, useRef } from 'react'
 import * as THREE from 'three'
 
-// Paleta de estaciones: una por slide, alineada con el gradiente de título de cada sección.
-const STATION_COLORS = ['#84cc16', '#6366f1', '#a855f7', '#84cc16', '#f97316', '#06b6d4', '#818cf8', '#84cc16']
+// Fondo: aurora sutil (CSS) + constelación de nodos 3D conectados (Three.js) encima.
+// Metáfora del ecosistema Humana11: plataformas conectadas. Discreto para presentación ejecutiva.
+// Firma { currentSlide, totalSlides } intacta para no tocar App.jsx.
 
-const THEMES = {
-    dark: {
-        background: 0x0a0a14,
-        fog: 0x0a0a14,
-        stars: 0xffffff,
-        path: 0x3f3f46,
-        ambient: 0.5,
-    },
-    light: {
-        background: 0xe8eef7,
-        fog: 0xe8eef7,
-        stars: 0x94a3b8,
-        path: 0xa1a1aa,
-        ambient: 1.1,
-    },
-}
+// Paleta por sección, alineada con los gradientes de título de cada slide.
+const PALETTE = ['#84cc16', '#6366f1', '#a855f7', '#84cc16', '#f97316', '#06b6d4', '#818cf8', '#84cc16']
 
-export const Scene3D = ({ currentSlide, totalSlides }) => {
+// Manchas de aurora (capa base, CSS puro).
+const BLOBS = [
+    { anim: 'aurora-1', dur: '20s', pos: 'top-[-15%] left-[-10%]', size: 'w-[55vw] h-[55vw]', offset: 0 },
+    { anim: 'aurora-2', dur: '26s', pos: 'top-[5%] right-[-12%]', size: 'w-[48vw] h-[48vw]', offset: 2 },
+    { anim: 'aurora-3', dur: '32s', pos: 'bottom-[-20%] left-[20%]', size: 'w-[52vw] h-[52vw]', offset: 4 },
+    { anim: 'aurora-2', dur: '38s', pos: 'bottom-[10%] right-[15%]', size: 'w-[34vw] h-[34vw]', offset: 6 },
+]
+
+const NODE_COUNT = 16
+const LINK_DISTANCE = 5.5 // umbral para conectar dos nodos con una línea
+
+export const Scene3D = ({ currentSlide = 0 }) => {
     const mountRef = useRef(null)
     const slideRef = useRef(currentSlide)
 
-    // Mantener el slide actual accesible desde el loop de animación sin recrear la escena.
+    // Mantener el slide accesible desde el loop sin recrear la escena.
     useEffect(() => {
         slideRef.current = currentSlide
     }, [currentSlide])
@@ -36,193 +34,125 @@ export const Scene3D = ({ currentSlide, totalSlides }) => {
 
         const scene = new THREE.Scene()
         const camera = new THREE.PerspectiveCamera(55, mount.clientWidth / mount.clientHeight, 0.1, 200)
-        camera.position.set(0, 2.5, 14)
+        camera.position.set(0, 0, 15)
 
-        const renderer = new THREE.WebGLRenderer({ antialias: true, powerPreference: 'low-power' })
+        // alpha:true → canvas transparente para dejar ver la aurora de abajo.
+        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'low-power' })
         renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
         renderer.setSize(mount.clientWidth, mount.clientHeight)
+        renderer.setClearColor(0x000000, 0)
         mount.appendChild(renderer.domElement)
 
-        // ---- Ruta: curva suave que atraviesa la escena, una estación por slide ----
-        const span = Math.max(totalSlides - 1, 1)
-        const SPACING = 7
-        const pathPoints = []
-        for (let i = 0; i < totalSlides; i++) {
-            pathPoints.push(new THREE.Vector3(
-                (i - span / 2) * SPACING,
-                Math.sin(i * 1.1) * 1.4,
-                Math.cos(i * 0.9) * 2 - 2
+        const group = new THREE.Group()
+        scene.add(group)
+
+        // ---- Nodos: posiciones en volumen acotado (encajan en pantalla) ----
+        const bounds = { x: 9, y: 5, z: 3.5 }
+        const seeds = [0.12, 0.83, 0.41, 0.66, 0.28, 0.95, 0.53, 0.07, 0.74, 0.36, 0.61, 0.19, 0.88, 0.47, 0.71, 0.03]
+        const rand = (i, salt) => {
+            const v = Math.sin((i + 1) * 12.9898 + salt * 78.233) * 43758.5453
+            return v - Math.floor(v)
+        }
+
+        const positions = []
+        for (let i = 0; i < NODE_COUNT; i++) {
+            positions.push(new THREE.Vector3(
+                (rand(i, 1) - 0.5) * 2 * bounds.x,
+                (rand(i, 2) - 0.5) * 2 * bounds.y,
+                (rand(i, 3) - 0.5) * 2 * bounds.z
             ))
         }
-        const curve = new THREE.CatmullRomCurve3(pathPoints)
 
-        const pathGeometry = new THREE.TubeGeometry(curve, 64, 0.03, 6, false)
-        const pathMaterial = new THREE.MeshBasicMaterial({ transparent: true, opacity: 0.5 })
-        const pathMesh = new THREE.Mesh(pathGeometry, pathMaterial)
-        scene.add(pathMesh)
-
-        // ---- Estaciones: esferas con anillo; la activa se ilumina y crece ----
-        const stations = []
-        pathPoints.forEach((point, i) => {
-            const color = new THREE.Color(STATION_COLORS[i % STATION_COLORS.length])
-            const group = new THREE.Group()
-
-            const sphere = new THREE.Mesh(
-                new THREE.IcosahedronGeometry(0.55, 1),
-                new THREE.MeshStandardMaterial({ color, flatShading: true, emissive: color, emissiveIntensity: 0.15 })
-            )
-            group.add(sphere)
-
-            const ring = new THREE.Mesh(
-                new THREE.TorusGeometry(0.95, 0.035, 8, 40),
-                new THREE.MeshBasicMaterial({ color, transparent: true, opacity: 0.35 })
-            )
-            ring.rotation.x = Math.PI / 2.4
-            group.add(ring)
-
-            group.position.copy(point)
-            scene.add(group)
-            stations.push({ group, sphere, ring, baseColor: color })
+        const nodeMaterial = new THREE.MeshStandardMaterial({
+            color: 0x84cc16,
+            emissive: 0x84cc16,
+            emissiveIntensity: 0.5,
+            flatShading: true,
+        })
+        const nodeGeometry = new THREE.IcosahedronGeometry(0.16, 0)
+        const nodes = []
+        positions.forEach((p, i) => {
+            const mesh = new THREE.Mesh(nodeGeometry, nodeMaterial)
+            mesh.position.copy(p)
+            const scale = 0.7 + seeds[i] * 0.9 // variar tamaño para dar profundidad
+            mesh.scale.setScalar(scale)
+            mesh.userData.phase = seeds[i] * Math.PI * 2
+            group.add(mesh)
+            nodes.push(mesh)
         })
 
-        // ---- Cohete low-poly: cuerpo + nariz + aletas + llama ----
-        const rocket = new THREE.Group()
-
-        const body = new THREE.Mesh(
-            new THREE.CylinderGeometry(0.22, 0.3, 1.1, 8),
-            new THREE.MeshStandardMaterial({ color: 0xe4e4e7, flatShading: true })
-        )
-        rocket.add(body)
-
-        const nose = new THREE.Mesh(
-            new THREE.ConeGeometry(0.22, 0.5, 8),
-            new THREE.MeshStandardMaterial({ color: 0x84cc16, flatShading: true })
-        )
-        nose.position.y = 0.8
-        rocket.add(nose)
-
-        const finMaterial = new THREE.MeshStandardMaterial({ color: 0x6366f1, flatShading: true })
-        for (let i = 0; i < 3; i++) {
-            const fin = new THREE.Mesh(new THREE.BoxGeometry(0.06, 0.4, 0.3), finMaterial)
-            const angle = (i / 3) * Math.PI * 2
-            fin.position.set(Math.cos(angle) * 0.28, -0.5, Math.sin(angle) * 0.28)
-            fin.rotation.y = -angle
-            rocket.add(fin)
+        // ---- Líneas: conectar nodos cercanos ----
+        const linePoints = []
+        for (let i = 0; i < NODE_COUNT; i++) {
+            for (let j = i + 1; j < NODE_COUNT; j++) {
+                if (positions[i].distanceTo(positions[j]) < LINK_DISTANCE) {
+                    linePoints.push(positions[i].x, positions[i].y, positions[i].z)
+                    linePoints.push(positions[j].x, positions[j].y, positions[j].z)
+                }
+            }
         }
-
-        const flame = new THREE.Mesh(
-            new THREE.ConeGeometry(0.16, 0.55, 8),
-            new THREE.MeshBasicMaterial({ color: 0xfbbf24, transparent: true, opacity: 0.85 })
-        )
-        flame.position.y = -0.85
-        flame.rotation.x = Math.PI
-        rocket.add(flame)
-
-        const rocketLight = new THREE.PointLight(0xfbbf24, 6, 6)
-        rocketLight.position.y = -1
-        rocket.add(rocketLight)
-
-        rocket.scale.setScalar(0.9)
-        scene.add(rocket)
-
-        // ---- Estrellas ----
-        const starCount = 700
-        const starPositions = new Float32Array(starCount * 3)
-        for (let i = 0; i < starCount; i++) {
-            starPositions[i * 3] = (Math.random() - 0.5) * 120
-            starPositions[i * 3 + 1] = (Math.random() - 0.5) * 70
-            starPositions[i * 3 + 2] = -10 - Math.random() * 60
-        }
-        const starGeometry = new THREE.BufferGeometry()
-        starGeometry.setAttribute('position', new THREE.BufferAttribute(starPositions, 3))
-        const starMaterial = new THREE.PointsMaterial({ size: 0.14, transparent: true, opacity: 0.8 })
-        const stars = new THREE.Points(starGeometry, starMaterial)
-        scene.add(stars)
+        const lineGeometry = new THREE.BufferGeometry()
+        lineGeometry.setAttribute('position', new THREE.Float32BufferAttribute(linePoints, 3))
+        const lineMaterial = new THREE.LineBasicMaterial({ color: 0x84cc16, transparent: true, opacity: 0.22 })
+        const lines = new THREE.LineSegments(lineGeometry, lineMaterial)
+        group.add(lines)
 
         // ---- Luces ----
-        const ambient = new THREE.AmbientLight(0xffffff, 0.6)
+        const ambient = new THREE.AmbientLight(0xffffff, 0.9)
         scene.add(ambient)
-        const directional = new THREE.DirectionalLight(0xffffff, 1.4)
-        directional.position.set(5, 8, 6)
+        const directional = new THREE.DirectionalLight(0xffffff, 1.1)
+        directional.position.set(4, 6, 8)
         scene.add(directional)
 
-        // ---- Tema claro/oscuro: sincroniza con la clase `dark` en <html> ----
+        // ---- Tema claro/oscuro: ajusta opacidad de líneas y luz ambiente ----
         const applyTheme = () => {
-            const theme = document.documentElement.classList.contains('dark') ? THEMES.dark : THEMES.light
-            scene.background = new THREE.Color(theme.background)
-            scene.fog = new THREE.Fog(theme.fog, 18, 60)
-            starMaterial.color.set(theme.stars)
-            pathMaterial.color.set(theme.path)
-            ambient.intensity = theme.ambient
+            const isDark = document.documentElement.classList.contains('dark')
+            lineMaterial.opacity = isDark ? 0.28 : 0.18
+            ambient.intensity = isDark ? 0.7 : 1.1
+            nodeMaterial.emissiveIntensity = isDark ? 0.6 : 0.4
         }
         applyTheme()
         const themeObserver = new MutationObserver(applyTheme)
         themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] })
 
+        // ---- Parallax por puntero ----
+        const pointer = { x: 0, y: 0 }
+        const onPointerMove = (e) => {
+            pointer.x = (e.clientX / window.innerWidth - 0.5) * 2
+            pointer.y = (e.clientY / window.innerHeight - 0.5) * 2
+        }
+        window.addEventListener('pointermove', onPointerMove)
+
         // ---- Animación ----
         const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
         const clock = new THREE.Clock()
-        let progress = slideRef.current / span
+        const accent = new THREE.Color(0x84cc16)
         let frameId
-
-        const tangent = new THREE.Vector3()
-        const up = new THREE.Vector3(0, 1, 0)
-        const lookTarget = new THREE.Vector3()
 
         const animate = () => {
             frameId = requestAnimationFrame(animate)
             const dt = Math.min(clock.getDelta(), 0.05)
-            const elapsed = clock.elapsedTime
+            const t = clock.elapsedTime
 
-            // Avanza suavemente hacia la estación del slide actual.
-            const target = slideRef.current / span
-            progress += reducedMotion
-                ? (target - progress)
-                : (target - progress) * Math.min(1, dt * 2.2)
+            // Color objetivo según el slide; interpola suave.
+            accent.set(PALETTE[slideRef.current % PALETTE.length])
+            nodeMaterial.color.lerp(accent, dt * 1.5)
+            nodeMaterial.emissive.lerp(accent, dt * 1.5)
+            lineMaterial.color.lerp(accent, dt * 1.5)
 
-            const clamped = THREE.MathUtils.clamp(progress, 0, 1)
-            curve.getPointAt(clamped, rocket.position)
-            rocket.position.y += Math.sin(elapsed * 1.8) * 0.15 + 1.4 // flota sobre la ruta
-
-            // Orientación: nariz apunta hacia la dirección de viaje; en reposo, hacia arriba.
-            curve.getTangentAt(clamped, tangent)
-            const moving = Math.abs(target - progress) > 0.002
-            const dir = moving && target < progress ? -1 : 1
-            lookTarget.copy(rocket.position).addScaledVector(tangent, dir * 2)
-            if (moving) {
-                rocket.up.copy(up)
-                rocket.lookAt(lookTarget)
-                rocket.rotateX(Math.PI / 2) // el cono apunta +Y; alinear con la tangente
-            } else {
-                rocket.rotation.x = THREE.MathUtils.lerp(rocket.rotation.x, 0, dt * 3)
-                rocket.rotation.z = THREE.MathUtils.lerp(rocket.rotation.z, Math.sin(elapsed * 0.8) * 0.08, dt * 3)
+            if (!reducedMotion) {
+                group.rotation.y += dt * 0.05
+                group.rotation.x = Math.sin(t * 0.15) * 0.08
+                nodes.forEach((n) => {
+                    n.rotation.x += dt * 0.3
+                    n.rotation.y += dt * 0.4
+                })
             }
 
-            // Llama parpadea; más intensa en movimiento.
-            const flicker = 0.8 + Math.sin(elapsed * 22) * 0.2
-            flame.scale.set(flicker, moving ? 1.5 : flicker, flicker)
-            rocketLight.intensity = moving ? 10 : 5
-
-            // Estaciones: la activa pulsa y gira.
-            stations.forEach((station, i) => {
-                const isActive = i === slideRef.current
-                const targetScale = isActive ? 1.35 : 1
-                station.group.scale.setScalar(THREE.MathUtils.lerp(station.group.scale.x, targetScale, dt * 4))
-                station.sphere.rotation.y += dt * (isActive ? 0.8 : 0.2)
-                station.ring.rotation.z += dt * (isActive ? 1.2 : 0.3)
-                station.sphere.material.emissiveIntensity = THREE.MathUtils.lerp(
-                    station.sphere.material.emissiveIntensity,
-                    isActive ? 0.7 : 0.15,
-                    dt * 4
-                )
-            })
-
-            stars.rotation.y = elapsed * 0.004
-
-            // Cámara sigue al cohete con parallax suave.
-            camera.position.x = THREE.MathUtils.lerp(camera.position.x, rocket.position.x * 0.8, dt * 2)
-            camera.position.y = THREE.MathUtils.lerp(camera.position.y, rocket.position.y * 0.3 + 2, dt * 2)
-            camera.lookAt(rocket.position.x, rocket.position.y * 0.5 + 0.5, 0)
+            // Parallax de cámara suave.
+            camera.position.x += (pointer.x * 1.5 - camera.position.x) * dt * 1.5
+            camera.position.y += (-pointer.y * 1.0 - camera.position.y) * dt * 1.5
+            camera.lookAt(0, 0, 0)
 
             renderer.render(scene, camera)
         }
@@ -250,17 +180,36 @@ export const Scene3D = ({ currentSlide, totalSlides }) => {
             cancelAnimationFrame(frameId)
             document.removeEventListener('visibilitychange', onVisibility)
             window.removeEventListener('resize', onResize)
+            window.removeEventListener('pointermove', onPointerMove)
             themeObserver.disconnect()
-            scene.traverse((obj) => {
-                if (obj.geometry) obj.geometry.dispose()
-                if (obj.material) {
-                    (Array.isArray(obj.material) ? obj.material : [obj.material]).forEach((m) => m.dispose())
-                }
-            })
+            nodeGeometry.dispose()
+            nodeMaterial.dispose()
+            lineGeometry.dispose()
+            lineMaterial.dispose()
             renderer.dispose()
             mount.removeChild(renderer.domElement)
         }
-    }, [totalSlides])
+    }, [])
 
-    return <div ref={mountRef} className="fixed inset-0 z-0 pointer-events-none" aria-hidden="true" />
+    const colorAt = (offset) => PALETTE[(currentSlide + offset) % PALETTE.length]
+
+    return (
+        <div
+            className="fixed inset-0 z-0 pointer-events-none overflow-hidden bg-[#e8eef7] dark:bg-[#0a0a14]"
+            aria-hidden="true"
+        >
+            {/* Capa 1: aurora (manchas difuminadas) */}
+            {BLOBS.map((b, i) => (
+                <div
+                    key={i}
+                    className={`aurora-blob absolute ${b.pos} ${b.size} rounded-full blur-[110px] opacity-40 dark:opacity-50 transition-colors duration-1000 ease-in-out`}
+                    style={{ backgroundColor: colorAt(b.offset), '--aurora-anim': b.anim, '--aurora-dur': b.dur }}
+                />
+            ))}
+            {/* Capa 2: velo para bajar contraste de la aurora */}
+            <div className="absolute inset-0 bg-[#e8eef7]/40 dark:bg-[#0a0a14]/50" />
+            {/* Capa 3: constelación de nodos 3D (blur leve → profundidad de campo) */}
+            <div ref={mountRef} className="absolute inset-0 blur-[3px]" />
+        </div>
+    )
 }
