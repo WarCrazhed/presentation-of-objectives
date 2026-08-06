@@ -5,7 +5,9 @@ export const Platforms = () => {
         const colors = {
             'Completado': 'bg-lime-100 text-lime-800 dark:bg-lime-900 dark:text-lime-300',
             'En Proceso': 'bg-amber-100 text-amber-800 dark:bg-amber-900 dark:text-amber-300',
-            'Publicado': 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300'
+            'Publicado': 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300',
+            'Activo': 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900 dark:text-emerald-300',
+            'Cerrado': 'bg-rose-100 text-rose-800 dark:bg-rose-900 dark:text-rose-300'
         };
         return colors[status] || 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300';
     };

@@ -6,93 +6,111 @@ export const platforms = [
         description: "Plataforma de desarrollo organizacional",
         records: [
             {
-                "name": "Encuesta de Satisfacción - Evento - Cata de vino",
-                "date_start": "08 Mayo 2026",
-                "date_end": "13 Septiembre 2026",
-                "status": "En Proceso"
-            },
-            {
-                "name": "EGD002 - 08",
-                "date_start": "12 Mayo 2026",
-                "date_end": "12 Septiembre 2026",
-                "status": "En Proceso"
-            },
-            {
-                "name": "Diagnóstico Inicial",
-                "date_start": "13 Mayo 2026",
-                "date_end": "31 Mayo 2026",
-                "status": "Completado"
-            },
-            {
-                "name": "EGD002 - 09",
-                "date_start": "15 Mayo 2026",
+                "name": "EGD-002 - Encuesta de Satisfacción - Desayuno Magistral",
+                "date_start": "03 Julio 2026",
                 "date_end": "14 Septiembre 2026",
                 "status": "En Proceso"
             },
             {
-                "name": "EGD002 - 10",
-                "date_start": "15 Mayo 2026",
-                "date_end": "14 Septiembre 2026",
+                "name": "Sesión Upskilling - Impuestos para Directivos y Empresarios",
+                "date_start": "09 Julio 2026",
+                "date_end": "12 Diciembre 2026",
                 "status": "En Proceso"
             },
             {
-                "name": "Hotel Colli",
-                "date_start": "20 Mayo 2026",
-                "date_end": "01 Junio 2026",
+                "name": "NOM-035 (3 aplicaciones)",
+                "date_start": "10 Julio 2026",
+                "date_end": "10 Octubre 2026",
+                "status": "En Proceso"
+            },
+            {
+                "name": "Clima laboral",
+                "date_start": "10 Julio 2026",
+                "date_end": "10 Octubre 2026",
+                "status": "En Proceso"
+            },
+            {
+                "name": "Clima Organizacional - Segadi 2026",
+                "date_start": "10 Julio 2026",
+                "date_end": "10 Octubre 2026",
+                "status": "En Proceso"
+            },
+            {
+                "name": "Clima Organizacional 2026",
+                "date_start": "10 Julio 2026",
+                "date_end": "11 Julio 2026",
                 "status": "Completado"
             },
             {
-                "name": "Accountability Europcar",
-                "date_start": "22 Mayo 2026",
-                "date_end": "30 Mayo 2026",
+                "name": "Diagnóstico de Cultura Organizacional 2026",
+                "date_start": "10 Julio 2026",
+                "date_end": "10 Octubre 2026",
+                "status": "En Proceso"
+            },
+            {
+                "name": "EGAFI 002 - Ventas Inteligentes: IA aplicada a resultados de negocio (3 sesiones)",
+                "date_start": "11 Julio 2026",
+                "date_end": "27 Julio 2026",
                 "status": "Completado"
             },
             {
-                "name": "Código de Ética y Conducta",
-                "date_start": "27 Mayo 2026",
-                "date_end": "05 Junio 2026",
+                "name": "Diagnóstico Inicial - Bright Machines",
+                "date_start": "13 Julio 2026",
+                "date_end": "31 Julio 2026",
+                "status": "Completado"
+            },
+            {
+                "name": "Cultura H11",
+                "date_start": "15 Julio 2026",
+                "date_end": "29 Julio 2026",
+                "status": "Completado"
+            },
+            {
+                "name": "Desayuno de mentores - 23 Julio 2026",
+                "date_start": "20 Julio 2026",
+                "date_end": "26 Julio 2026",
+                "status": "Completado"
+            },
+            {
+                "name": "Experiencia como mentor - Finanzas e Ingeniería Económica",
+                "date_start": "21 Julio 2026",
+                "date_end": "25 Septiembre 2026",
                 "status": "En Proceso"
             },
             {
-                "name": "Cátedra Evolutiva: Estructurando y potenciando la experiencia de cátedra con IA",
-                "date_start": "28 Mayo 2026",
-                "date_end": "30 Junio 2026",
+                "name": "EGAFI 003 - Marketing que Genera Ventas (3 sesiones)",
+                "date_start": "21 Julio 2026",
+                "date_end": "24 Agosto 2026",
                 "status": "En Proceso"
             },
             {
-                "name": "EGD002 - 11",
-                "date_start": "28 Mayo 2026",
-                "date_end": "15 Septiembre 2026",
+                "name": "Evaluación 360° (27 colaboradores)",
+                "date_start": "26 Julio 2026",
+                "date_end": "08 Agosto 2026",
                 "status": "En Proceso"
             },
             {
-                "name": "Cátedra Evolutiva",
-                "date_start": "01 Junio 2026",
-                "date_end": "12 Septiembre 2026",
+                "name": "Experiencia como mentor - EGAFI Ventas Inteligentes",
+                "date_start": "27 Julio 2026",
+                "date_end": "02 Agosto 2026",
+                "status": "Completado"
+            },
+            {
+                "name": "EGD002 - 19",
+                "date_start": "03 Agosto 2026",
+                "date_end": "26 Septiembre 2026",
                 "status": "En Proceso"
             },
             {
-                "name": "NPS- IA- PROCESOS",
-                "date_start": "02 Junio 2026",
-                "date_end": "09 Junio 2026",
+                "name": "Evaluación 360° - Hugo Eickmeir",
+                "date_start": "05 Agosto 2026",
+                "date_end": "05 Septiembre 2026",
                 "status": "En Proceso"
             },
             {
-                "name": "Diagnóstico Inicial Pepitorias Sinaloense",
-                "date_start": "04 Junio 2026",
-                "date_end": "20 Junio 2026",
-                "status": "En Proceso"
-            },
-            {
-                "name": "EGD002 - 07",
-                "date_start": "05 Mayo 2026",
-                "date_end": "12 Septiembre 2026",
-                "status": "En Proceso"
-            },
-            {
-                "name": "DIAGNÓSTICO DEMOGRÁFICO- GRUPO LAAK",
-                "date_start": "05 Mayo 2026",
-                "date_end": "31 Mayo 2026",
+                "name": "Ferra Mercado Ferretero - Diagnóstico Inicial",
+                "date_start": "05 Agosto 2026",
+                "date_end": "06 Septiembre 2026",
                 "status": "En Proceso"
             },
         ],
@@ -142,45 +160,33 @@ export const platforms = [
         description: "Universidad Humana Empresaria",
         records: [
             {
-                "name": "Programa | ESR",
-                "date_start": "01 de Junio 2026",
+                "name": "Programa | Diplomado en Perfeccionamiento de Operadores de Logística y Transporte",
+                "date_start": "Julio 2026",
                 "date_end": null,
                 "status": "Activo"
             },
             {
-                "name": "Módulo | Gobernanza",
-                "date_start": "01 de Junio 2026",
-                "date_end": null,
+                "name": "Módulo | Eje 4: Innovación y emprendimiento",
+                "date_start": "10 de Julio 2026",
+                "date_end": "28 de Agosto 2026",
                 "status": "Activo"
             },
             {
-                "name": "Módulo | Global",
-                "date_start": "01 de Junio 2026",
-                "date_end": null,
+                "name": "Módulo | Gestión y experiencia del cliente (Customer Experience)",
+                "date_start": "05 de Agosto 2026",
+                "date_end": "26 de Septiembre 2026",
                 "status": "Activo"
             },
             {
-                "name": "Módulo | Social",
-                "date_start": "01 de Junio 2026",
-                "date_end": null,
+                "name": "Módulo | Asignatura 1: Profesionalización y Normatividad del Operador Logístico",
+                "date_start": "06 de Agosto 2026",
+                "date_end": "14 de Agosto 2026",
                 "status": "Activo"
             },
             {
-                "name": "Módulo | Ambiental",
-                "date_start": "01 de Junio 2026",
-                "date_end": null,
-                "status": "Activo"
-            },
-            {
-                "name": "Módulo | Desarrollo ejecutivo gerencial 2: Proyección y toma de decisiones",
-                "date_start": "18 de Mayo 2026",
-                "date_end": null,
-                "status": "Activo"
-            },
-            {
-                "name": "EGD® 1G Sesión de Clausura",
-                "date_start": "07 de Mayo 2026",
-                "date_end": null,
+                "name": "Módulo | Asignatura 2: Seguridad Vial, Integral y Salud Ocupacional del Operador",
+                "date_start": "10 de Agosto 2026",
+                "date_end": "14 de Agosto 2026",
                 "status": "Activo"
             },
         ]
@@ -192,15 +198,39 @@ export const platforms = [
         description: "Reclutamiento y assessment psicométrico",
         records: [
             {
-                "name": "Vacante | Nueva vacante",
-                "date_start": "04 de Junio 2026",
+                "name": "Vacante | Gerente de Operaciones MUMÚ",
+                "date_start": "20 de Julio 2026",
                 "date_end": null,
                 "status": "Activo"
             },
             {
-                "name": "Candidato | Jossue Refugio Ramirez Avila",
-                "date_start": "06 de Mayo 2026",
+                "name": "Vacante | Gerente de Academia BRICK",
+                "date_start": "20 de Julio 2026",
                 "date_end": null,
+                "status": "Activo"
+            },
+            {
+                "name": "Vacante | Dirección de Atención a Inversionistas",
+                "date_start": "20 de Julio 2026",
+                "date_end": null,
+                "status": "Activo"
+            },
+            {
+                "name": "Vacante | Dirección de Recursos Humanos",
+                "date_start": "20 de Julio 2026",
+                "date_end": null,
+                "status": "Activo"
+            },
+            {
+                "name": "Vacante | Mentor Julio 2026",
+                "date_start": "28 de Julio 2026",
+                "date_end": null,
+                "status": "Cerrado"
+            },
+            {
+                "name": "Candidatos | 193 nuevos candidatos registrados",
+                "date_start": "01 de Julio 2026",
+                "date_end": "06 de Agosto 2026",
                 "status": "Activo"
             },
         ]

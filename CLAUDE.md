@@ -34,7 +34,7 @@ Presentación interna del área de **Funcionalidad Tecnológica** (ecosistema Hu
 
 ## Convenciones
 - **Componentes nombrados**, no default exports (`export const X = () => ...`).
-- Páginas con datos = arrays de objetos declarados dentro del componente (ver `StrategicObjective.jsx`, `EmergingProject.jsx` como patrón canónico: tabla con filas objetivo/descripción/iniciativas, columnas de meses `['E','F',...,'D']`).
+- Páginas con datos = arrays de objetos declarados dentro del componente (ver `StrategicObjective.jsx` como patrón canónico: tabla con filas objetivo/descripción/iniciativas, columnas de meses `['E','F',...,'D']`).
 - Listas con `<Fragment key>` cuando hay varias filas por item.
 - Estilos Tailwind inline; soportar **siempre** modo oscuro con variantes `dark:`.
 - Gradientes de título por sección (`bg-clip-text text-transparent bg-gradient-to-r`); cada slide usa su propia paleta.

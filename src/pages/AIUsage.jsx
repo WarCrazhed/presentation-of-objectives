@@ -2,78 +2,100 @@ import { Fragment, useState } from 'react';
 
 export const AIUsage = () => {
     const [query, setQuery] = useState('');
-    // Tareas de junio 2026 apoyadas con IA. Horas: estimaciones comparativas (manual vs. asistido con IA).
+    // Tareas de julio–agosto 2026 apoyadas con IA. Horas: estimaciones comparativas (manual vs. asistido con IA).
     const tareas = [
         // SuiteDO
-        { plataforma: "SuiteDO", tarea: "Implementar NGINX y Dockerizar en Producción", cat: "Infraestructura", manualHoras: 16, iaHoras: 5 },
-        { plataforma: "SuiteDO", tarea: "Actualizar versión de Laravel (13)", cat: "Infraestructura", manualHoras: 24, iaHoras: 8 },
-        { plataforma: "SuiteDO", tarea: "Generar y descargar reportes con IA (input para escribir un prompt)", cat: "IA / Chatbot", manualHoras: 24, iaHoras: 8 },
-        { plataforma: "SuiteDO", tarea: "Aumentar rate limit para inicios de sesión", cat: "Seguridad", manualHoras: 4, iaHoras: 1 },
-        { plataforma: "SuiteDO", tarea: "Construir Skeleton + TableSkeleton + CardSkeleton (migra Collaborators y Dashboard)", cat: "Frontend / UX", manualHoras: 16, iaHoras: 5 },
-        { plataforma: "SuiteDO", tarea: "react-query (TanStack Query): manejo de estado de servidor, reemplaza el patrón manual", cat: "Frontend / UX", manualHoras: 16, iaHoras: 5 },
-        { plataforma: "SuiteDO", tarea: "Arreglar / ejecutar ESLint para detectar y eliminar errores de código", cat: "Calidad", manualHoras: 6, iaHoras: 2 },
-        { plataforma: "SuiteDO", tarea: "Al recargar la página actual, no regresar al dashboard desde el principio", cat: "Frontend / UX", manualHoras: 6, iaHoras: 2 },
-        { plataforma: "SuiteDO", tarea: "Adaptar todos los SweetAlert al modo claro y oscuro", cat: "Frontend / UX", manualHoras: 8, iaHoras: 3 },
-        { plataforma: "SuiteDO", tarea: "Mejorar accesibilidad HTML en general de toda la plataforma", cat: "Frontend / UX", manualHoras: 16, iaHoras: 5 },
-        { plataforma: "SuiteDO", tarea: "Chatbot Humi para administración de la plataforma", cat: "IA / Chatbot", manualHoras: 40, iaHoras: 12 },
-        { plataforma: "SuiteDO", tarea: "Implementar diagnóstico cultural", cat: "IA / Chatbot", manualHoras: 40, iaHoras: 12 },
-        { plataforma: "SuiteDO", tarea: "React Table: al recargar no perder la paginación y validar botones de avanzar/retroceder", cat: "Frontend / UX", manualHoras: 8, iaHoras: 3 },
+        { plataforma: "SuiteDO", tarea: "Chatbot Humi para diagnósticos", cat: "IA / Chatbot", manualHoras: 40, iaHoras: 12 },
+        { plataforma: "SuiteDO", tarea: "Habilitar el registro de consultores", cat: "Funcionalidad", manualHoras: 12, iaHoras: 4 },
+        { plataforma: "SuiteDO", tarea: "Corregir error al listar colaboradores como participantes", cat: "Funcionalidad", manualHoras: 6, iaHoras: 2 },
+        { plataforma: "SuiteDO", tarea: "Habilitar la recuperación de contraseña", cat: "Seguridad", manualHoras: 6, iaHoras: 2 },
+        { plataforma: "SuiteDO", tarea: "Implementar FormRequests (validación de peticiones)", cat: "Seguridad", manualHoras: 12, iaHoras: 4 },
+        { plataforma: "SuiteDO", tarea: "Endurecer seguridad: evitar inyección por payload ($request->all()), rate limit de contraseñas y validación de carga de archivos", cat: "Seguridad", manualHoras: 16, iaHoras: 5 },
+        { plataforma: "SuiteDO", tarea: "API Resources (chat, content, enterprise) y ocultar secretos de 2FA", cat: "Seguridad", manualHoras: 12, iaHoras: 4 },
+        { plataforma: "SuiteDO", tarea: "Enumerar preguntas en el reporte de patrones de conducta", cat: "Funcionalidad", manualHoras: 4, iaHoras: 1 },
+        { plataforma: "SuiteDO", tarea: "Elaborar informe técnico del diagnóstico de cultura", cat: "IA / Chatbot", manualHoras: 12, iaHoras: 4 },
+        { plataforma: "SuiteDO", tarea: "Chatbot Humi: añadir opción con IA", cat: "IA / Chatbot", manualHoras: 16, iaHoras: 5 },
+        { plataforma: "SuiteDO", tarea: "Refactorizar la BD de diagnósticos NOM-035 y Cultura", cat: "Base de Datos", manualHoras: 16, iaHoras: 5 },
+        { plataforma: "SuiteDO", tarea: "Revisar los tipos de preguntas", cat: "Funcionalidad", manualHoras: 4, iaHoras: 1 },
+        { plataforma: "SuiteDO", tarea: "Reporte en Excel de evaluación 360°", cat: "Funcionalidad", manualHoras: 12, iaHoras: 4 },
+        { plataforma: "SuiteDO", tarea: "Ocultar el botón Ordenar cuando no hay registros (gestión de plantillas)", cat: "Frontend / UX", manualHoras: 2, iaHoras: 1 },
+        { plataforma: "SuiteDO", tarea: "Asignar permisos de contraseñas al crear un administrador", cat: "Seguridad", manualHoras: 8, iaHoras: 3 },
+        { plataforma: "SuiteDO", tarea: "Generar el reporte Excel 360° automáticamente con IA", cat: "IA / Chatbot", manualHoras: 24, iaHoras: 8 },
+        { plataforma: "SuiteDO", tarea: "Gestionar permisos de usuarios de un cliente desde el administrador", cat: "Funcionalidad", manualHoras: 10, iaHoras: 3 },
+        { plataforma: "SuiteDO", tarea: "Ocultar la tolerancia en diagnósticos de Cultura y NOM-035 (campo nullable en BD)", cat: "Funcionalidad", manualHoras: 4, iaHoras: 1 },
+        { plataforma: "SuiteDO", tarea: "Validar el funcionamiento de NOM-035 y el diagnóstico de Cultura", cat: "Calidad", manualHoras: 8, iaHoras: 3 },
+        { plataforma: "SuiteDO", tarea: "Advertir e impedir el cambio de tipo de encuesta para no romper diagnósticos aplicados", cat: "Funcionalidad", manualHoras: 6, iaHoras: 2 },
+        { plataforma: "SuiteDO", tarea: "Aplicar un diagnóstico desde plantillas", cat: "Funcionalidad", manualHoras: 10, iaHoras: 3 },
+        { plataforma: "SuiteDO", tarea: "Recordar este dispositivo al iniciar sesión", cat: "Seguridad", manualHoras: 6, iaHoras: 2 },
+        { plataforma: "SuiteDO", tarea: "Onboarding tours en flujos clave del admin (crear plantilla, aplicar diagnóstico) con Driver.js", cat: "Frontend / UX", manualHoras: 16, iaHoras: 5 },
+        { plataforma: "SuiteDO", tarea: "Leyenda de solo lectura en diagnósticos fuera de borrador", cat: "Frontend / UX", manualHoras: 2, iaHoras: 1 },
+        { plataforma: "SuiteDO", tarea: "Renombrar «Escala personalizada» a «Varias opciones»", cat: "Frontend / UX", manualHoras: 2, iaHoras: 1 },
+        { plataforma: "SuiteDO", tarea: "Rediseño de categorías y preguntas", cat: "Frontend / UX", manualHoras: 12, iaHoras: 4 },
+        { plataforma: "SuiteDO", tarea: "Quitar el candado del reporte anónimo", cat: "Funcionalidad", manualHoras: 3, iaHoras: 1 },
+        { plataforma: "SuiteDO", tarea: "Filtro por colaboradores en diagnósticos NOM-035", cat: "Funcionalidad", manualHoras: 6, iaHoras: 2 },
+        { plataforma: "SuiteDO", tarea: "Secciones desplegables (preguntas y categorías)", cat: "Frontend / UX", manualHoras: 4, iaHoras: 1 },
+        { plataforma: "SuiteDO", tarea: "Reincorporar instrucciones (Driver.js) en la creación de categorías y preguntas", cat: "Frontend / UX", manualHoras: 4, iaHoras: 1 },
+        { plataforma: "SuiteDO", tarea: "Establecer estándares y pruebas de código", cat: "Calidad", manualHoras: 16, iaHoras: 5 },
 
-        // UHE
-        { plataforma: "UHE", tarea: "MFA en la plataforma", cat: "Seguridad", manualHoras: 24, iaHoras: 8 },
-        { plataforma: "UHE", tarea: "Migración de npm a pnpm", cat: "Deuda Técnica", manualHoras: 6, iaHoras: 2 },
-        { plataforma: "UHE", tarea: "Resolver IDOR: exposición de datos de alumnos", cat: "Seguridad", manualHoras: 12, iaHoras: 4 },
-        { plataforma: "UHE", tarea: "Quitar Sentinel (librería en desuso)", cat: "Deuda Técnica", manualHoras: 20, iaHoras: 6 },
-        { plataforma: "UHE", tarea: "Rate limit para inicios de sesión", cat: "Seguridad", manualHoras: 8, iaHoras: 2 },
-        { plataforma: "UHE", tarea: "Implementar NGINX y Dockerizar en Producción", cat: "Infraestructura", manualHoras: 16, iaHoras: 5 },
-        { plataforma: "UHE", tarea: "Actualizar versión de Laravel (13)", cat: "Infraestructura", manualHoras: 24, iaHoras: 8 },
-        { plataforma: "UHE", tarea: "Adaptar todos los SweetAlert al modo claro y oscuro", cat: "Frontend / UX", manualHoras: 8, iaHoras: 3 },
-        { plataforma: "UHE", tarea: "Quitar nwidart/laravel-modules", cat: "Deuda Técnica", manualHoras: 16, iaHoras: 5 },
-        { plataforma: "UHE", tarea: "Implementar Chatbot", cat: "IA / Chatbot", manualHoras: 40, iaHoras: 12 },
-        { plataforma: "UHE", tarea: "Pasar todo el código JS a TS", cat: "Deuda Técnica", manualHoras: 40, iaHoras: 12 },
-        { plataforma: "UHE", tarea: "Aumentar rate limit para inicios de sesión", cat: "Seguridad", manualHoras: 4, iaHoras: 1 },
-        { plataforma: "UHE", tarea: "Al recargar la página actual, no regresar al dashboard desde el principio", cat: "Frontend / UX", manualHoras: 6, iaHoras: 2 },
-        { plataforma: "UHE", tarea: "react-query (TanStack Query): reemplaza el patrón manual (Rol Admin)", cat: "Frontend / UX", manualHoras: 16, iaHoras: 5 },
-        { plataforma: "UHE", tarea: "react-query (TanStack Query): reemplaza el patrón manual (Rol Students)", cat: "Frontend / UX", manualHoras: 16, iaHoras: 5 },
-        { plataforma: "UHE", tarea: "Construir Skeleton + TableSkeleton", cat: "Frontend / UX", manualHoras: 12, iaHoras: 4 },
-        { plataforma: "UHE", tarea: "Lazy routes (React.lazy + Suspense)", cat: "Frontend / UX", manualHoras: 6, iaHoras: 2 },
-        { plataforma: "UHE", tarea: "Quick-wins a11y: arreglos chicos de accesibilidad", cat: "Frontend / UX", manualHoras: 8, iaHoras: 3 },
-        { plataforma: "UHE", tarea: "Unificar colores de SweetAlert en un helper con tokens (eliminar colores hardcoded en ~15 lugares, centralizar en useAlert)", cat: "Frontend / UX", manualHoras: 8, iaHoras: 3 },
-        { plataforma: "UHE", tarea: "Seguridad: $request->all() (evitar inyección por payload), rate limit de passwords y carga de archivos", cat: "Seguridad", manualHoras: 16, iaHoras: 5 },
-        { plataforma: "UHE", tarea: "React Table: al recargar no perder el número de paginación", cat: "Frontend / UX", manualHoras: 6, iaHoras: 2 },
-        { plataforma: "UHE", tarea: "FormRequests", cat: "Seguridad", manualHoras: 12, iaHoras: 4 },
+        // Humana11-Frontend
+        { plataforma: "Humana11-Frontend", tarea: "Crear una isla de Astro para la sección de recursos", cat: "Frontend / UX", manualHoras: 8, iaHoras: 3 },
+        { plataforma: "Humana11-Frontend", tarea: "Optimizar imágenes con <Image /> de Astro (lazy load + sharp) para mejorar el performance", cat: "Frontend / UX", manualHoras: 8, iaHoras: 3 },
+        { plataforma: "Humana11-Frontend", tarea: "Mejorar la accesibilidad (a11y) para SEO", cat: "Frontend / UX", manualHoras: 10, iaHoras: 3 },
+        { plataforma: "Humana11-Frontend", tarea: "Centrar el modal de testimoniales", cat: "Frontend / UX", manualHoras: 2, iaHoras: 1 },
 
-        // Talento
-        { plataforma: "Talento", tarea: "Quitar Sentinel", cat: "Deuda Técnica", manualHoras: 20, iaHoras: 6 },
-        { plataforma: "Talento", tarea: "Rate limit para inicios de sesión", cat: "Seguridad", manualHoras: 8, iaHoras: 2 },
-        { plataforma: "Talento", tarea: "Implementar NGINX y Dockerizar en Producción", cat: "Infraestructura", manualHoras: 16, iaHoras: 5 },
-        { plataforma: "Talento", tarea: "Actualizar versión de Laravel (13)", cat: "Infraestructura", manualHoras: 24, iaHoras: 8 },
-        { plataforma: "Talento", tarea: "Adaptar todos los SweetAlert al modo claro y oscuro", cat: "Frontend / UX", manualHoras: 8, iaHoras: 3 },
-        { plataforma: "Talento", tarea: "Aumentar rate limit para inicios de sesión", cat: "Seguridad", manualHoras: 4, iaHoras: 1 },
-        { plataforma: "Talento", tarea: "Pasar todo el código JS a TS", cat: "Deuda Técnica", manualHoras: 40, iaHoras: 12 },
-        { plataforma: "Talento", tarea: "Al recargar la página actual, no regresar al dashboard desde el principio", cat: "Frontend / UX", manualHoras: 6, iaHoras: 2 },
-        { plataforma: "Talento", tarea: "Chatbot Humi para administración", cat: "IA / Chatbot", manualHoras: 40, iaHoras: 12 },
-        { plataforma: "Talento", tarea: "react-query (TanStack Query): reemplaza el patrón manual", cat: "Frontend / UX", manualHoras: 16, iaHoras: 5 },
-        { plataforma: "Talento", tarea: "Construir Skeleton + TableSkeleton", cat: "Frontend / UX", manualHoras: 12, iaHoras: 4 },
-        { plataforma: "Talento", tarea: "Chatbot Humi para candidatos", cat: "IA / Chatbot", manualHoras: 40, iaHoras: 12 },
-
-        // Humana11
-        { plataforma: "Humana11", tarea: "Implementar NGINX y Dockerizar en Producción", cat: "Infraestructura", manualHoras: 16, iaHoras: 5 },
-        { plataforma: "Humana11", tarea: "Cambiar PHP 8.2 → 8.4 y Laravel 10 → 13", cat: "Infraestructura", manualHoras: 32, iaHoras: 10 },
-        { plataforma: "Humana11", tarea: "Construir Skeleton + TableSkeleton", cat: "Frontend / UX", manualHoras: 12, iaHoras: 4 },
+        // Humana11-Web
+        { plataforma: "Humana11-Web", tarea: "Actualizar la sección de Espacios", cat: "Funcionalidad", manualHoras: 8, iaHoras: 3 },
+        { plataforma: "Humana11-Web", tarea: "Corregir el error 403 para usuarios Humana11", cat: "Seguridad", manualHoras: 6, iaHoras: 2 },
 
         // Humana11-Admin
-        { plataforma: "Humana11-Admin", tarea: "Rate limit para inicios de sesión", cat: "Seguridad", manualHoras: 8, iaHoras: 2 },
-        { plataforma: "Humana11-Admin", tarea: "spatie/laravel-activitylog (bitácora de trazabilidad)", cat: "Seguridad", manualHoras: 16, iaHoras: 5 },
-        { plataforma: "Humana11-Admin", tarea: "Gestor de contraseñas", cat: "Seguridad", manualHoras: 12, iaHoras: 4 },
-        { plataforma: "Humana11-Admin", tarea: "Al recargar la página actual, no regresar al dashboard desde el principio", cat: "Frontend / UX", manualHoras: 6, iaHoras: 2 },
-        { plataforma: "Humana11-Admin", tarea: "react-query (TanStack Query): reemplaza el patrón manual", cat: "Frontend / UX", manualHoras: 16, iaHoras: 5 },
+        { plataforma: "Humana11-Admin", tarea: "Registrar todas las contraseñas en el gestor", cat: "Seguridad", manualHoras: 6, iaHoras: 2 },
+        { plataforma: "Humana11-Admin", tarea: "Visualizar las contraseñas asignadas al usuario", cat: "Seguridad", manualHoras: 6, iaHoras: 2 },
+        { plataforma: "Humana11-Admin", tarea: "Mostrar badges de permisos en la tabla de usuarios", cat: "Funcionalidad", manualHoras: 6, iaHoras: 2 },
+        { plataforma: "Humana11-Admin", tarea: "Chatbot Humi con opciones fijas y opciones con IA", cat: "IA / Chatbot", manualHoras: 40, iaHoras: 12 },
+        { plataforma: "Humana11-Admin", tarea: "Endurecer seguridad: evitar inyección por payload ($request->all()), rate limit de contraseñas y validación de carga de archivos", cat: "Seguridad", manualHoras: 16, iaHoras: 5 },
+        { plataforma: "Humana11-Admin", tarea: "Agregar los FormRequests necesarios", cat: "Seguridad", manualHoras: 10, iaHoras: 3 },
+        { plataforma: "Humana11-Admin", tarea: "Agregar los API Resources necesarios", cat: "Seguridad", manualHoras: 8, iaHoras: 3 },
+        { plataforma: "Humana11-Admin", tarea: "Recordar este dispositivo al iniciar sesión", cat: "Seguridad", manualHoras: 6, iaHoras: 2 },
+        { plataforma: "Humana11-Admin", tarea: "Migrar de TypeScript 6 a TypeScript 7", cat: "Deuda Técnica", manualHoras: 8, iaHoras: 3 },
 
-        // Humana11-Backend
-        { plataforma: "Humana11-Backend", tarea: "Pasar todo el código JS a TS", cat: "Deuda Técnica", manualHoras: 40, iaHoras: 12 },
+        // Talento
+        { plataforma: "Talento", tarea: "React Table: conservar el número de paginación al recargar", cat: "Frontend / UX", manualHoras: 6, iaHoras: 2 },
+        { plataforma: "Talento", tarea: "Recordar este dispositivo al iniciar sesión", cat: "Seguridad", manualHoras: 6, iaHoras: 2 },
+        { plataforma: "Talento", tarea: "Diagnósticos para vacantes", cat: "Funcionalidad", manualHoras: 16, iaHoras: 5 },
+        { plataforma: "Talento", tarea: "Diagnósticos con plantillas", cat: "Funcionalidad", manualHoras: 12, iaHoras: 4 },
+        { plataforma: "Talento", tarea: "Aplicar diagnósticos al finalizar el proceso de la vacante", cat: "Funcionalidad", manualHoras: 8, iaHoras: 3 },
+        { plataforma: "Talento", tarea: "Diagnósticos NPS", cat: "Funcionalidad", manualHoras: 12, iaHoras: 4 },
+        { plataforma: "Talento", tarea: "Puntuación de opciones de preguntas del diagnóstico", cat: "Funcionalidad", manualHoras: 6, iaHoras: 2 },
+        { plataforma: "Talento", tarea: "Ponderación de preguntas por sección del diagnóstico", cat: "Funcionalidad", manualHoras: 6, iaHoras: 2 },
+        { plataforma: "Talento", tarea: "Seleccionar NPS al finalizar una vacante (cliente y candidato)", cat: "Funcionalidad", manualHoras: 6, iaHoras: 2 },
+        { plataforma: "Talento", tarea: "Reporte NPS", cat: "Funcionalidad", manualHoras: 8, iaHoras: 3 },
+        { plataforma: "Talento", tarea: "Seeder de NPS", cat: "Base de Datos", manualHoras: 3, iaHoras: 1 },
+        { plataforma: "Talento", tarea: "Mostrar el botón Contratar al completar el proceso de la vacante", cat: "Funcionalidad", manualHoras: 4, iaHoras: 1 },
+        { plataforma: "Talento", tarea: "Añadir captcha al formulario de registro de candidatos", cat: "Seguridad", manualHoras: 4, iaHoras: 1 },
 
-        // DB
-        { plataforma: "DB", tarea: "Depurar la tabla telescope_entries en la BD de Talento (demasiados registros, ~170 MB)", cat: "Infraestructura", manualHoras: 4, iaHoras: 1 },
+        // Humana11
+        { plataforma: "Humana11", tarea: "Gestión de cupones de descuento para EGAFI (−$1,000)", cat: "Funcionalidad", manualHoras: 12, iaHoras: 4 },
+        { plataforma: "Humana11", tarea: "React Table: conservar el número de paginación al recargar", cat: "Frontend / UX", manualHoras: 6, iaHoras: 2 },
+
+        // UHE
+        { plataforma: "UHE", tarea: "Chatbot Humi: añadir opción con IA", cat: "IA / Chatbot", manualHoras: 16, iaHoras: 5 },
+        { plataforma: "UHE", tarea: "Corregir: el Quiz no se mostraba", cat: "Funcionalidad", manualHoras: 4, iaHoras: 1 },
+        { plataforma: "UHE", tarea: "Corregir: la Encuesta no se mostraba", cat: "Funcionalidad", manualHoras: 4, iaHoras: 1 },
+        { plataforma: "UHE", tarea: "Fechas de inicio y fin opcionales en Quiz y Encuesta (desbloquear la fecha final al fijar la de inicio)", cat: "Funcionalidad", manualHoras: 8, iaHoras: 3 },
+        { plataforma: "UHE", tarea: "Corregir: no se veían los participantes del Quiz", cat: "Funcionalidad", manualHoras: 4, iaHoras: 1 },
+        { plataforma: "UHE", tarea: "Gráfica de respuestas cerradas (Sí/No) en el reporte de encuestas", cat: "Funcionalidad", manualHoras: 8, iaHoras: 3 },
+        { plataforma: "UHE", tarea: "Recordar este dispositivo al iniciar sesión", cat: "Seguridad", manualHoras: 6, iaHoras: 2 },
+        { plataforma: "UHE", tarea: "Promedio del quiz entre todos los participantes", cat: "Funcionalidad", manualHoras: 4, iaHoras: 1 },
+        { plataforma: "UHE", tarea: "Encuesta: opción múltiple", cat: "Funcionalidad", manualHoras: 6, iaHoras: 2 },
+        { plataforma: "UHE", tarea: "Varias opciones en la encuesta de contenido", cat: "Funcionalidad", manualHoras: 6, iaHoras: 2 },
+        { plataforma: "UHE", tarea: "Migrar de TypeScript 6 a TypeScript 7", cat: "Deuda Técnica", manualHoras: 8, iaHoras: 3 },
+        { plataforma: "UHE", tarea: "Rediseño de categorías y preguntas", cat: "Frontend / UX", manualHoras: 12, iaHoras: 4 },
+        { plataforma: "UHE", tarea: "Bloquear (candado) la ponderación de preguntas del Quiz", cat: "Funcionalidad", manualHoras: 4, iaHoras: 1 },
+        { plataforma: "UHE", tarea: "Opción «Otro» en las opciones de diagnóstico", cat: "Funcionalidad", manualHoras: 4, iaHoras: 1 },
+        { plataforma: "UHE", tarea: "Crear apartado para subir los certificados de los alumnos", cat: "Funcionalidad", manualHoras: 10, iaHoras: 3 },
+
+        // Otros
+        { plataforma: "Otros", tarea: "Reporte de uso de espacios", cat: "Funcionalidad", manualHoras: 8, iaHoras: 3 },
     ];
 
     const catStyles = {
@@ -83,6 +105,8 @@ export const AIUsage = () => {
         "Frontend / UX": "bg-sky-100 text-sky-800 dark:bg-sky-900 dark:text-sky-200",
         "IA / Chatbot": "bg-cyan-100 text-cyan-800 dark:bg-cyan-900 dark:text-cyan-200",
         "Calidad": "bg-emerald-100 text-emerald-800 dark:bg-emerald-900 dark:text-emerald-200",
+        "Funcionalidad": "bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-200",
+        "Base de Datos": "bg-fuchsia-100 text-fuchsia-800 dark:bg-fuchsia-900 dark:text-fuchsia-200",
     };
 
     const totalManual = tareas.reduce((acc, t) => acc + t.manualHoras, 0);
@@ -109,7 +133,7 @@ export const AIUsage = () => {
     const footAhorro = footManual - footIA;
     const footPct = footManual ? Math.round((footAhorro / footManual) * 100) : 0;
 
-    const lastUpdate = "2026-06-30 00:00:00";
+    const lastUpdate = "2026-08-06 00:00:00";
 
     const fmtHoras = (h) => `${h} h (~${(h / 8).toFixed(1)} d)`;
 
@@ -121,7 +145,7 @@ export const AIUsage = () => {
                         Uso de IA
                     </h1>
                     <p className="text-xl md:text-2xl font-bold text-zinc-600 dark:text-zinc-300 mb-2">
-                        Tareas del área de Funcionalidad Tecnológica desarrolladas con apoyo de Inteligencia Artificial durante junio y el tiempo de desarrollo que representó frente al trabajo manual.
+                        Tareas del área de Funcionalidad Tecnológica desarrolladas con apoyo de Inteligencia Artificial durante julio y agosto, y el tiempo de desarrollo que representaron frente al trabajo manual.
                     </p>
                     <p className="text-sm text-zinc-500 dark:text-zinc-400 mb-8">
                         Última actualización: {new Date(lastUpdate).toLocaleDateString('es-MX', { year: 'numeric', month: 'long', day: 'numeric' })}
@@ -243,13 +267,13 @@ export const AIUsage = () => {
                     <div className="mt-8 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-sm rounded-xl shadow-lg p-6">
                         <h2 className="text-xl font-black text-zinc-900 dark:text-zinc-100 mb-3">Mejora en el flujo de trabajo</h2>
                         <p className="text-sm text-zinc-600 dark:text-zinc-300 mb-4">
-                            El apoyo de IA permitió al área de Funcionalidad Tecnológica atender en un solo mes {tareas.length} tareas en {plataformas.length} plataformas del ecosistema, cubriendo seguridad, infraestructura, deuda técnica, experiencia de usuario y nuevas funcionalidades con IA.
+                            El apoyo de IA permitió al área de Funcionalidad Tecnológica atender en dos meses {tareas.length} tareas en {plataformas.length} plataformas del ecosistema, cubriendo seguridad, funcionalidades nuevas, experiencia de usuario, deuda técnica y capacidades con IA.
                         </p>
                         <ul className="space-y-2 text-sm text-zinc-600 dark:text-zinc-300">
-                            <li className="flex items-start gap-2"><span className="text-cyan-600 dark:text-cyan-400 font-bold">▸</span> Seguridad estandarizada: MFA, rate limiting, resolución de IDOR, FormRequests y bitácora de trazabilidad replicados en las plataformas.</li>
-                            <li className="flex items-start gap-2"><span className="text-cyan-600 dark:text-cyan-400 font-bold">▸</span> Infraestructura homologada: NGINX + Docker en producción y actualización a Laravel 13 / PHP 8.4 en varios proyectos.</li>
-                            <li className="flex items-start gap-2"><span className="text-cyan-600 dark:text-cyan-400 font-bold">▸</span> Reducción de deuda técnica: retiro de Sentinel y nwidart/laravel-modules, migración de npm a pnpm y de JS a TS.</li>
-                            <li className="flex items-start gap-2"><span className="text-cyan-600 dark:text-cyan-400 font-bold">▸</span> Nuevas capacidades con IA: chatbots Humi, generación de reportes con IA y diagnóstico cultural.</li>
+                            <li className="flex items-start gap-2"><span className="text-cyan-600 dark:text-cyan-400 font-bold">▸</span> Seguridad reforzada: FormRequests, API Resources, rate limit de contraseñas, protección contra inyección por payload, captcha, 2FA y «recordar dispositivo» replicados en las plataformas.</li>
+                            <li className="flex items-start gap-2"><span className="text-cyan-600 dark:text-cyan-400 font-bold">▸</span> Diagnósticos ampliados: NOM-035 y Cultura refactorizados, evaluación 360° en Excel, y diagnósticos con plantillas y NPS integrados a Talento.</li>
+                            <li className="flex items-start gap-2"><span className="text-cyan-600 dark:text-cyan-400 font-bold">▸</span> Capacidades con IA: chatbot Humi con opciones fijas y con IA, e informes/reportes 360° generados automáticamente.</li>
+                            <li className="flex items-start gap-2"><span className="text-cyan-600 dark:text-cyan-400 font-bold">▸</span> Experiencia y calidad: onboarding tours con Driver.js, optimización de imágenes y accesibilidad (SEO) en el frontend, migración a TypeScript 7 y estándares con pruebas de código.</li>
                         </ul>
                     </div>
 

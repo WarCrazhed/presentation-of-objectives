@@ -6,7 +6,7 @@ export const OperatingExpenses = () => {
             currency: "MXN",
             period: "Mensual",
             description: "Alojamiento de plataformas, base de datos y archivos.",
-            status: "Pagado",
+            status: "",
             icon: "☁️"
         },
         {
@@ -29,7 +29,7 @@ export const OperatingExpenses = () => {
         },
         {
             name: "Gemini API",
-            amount: 0.00,
+            amount: 23.97,
             currency: "MXN",
             period: "Variable",
             description: "Servicios de Inteligencia Artificial para aplicaciones.",

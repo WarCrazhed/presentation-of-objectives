@@ -1,5 +1,5 @@
 import { useState, useEffect, lazy, Suspense } from 'react'
-import { Home, Questions, Platforms, OperatingExpenses, StrategicObjective, EmergingProject, AIUsage, PeriodActivity } from './pages'
+import { Home, Questions, Platforms, OperatingExpenses, StrategicObjective, AIUsage, PeriodActivity } from './pages'
 import { Layout } from './components/Layout'
 
 // Carga diferida: three.js pesa ~500 kB; la escena es decorativa y no bloquea el primer render.
@@ -52,10 +52,6 @@ export const App = () => {
         {
             content: "strategy",
             view: <StrategicObjective />
-        },
-        {
-            content: "emerging",
-            view: <EmergingProject />
         },
         {
             content: "ai-usage",
