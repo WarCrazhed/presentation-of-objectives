@@ -38,17 +38,30 @@ export const OperatingExpenses = () => {
         },
         {
             name: "Claude Max (2 cuentas)",
-            amount: 3000.00,
+            amount: 1840.00,
             currency: "MXN",
             period: "Mensual",
             description: "Asistente de IA para desarrollo (Claude Code). 2 cuentas del área.",
             status: "Versión Max",
             icon: "🤖"
+        },
+        {
+            name: "Disco SSD 480GB STYLOSTECH",
+            amount: 1369.00,
+            currency: "MXN",
+            period: "Único",
+            description: "SSD 2.5\" SATA III, reemplazo del disco dañado en el equipo de Marlett.",
+            status: "Pagado",
+            icon: "💾"
         }
     ];
 
     const totalMonthlyMXN = expenses
-        .filter(e => e.currency === "MXN")
+        .filter(e => e.currency === "MXN" && e.period !== "Único")
+        .reduce((acc, curr) => acc + curr.amount, 0);
+
+    const totalOneTimeMXN = expenses
+        .filter(e => e.currency === "MXN" && e.period === "Único")
         .reduce((acc, curr) => acc + curr.amount, 0);
 
     return (
@@ -93,6 +106,9 @@ export const OperatingExpenses = () => {
                         <h4 className="text-lime-100 font-medium uppercase tracking-widest text-sm">Resumen de Inversión Mensual</h4>
                         <p className="text-3xl md:text-5xl font-black">
                             {totalMonthlyMXN.toLocaleString('es-MX', { style: 'currency', currency: 'MXN' })}
+                        </p>
+                        <p className="text-sm text-lime-100">
+                            + {totalOneTimeMXN.toLocaleString('es-MX', { style: 'currency', currency: 'MXN' })} en gastos únicos (hardware)
                         </p>
                     </div>
                     <div className="flex items-center gap-4 bg-white/10 backdrop-blur-md p-4 rounded-2xl">
