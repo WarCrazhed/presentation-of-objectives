@@ -1,9 +1,9 @@
-import { useState, useEffect, lazy, Suspense } from 'react'
+import { useState, useEffect } from 'react'
 import { Home, Questions, Platforms, OperatingExpenses, StrategicObjective, AIUsage, PeriodActivity } from './pages'
 import { Layout } from './components/Layout'
+import { Alert, ArrowRight, ChevronLeft, ChevronRight, Eye, Lock } from './components/icons'
 
-// Carga diferida: three.js pesa ~500 kB; la escena es decorativa y no bloquea el primer render.
-const Scene3D = lazy(() => import('./components/Scene3D').then((m) => ({ default: m.Scene3D })))
+const pad = (n) => String(n).padStart(2, '0')
 
 export const App = () => {
     const [currentSlide, setCurrentSlide] = useState(() => Number(sessionStorage.getItem('h11_slide')) || 0)
@@ -83,51 +83,56 @@ export const App = () => {
     if (!isAuthenticated) {
         return (
             <Layout>
-                <Suspense fallback={<div className="fixed inset-0 z-0 bg-[#f7f7f5] dark:bg-[#0a0a14]" />}>
-                    <Scene3D currentSlide={0} totalSlides={slides.length} />
-                </Suspense>
-                <div className="relative z-10 min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-                    <div className="max-w-md w-full space-y-8 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-xl p-10 rounded-3xl shadow-2xl border border-zinc-200 dark:border-zinc-800">
-                        <div>
-                            <div className="w-20 h-20 bg-gradient-to-tr from-lime-500 to-lime-700 rounded-2xl mx-auto flex items-center justify-center text-4xl shadow-lg ring-4 ring-lime-500/20">
-                                🚀
-                            </div>
-                            <h2 className="mt-6 text-center text-3xl font-black text-zinc-900 dark:text-zinc-50 tracking-tight">
-                                Acceso Restringido
-                            </h2>
-                            <p className="mt-2 text-center text-sm text-zinc-500 dark:text-zinc-400 font-medium">
-                                Por favor ingrese la contraseña de la presentación
-                            </p>
+                <div className="flex min-h-[calc(100vh-13rem)] items-center justify-center px-4 py-16">
+                    <div className="flex w-full max-w-sm flex-col gap-5 rounded-xl border border-line bg-panel p-8">
+                        <span className="inline-flex size-10 items-center justify-center rounded-lg border border-line bg-panel-2 text-accent">
+                            <Lock className="size-5" />
+                        </span>
+
+                        <div className="flex flex-col gap-1.5">
+                            <h1 className="text-xl font-semibold tracking-tight">Acceso restringido</h1>
+                            <p className="text-sm text-muted">Ingresa la contraseña de la presentación para continuar.</p>
                         </div>
-                        <form className="mt-8 space-y-6" onSubmit={handleLogin}>
-                            <div className="rounded-md shadow-sm -space-y-px">
-                                <div>
+
+                        <form className="flex flex-col gap-4" onSubmit={handleLogin}>
+                            <div className="flex flex-col gap-2">
+                                <label htmlFor="h11-password" className="font-mono text-[10px] uppercase tracking-[0.1em] text-dim">
+                                    Contraseña
+                                </label>
+                                <div className="relative">
                                     <input
+                                        id="h11-password"
                                         type="password"
                                         required
-                                        className={`appearance-none rounded-2xl relative block w-full px-4 py-4 border ${error ? 'border-red-500' : 'border-zinc-300 dark:border-zinc-700'} placeholder-zinc-500 text-zinc-900 dark:text-white dark:bg-zinc-800/50 focus:outline-none focus:ring-2 focus:ring-lime-500 focus:border-transparent sm:text-sm transition-all`}
-                                        placeholder="Contraseña"
+                                        autoFocus
+                                        className={`w-full rounded-lg border bg-canvas px-3.5 py-3 pr-10 text-sm tracking-widest text-ink placeholder-dim focus:outline-none ${error ? 'border-danger' : 'border-line focus:border-accent'}`}
+                                        placeholder="••••••••"
                                         value={password}
                                         onChange={(e) => setPassword(e.target.value)}
                                     />
+                                    <Eye className="pointer-events-none absolute right-3 top-1/2 size-4 -translate-y-1/2 text-dim" />
                                 </div>
                             </div>
 
                             {error && (
-                                <p className="text-red-500 text-xs font-bold text-center animate-pulse">
-                                    Contraseña incorrecta. Intente de nuevo.
+                                <p className="flex items-center gap-2 rounded-lg bg-danger-bg px-3 py-2.5 text-xs text-danger">
+                                    <Alert className="size-4 shrink-0" />
+                                    Contraseña incorrecta. Intenta de nuevo.
                                 </p>
                             )}
 
-                            <div>
-                                <button
-                                    type="submit"
-                                    className="group relative w-full flex justify-center py-4 px-4 border border-transparent text-sm font-black rounded-2xl text-white bg-gradient-to-r from-lime-500 to-lime-700 hover:from-lime-600 hover:to-lime-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-lime-500 shadow-xl transition-all transform hover:scale-[1.02] active:scale-[0.98]"
-                                >
-                                    INGRESAR ➜
-                                </button>
-                            </div>
+                            <button
+                                type="submit"
+                                className="inline-flex items-center justify-center gap-2 rounded-lg bg-accent py-3 text-sm font-semibold text-accent-ink transition-opacity hover:opacity-90"
+                            >
+                                Entrar
+                                <ArrowRight className="size-4" />
+                            </button>
                         </form>
+
+                        <p className="text-center font-mono text-[10px] text-faint">
+                            humana11 · funcionalidad tecnológica · 2026
+                        </p>
                     </div>
                 </div>
             </Layout>
@@ -135,51 +140,44 @@ export const App = () => {
     }
 
     return (
-        <Layout>
-            <Suspense fallback={<div className="fixed inset-0 z-0 bg-[#f7f7f5] dark:bg-[#0a0a14]" />}>
-                <Scene3D currentSlide={currentSlide} totalSlides={slides.length} />
-            </Suspense>
-            <div className="relative z-10">
-                {slides[currentSlide].view}
-            </div>
-            <footer className="fixed bottom-0 left-0 right-0 z-40 bg-white/70 dark:bg-zinc-950/70 backdrop-blur-xl border-t border-zinc-200/70 dark:border-zinc-800/70">
-                <div className="max-w-5xl mx-auto px-4 sm:px-8 py-3">
-                    <div className="flex items-center gap-4">
-                        <button
-                            onClick={prevSlide}
-                            disabled={currentSlide === 0}
-                            aria-label="Anterior"
-                            className="shrink-0 inline-flex items-center justify-center h-10 w-10 rounded-full bg-lime-500 text-white shadow-md hover:bg-lime-600 disabled:opacity-30 disabled:pointer-events-none transition-all active:scale-90"
-                        >
-                            <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" /></svg>
-                        </button>
+        <Layout counter={`${pad(currentSlide + 1)} / ${pad(slides.length)}`}>
+            {slides[currentSlide].view}
 
-                        <div className="flex-1 min-w-0">
-                            <div className="flex items-baseline justify-center gap-2">
-                                <span className="truncate text-sm font-bold text-zinc-800 dark:text-zinc-100">{slides[currentSlide].title}</span>
-                                <span className="shrink-0 text-xs font-semibold text-zinc-400 dark:text-zinc-500 tabular-nums">{currentSlide + 1} / {slides.length}</span>
-                            </div>
-                            <div className="mt-2 flex justify-center gap-1.5">
-                                {slides.map((_, index) => (
-                                    <button
-                                        key={index}
-                                        onClick={() => setCurrentSlide(index)}
-                                        aria-label={`Ir al slide ${index + 1}`}
-                                        className={`h-1.5 rounded-full transition-all ${index === currentSlide ? 'bg-lime-500 w-8' : 'bg-zinc-300 dark:bg-zinc-700 w-1.5 hover:bg-lime-400 dark:hover:bg-lime-700'}`}
-                                    />
-                                ))}
-                            </div>
+            <footer className="fixed bottom-0 left-0 right-0 z-40 border-t border-line bg-panel">
+                <div className="mx-auto flex max-w-6xl items-center gap-4 px-4 py-2.5 sm:px-7">
+                    <button
+                        onClick={prevSlide}
+                        disabled={currentSlide === 0}
+                        aria-label="Slide anterior"
+                        className="inline-flex size-8 shrink-0 items-center justify-center rounded-md border border-line text-muted transition-colors hover:border-accent hover:text-accent disabled:pointer-events-none disabled:text-faint"
+                    >
+                        <ChevronLeft className="size-4" />
+                    </button>
+
+                    <div className="flex min-w-0 flex-1 flex-col items-center gap-2">
+                        <div className="flex w-full items-center gap-1">
+                            {slides.map((slide, index) => (
+                                <button
+                                    key={slide.content}
+                                    onClick={() => setCurrentSlide(index)}
+                                    aria-label={`Ir a ${slide.title}`}
+                                    aria-current={index === currentSlide}
+                                    title={slide.title}
+                                    className={`h-1 flex-1 rounded-sm transition-colors ${index === currentSlide ? 'bg-accent' : 'bg-line hover:bg-accent-soft'}`}
+                                />
+                            ))}
                         </div>
-
-                        <button
-                            onClick={nextSlide}
-                            disabled={currentSlide === slides.length - 1}
-                            aria-label="Siguiente"
-                            className="shrink-0 inline-flex items-center justify-center h-10 w-10 rounded-full bg-lime-500 text-white shadow-md hover:bg-lime-600 disabled:opacity-30 disabled:pointer-events-none transition-all active:scale-90"
-                        >
-                            <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" /></svg>
-                        </button>
+                        <p className="truncate text-xs text-muted">{slides[currentSlide].title}</p>
                     </div>
+
+                    <button
+                        onClick={nextSlide}
+                        disabled={currentSlide === slides.length - 1}
+                        aria-label="Slide siguiente"
+                        className="inline-flex size-8 shrink-0 items-center justify-center rounded-md bg-accent text-accent-ink transition-opacity hover:opacity-90 disabled:pointer-events-none disabled:bg-line disabled:text-faint"
+                    >
+                        <ChevronRight className="size-4" />
+                    </button>
                 </div>
             </footer>
         </Layout>

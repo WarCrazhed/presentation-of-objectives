@@ -1,99 +1,9 @@
 import { Fragment, useState } from 'react';
+import { MONTHS, strategicObjectives } from '../data/objectives';
+import { FootNote, SearchField, SlideHeader, Stat, StatStrip } from '../components/ui';
 
 export const StrategicObjective = () => {
     const [query, setQuery] = useState('');
-    const strategicObjectives = [
-        {
-            id: "1.0",
-            name: "SuiteDO",
-            description: "Implementar y Pivotear SuiteDO",
-            initiatives: [
-                { id: "1.1.1", name: "Despliegue", meta: "100%", responsable: "Mario Zamora", avance: 1, meses: [0, 1] }, // E, F
-                { id: "1.1.2", name: "Pivoteo", meta: "3 Clientes", responsable: "Funcionalidad Tecnológica", avance: 0.33, meses: [0, 1, 2, 4, 5] }, // E, F, M, M, J
-                { id: "1.1.3", name: "Implementar IA Diagnosticos", meta: "100% Diagnósticos", responsable: "Funcionalidad Tecnológica", avance: 1, meses: [2, 3, 4] } // M, A, M
-            ]
-        },
-        {
-            id: "2.0",
-            name: "NPS",
-            description: "Desarrollar NPS (Aplicable a todos los servicios)",
-            initiatives: [
-                { id: "2.1.1", name: "DO", meta: "100%", responsable: "Funcionalidad Tecnológica", avance: 1, meses: [0, 1] }, // E, F
-                { id: "2.1.2", name: "UHE", meta: "100%", responsable: "Funcionalidad Tecnológica", avance: 1, meses: [0, 1] }, // E, F
-                { id: "2.1.3", name: "TALENTO", meta: "100%", responsable: "Funcionalidad Tecnológica",  meses: [1, 2] } // F, M
-            ]
-        },
-        {
-            id: "3.0",
-            name: "Registro y Seguimiento de Mentores (SuiteDO)",
-            description: "Desarrollar proceso para el registro, seguimiento y calificación de mentores",
-            initiatives: [
-                { id: "3.1.1", name: "Desarrollar BD", meta: "100%", avance: 1, responsable: "Mario Zamora", meses: [0] }, // E
-                { id: "3.1.2", name: "Planificación y diseño", meta: "100%", avance: 1, responsable: "Funcionalidad Tecnológica", meses: [0] }, // E
-                { id: "3.1.3", name: "Desarrollar Funcionalidad", meta: "100%", avance: 1, responsable: "Funcionalidad Tecnológica", meses: [1, 2] }, // F, M
-                { id: "3.1.4", name: "Realizar Pruebas", meta: "100%", avance: 1, responsable: "Funcionalidad Tecnológica", meses: [3, 4] }, // A, M
-                { id: "3.1.5", name: "Despliegue", meta: "suitedo.com", avance: 1, responsable: "Mario Zamora", meses: [3, 4] } // A, M
-            ]
-        },
-        {
-            id: "4.0",
-            name: "IA Página Web",
-            description: "Desarrollar Asistente y Chatbot con IA",
-            initiatives: [
-                { id: "4.1.1", name: "Implementar API", meta: "(1-2) Modelo", responsable: "Funcionalidad Tecnológica", avance: 1, meses: [2, 3] }, // M, A
-                { id: "4.1.2", name: "Entrenar Modelo de IA", meta: "100%", responsable: "Funcionalidad Tecnológica", avance: 1, meses: [3, 4] }, // A, M
-                { id: "4.1.3", name: "Realizar Pruebas", meta: "100%", responsable: "Funcionalidad Tecnológica", avance: 1, meses: [4, 5] }, // M, J
-                { id: "4.1.4", name: "Despliegue", meta: "Humana11.com", responsable: "Mario Zamora", avance: 1, meses: [5] } // J
-            ]
-        },
-        {
-            id: "5.0",
-            name: "Cursos Virtuales UHE",
-            description: "Desarrollar la plataforma UHE para cursos virtuales",
-            initiatives: [
-                { id: "5.1.1", name: "Desarrollar BD", meta: "100%", responsable: "Mario Zamora", meses: [6] }, // J (Julio)
-                { id: "5.1.2", name: "Planificación y diseño", meta: "100%", responsable: "Funcionalidad Tecnológica", meses: [6] }, // J (Julio)
-                { id: "5.1.3", name: "Desarrollar Funcionalidad", meta: "100%", responsable: "Funcionalidad Tecnológica", meses: [7] }, // A (Agosto)
-                { id: "5.1.4", name: "Realizar Pruebas", meta: "100%", responsable: "Funcionalidad Tecnológica", meses: [8] }, // S (Septiembre)
-                { id: "5.1.5", name: "Despliegue", meta: "UHE", responsable: "Mario Zamora", meses: [8] } // S (Septiembre)
-            ]
-        },
-        {
-            id: "6.0",
-            name: "Vacantes Talento",
-            description: "Mostrar las vacantes disponibles de talento (Tráfico Talento y Humana11)",
-            initiatives: [
-                { id: "6.1.1", name: "Mostrar Vacantes Talento", meta: "100%", avance: 0.33, responsable: "Funcionalidad Tecnológica", meses: [5, 6] }, // J (Junio), J (Julio)
-                { id: "6.1.2", name: "Ligar H11 a Talento", meta: "100%", responsable: "Funcionalidad Tecnológica", meses: [5, 6] }, // J (Junio), J (Julio)
-                { id: "6.1.3", name: "Postularte como Candidato", meta: "100%", responsable: "Funcionalidad Tecnológica", meses: [6, 7] } // J (Julio), A (Agosto)
-            ]
-        },
-        {
-            id: "7.0",
-            name: "App Móvil UHE",
-            description: "Desarrollar Aplicación Móvil UHE (Play Store y App Store)",
-            initiatives: [
-                { id: "6.1.6", name: "Documentar equipo FT", meta: "100%", responsable: "Ernesto y Marlett", meses: [5] }, // J
-                { id: "6.1.7", name: "Planificación y diseño", meta: "100%", responsable: "Funcionalidad Tecnológica", meses: [6, 7] }, // J, A
-                { id: "6.1.8", name: "Desarrollar Funcionalidad", meta: "100%", responsable: "Funcionalidad Tecnológica", meses: [7, 8, 9] }, // A, S, O
-                { id: "6.1.9", name: "Realizar Pruebas", meta: "100%", responsable: "Funcionalidad Tecnológica", meses: [9, 10] }, // O, N
-                { id: "6.1.10", name: "Despliegue", meta: "Play Store y App Store", responsable: "Mario Zamora", meses: [11] } // D
-            ]
-        },
-        {
-            id: "8.0",
-            name: "App Assesment",
-            description: "Desarrollar Plataforma para assesment",
-            initiatives: [
-                { id: "6.1.11", name: "Planificación y diseño", meta: "100%", responsable: "Funcionalidad Tecnológica", avance: 1, meses: [1] }, // F
-                { id: "6.1.12", name: "Desarrollar Funcionalidad", meta: "100%", responsable: "Funcionalidad Tecnológica", avance: 1, meses: [1, 2] }, // F, M
-                { id: "6.1.13", name: "Realizar Pruebas", meta: "100%", responsable: "Funcionalidad Tecnológica", avance: 1, meses: [2] }, // M
-                { id: "6.1.14", name: "Despliegue", meta: "Talento", responsable: "Mario Zamora", avance: 1, meses: [2, 3] } // M, A
-            ]
-        },
-    ];
-
-    const months = ['E', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D'];
 
     const isMonthActive = (initiativeMeses, monthIndex) => {
         return initiativeMeses?.includes(monthIndex) || false;
@@ -113,122 +23,104 @@ export const StrategicObjective = () => {
             .filter(Boolean)
         : strategicObjectives;
 
+    const todas = strategicObjectives.flatMap((o) => o.initiatives);
+    const completadas = todas.filter((i) => i.avance === 1).length;
+    const enCurso = todas.filter((i) => i.avance != null && i.avance < 1).length;
+    const porIniciar = todas.length - completadas - enCurso;
+
     return (
-        <div>
-            <div className="flex flex-col py-12 md:py-20">
-                <div className="container m-auto p-4 md:p-8">
-                    <h1 className="text-2xl md:text-4xl lg:text-6xl font-black text-zinc-900 dark:text-white mb-4">
-                        Objetivos Estratégicos y Avances
-                    </h1>
-                    <p className="text-xl md:text-2xl font-bold text-zinc-600 dark:text-zinc-300 mb-8">
-                        En este apartado se presentan los objetivos estratégicos del departamento de Funcionalidad Tecnológica.
-                    </p>
-
-                    <div className="mb-4 relative max-w-md">
-                        <input
-                            type="text"
-                            value={query}
-                            onChange={(e) => setQuery(e.target.value)}
-                            placeholder="Buscar objetivo, iniciativa o responsable…"
-                            className="w-full px-4 py-2 pr-10 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-sm text-sm text-zinc-800 dark:text-zinc-100 placeholder-zinc-400 dark:placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-lime-500/50"
-                        />
-                        {query && (
-                            <button
-                                type="button"
-                                onClick={() => setQuery('')}
-                                className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-200"
-                                aria-label="Limpiar búsqueda"
-                            >
-                                ✕
-                            </button>
-                        )}
-                    </div>
-
-                    <div className="overflow-auto max-h-[70vh] bg-white/80 dark:bg-zinc-900/80 backdrop-blur-sm rounded-xl shadow-lg">
-                        <table className="min-w-full divide-y divide-zinc-200 dark:divide-zinc-700">
-                            <thead className="bg-zinc-50 dark:bg-zinc-800/50">
-                                <tr>
-                                    <th scope="col" className="sticky top-0 z-20 bg-zinc-50 dark:bg-zinc-800 px-4 py-3 text-left text-xs font-medium text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">Objetivos e Intenciones Estratégicas</th>
-                                    <th scope="col" className="sticky top-0 z-20 bg-zinc-50 dark:bg-zinc-800 px-4 py-3 text-left text-xs font-medium text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">Meta</th>
-                                    <th scope="col" className="sticky top-0 z-20 bg-zinc-50 dark:bg-zinc-800 px-4 py-3 text-left text-xs font-medium text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">Responsable(s)</th>
-                                    <th scope="col" className="sticky top-0 z-20 bg-zinc-50 dark:bg-zinc-800 px-4 py-3 text-left text-xs font-medium text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">Avance</th>
-                                    {months.map((month, index) => (
-                                        <th key={index} scope="col" className="sticky top-0 z-20 bg-zinc-50 dark:bg-zinc-800 px-2 py-3 text-center text-xs font-medium text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">
-                                            {month}
-                                        </th>
-                                    ))}
-                                </tr>
-                            </thead>
-                            <tbody className="divide-y divide-zinc-200 dark:divide-zinc-700">
-                                {filteredObjectives.length === 0 && (
-                                    <tr>
-                                        <td colSpan={16} className="px-4 py-8 text-center text-sm text-zinc-500 dark:text-zinc-400">
-                                            No se encontraron resultados para “{query}”.
-                                        </td>
-                                    </tr>
-                                )}
-                                {filteredObjectives.map((objective) => (
-                                    <Fragment key={objective.id}>
-                                        {/* Fila del objetivo principal */}
-                                        <tr key={objective.id} className="bg-lime-50/50 dark:bg-lime-900/20">
-                                            <td className="px-4 py-3 text-sm font-bold text-zinc-900 dark:text-zinc-100" colSpan={16}>
-                                                {objective.id} {objective.name}
-                                            </td>
-                                        </tr>
-
-                                        {/* Descripción del objetivo */}
-                                        <tr key={`${objective.id}-desc`} className="bg-zinc-50/50 dark:bg-zinc-800/50">
-                                            <td className="px-4 py-2 text-sm text-zinc-600 dark:text-zinc-400 italic pl-8" colSpan={16}>
-                                                {objective.description}
-                                            </td>
-                                        </tr>
-
-                                        {/* Iniciativas */}
-                                        {objective.initiatives.map((initiative) => (
-                                            <tr key={initiative.id} className="hover:bg-zinc-50 dark:hover:bg-zinc-800/50 transition-colors">
-                                                <td className="px-4 py-2 text-sm text-zinc-700 dark:text-zinc-300 pl-12">
-                                                    {initiative.id} {initiative.name}
-                                                </td>
-                                                <td className="px-4 py-2 text-sm text-zinc-600 dark:text-zinc-400">
-                                                    {initiative.meta}
-                                                </td>
-                                                <td className="px-4 py-2 text-sm text-zinc-600 dark:text-zinc-400">
-                                                    {initiative.responsable}
-                                                </td>
-                                                <td className="px-4 py-2 text-sm text-zinc-600 dark:text-zinc-400">
-                                                    {initiative.avance ? (
-                                                        <span className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-medium ${initiative.avance < 0.5 ? 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200' : initiative.avance < 1 ? 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200' : 'bg-lime-100 text-lime-800 dark:bg-lime-900 dark:text-lime-200'}`}>
-                                                            {Math.round(initiative.avance * 100)}%
-                                                        </span>
-                                                    ) : (
-                                                        <span className="text-zinc-400 dark:text-zinc-600">—</span>
-                                                    )}
-                                                </td>
-                                                {months.map((_, index) => (
-                                                    <td key={index} className="px-2 py-2 text-center text-sm font-medium">
-                                                        {isMonthActive(initiative.meses, index) ? (
-                                                            <span className="text-lime-600 dark:text-lime-400 font-bold">X</span>
-                                                        ) : (
-                                                            <span className="text-zinc-300 dark:text-zinc-700">•</span>
-                                                        )}
-                                                    </td>
-                                                ))}
-                                            </tr>
-                                        ))}
-                                    </Fragment>
-                                ))}
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <div className="mt-4 text-xs text-zinc-500 dark:text-zinc-400 text-right">
-                        <span className="inline-flex items-center gap-4">
-                            <span className="flex items-center gap-1"><span className="text-lime-600 dark:text-lime-400 font-bold">X</span> Mes previsto</span>
-                            <span className="flex items-center gap-1"><span className="text-zinc-300 dark:text-zinc-700">•</span> Sin actividad</span>
-                        </span>
+        <div className="mx-auto flex max-w-[1400px] flex-col gap-5 px-4 py-10 sm:px-7 md:py-14">
+            <SlideHeader
+                number="04"
+                eyebrow="objetivos"
+                title="Objetivos estratégicos"
+                description="Objetivos e iniciativas del departamento de Funcionalidad Tecnológica y los meses comprometidos."
+            >
+                <div className="flex flex-col items-start gap-2 md:items-end">
+                    <SearchField
+                        value={query}
+                        onChange={setQuery}
+                        placeholder="Buscar objetivo, iniciativa o responsable…"
+                    />
+                    <div className="flex items-center gap-3 text-[11px] text-muted">
+                        <span className="inline-flex items-center gap-1.5"><span className="size-2 rounded-[2px] bg-accent" />completado</span>
+                        <span className="inline-flex items-center gap-1.5"><span className="size-2 rounded-[2px] bg-accent-soft" />planeado</span>
                     </div>
                 </div>
+            </SlideHeader>
+
+            <StatStrip className="grid-cols-2 lg:grid-cols-4">
+                <Stat label="Objetivos" value={strategicObjectives.length} />
+                <Stat label="Iniciativas" value={todas.length} />
+                <Stat label="Completadas" value={completadas} hint={`${Math.round(completadas / todas.length * 100)}% del total`} accent />
+                <Stat label="En curso / por iniciar" value={`${enCurso} / ${porIniciar}`} />
+            </StatStrip>
+
+            <div className="overflow-x-auto rounded-lg border border-line bg-panel">
+                <table className="w-full min-w-[1100px] border-collapse">
+                    <thead>
+                        <tr className="bg-panel-2 font-mono text-[10px] uppercase tracking-wide text-dim">
+                            <th scope="col" className="sticky top-0 z-20 border-b border-line bg-panel-2 px-4 py-2 text-left font-normal">Objetivo / iniciativa</th>
+                            <th scope="col" className="sticky top-0 z-20 border-b border-line bg-panel-2 px-2 py-2 text-left font-normal">Meta</th>
+                            <th scope="col" className="sticky top-0 z-20 border-b border-line bg-panel-2 px-2 py-2 text-left font-normal">Responsable</th>
+                            <th scope="col" className="sticky top-0 z-20 border-b border-line bg-panel-2 px-2 py-2 text-left font-normal">Avance</th>
+                            {MONTHS.map((month, index) => (
+                                <th key={index} scope="col" className="sticky top-0 z-20 w-7 border-b border-line bg-panel-2 px-0 py-2 text-center font-normal">
+                                    {month}
+                                </th>
+                            ))}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {filteredObjectives.length === 0 && (
+                            <tr>
+                                <td colSpan={16} className="px-4 py-10 text-center text-sm text-dim">
+                                    No se encontraron resultados para «{query}».
+                                </td>
+                            </tr>
+                        )}
+                        {filteredObjectives.map((objective) => (
+                            <Fragment key={objective.id}>
+                                <tr className="bg-panel-2">
+                                    <td className="border-y border-line px-4 py-2" colSpan={16}>
+                                        <span className="num mr-2 text-[11px] text-accent">{objective.id}</span>
+                                        <span className="text-xs font-semibold">{objective.name}</span>
+                                        <span className="ml-2 text-[11px] text-dim">{objective.description}</span>
+                                    </td>
+                                </tr>
+
+                                {objective.initiatives.map((initiative) => {
+                                    const done = initiative.avance === 1;
+                                    const pct = initiative.avance == null ? null : Math.round(initiative.avance * 100);
+                                    return (
+                                        <tr key={initiative.id} className="border-b border-line-soft transition-colors hover:bg-panel-2">
+                                            <td className="py-1.5 pl-7 pr-4 text-xs">
+                                                <span className="num mr-2 text-[11px] text-faint">{initiative.id}</span>
+                                                {initiative.name}
+                                            </td>
+                                            <td className="num px-2 py-1.5 text-[11px] text-muted">{initiative.meta ?? '—'}</td>
+                                            <td className="px-2 py-1.5 text-xs text-muted">{initiative.responsable ?? '—'}</td>
+                                            <td className={`num px-2 py-1.5 text-[11px] ${pct === null ? 'text-faint' : pct === 100 ? 'text-accent' : 'text-warn'}`}>
+                                                {pct === null ? '—' : `${pct}%`}
+                                            </td>
+                                            {MONTHS.map((_, index) => (
+                                                <td key={index} className="px-0.5 py-1.5">
+                                                    <span
+                                                        className={`block h-3 rounded-[2px] ${isMonthActive(initiative.meses, index) ? (done ? 'bg-accent' : 'bg-accent-soft') : 'bg-cell'}`}
+                                                        title={isMonthActive(initiative.meses, index) ? 'Mes comprometido' : 'Sin actividad'}
+                                                    />
+                                                </td>
+                                            ))}
+                                        </tr>
+                                    );
+                                })}
+                            </Fragment>
+                        ))}
+                    </tbody>
+                </table>
             </div>
+
+            <FootNote>avance en % · rejilla = meses comprometidos</FootNote>
         </div>
     );
 };

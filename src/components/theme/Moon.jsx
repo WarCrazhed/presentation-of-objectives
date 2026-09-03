@@ -1,18 +1,15 @@
-export const Moon = () => {
-	return (
-		<svg
-			xmlns="http://www.w3.org/2000/svg"
-			fill="none"
-			viewBox="0 0 24 24"
-			strokeWidth={1.5}
-			stroke="currentColor"
-			className="transitiona-all duration-500 size-6 p-1 dark:text-white text-lime-500 dark:bg-lime-500 bg-transparent rounded-full"
-		>
-			<path
-				strokeLinecap="round"
-				strokeLinejoin="round"
-				d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z"
-			/>
-		</svg>
-	);
-};
+export const Moon = ({ className = 'size-4' }) => (
+	<svg
+		xmlns="http://www.w3.org/2000/svg"
+		viewBox="0 0 24 24"
+		fill="none"
+		stroke="currentColor"
+		strokeWidth={1.7}
+		strokeLinecap="round"
+		strokeLinejoin="round"
+		className={className}
+		aria-hidden="true"
+	>
+		<path d="M20 14.5A8 8 0 019.5 4a8 8 0 1010.5 10.5z" />
+	</svg>
+)

@@ -1,3 +1,9 @@
+// Actividad de agosto y septiembre 2026, consultada el 2026-09-03 contra las BD del
+// ecosistema en 216.238.86.245 (suitedo, humana11, uhe, talento). Solo lectura.
+//   Suitedo    → diagnostic_applieds con start_datetime en el periodo
+//   Página Web → resources con published_at en el periodo
+//   UHE        → prg_programs creados + prg_modules que inician en el periodo
+//   Talento    → vacancies creadas en el periodo + alta de candidates agregada
 export const platforms = [
     {
         id: 1,
@@ -6,114 +12,78 @@ export const platforms = [
         description: "Plataforma de desarrollo organizacional",
         records: [
             {
-                "name": "EGD-002 - Encuesta de Satisfacción - Desayuno Magistral",
-                "date_start": "03 Julio 2026",
-                "date_end": "14 Septiembre 2026",
-                "status": "En Proceso"
-            },
-            {
-                "name": "Sesión Upskilling - Impuestos para Directivos y Empresarios",
-                "date_start": "09 Julio 2026",
-                "date_end": "12 Diciembre 2026",
-                "status": "En Proceso"
-            },
-            {
-                "name": "NOM-035 (3 aplicaciones)",
-                "date_start": "10 Julio 2026",
-                "date_end": "10 Octubre 2026",
-                "status": "En Proceso"
-            },
-            {
-                "name": "Clima laboral",
-                "date_start": "10 Julio 2026",
-                "date_end": "10 Octubre 2026",
-                "status": "En Proceso"
-            },
-            {
-                "name": "Clima Organizacional - Segadi 2026",
-                "date_start": "10 Julio 2026",
-                "date_end": "10 Octubre 2026",
-                "status": "En Proceso"
-            },
-            {
-                "name": "Clima Organizacional 2026",
-                "date_start": "10 Julio 2026",
-                "date_end": "11 Julio 2026",
-                "status": "Completado"
-            },
-            {
-                "name": "Diagnóstico de Cultura Organizacional 2026",
-                "date_start": "10 Julio 2026",
-                "date_end": "10 Octubre 2026",
-                "status": "En Proceso"
-            },
-            {
-                "name": "EGAFI 002 - Ventas Inteligentes: IA aplicada a resultados de negocio (3 sesiones)",
-                "date_start": "11 Julio 2026",
-                "date_end": "27 Julio 2026",
-                "status": "Completado"
-            },
-            {
-                "name": "Diagnóstico Inicial - Bright Machines",
-                "date_start": "13 Julio 2026",
-                "date_end": "31 Julio 2026",
-                "status": "Completado"
-            },
-            {
-                "name": "Cultura H11",
-                "date_start": "15 Julio 2026",
-                "date_end": "29 Julio 2026",
-                "status": "Completado"
-            },
-            {
-                "name": "Desayuno de mentores - 23 Julio 2026",
-                "date_start": "20 Julio 2026",
-                "date_end": "26 Julio 2026",
-                "status": "Completado"
-            },
-            {
-                "name": "Experiencia como mentor - Finanzas e Ingeniería Económica",
-                "date_start": "21 Julio 2026",
-                "date_end": "25 Septiembre 2026",
-                "status": "En Proceso"
-            },
-            {
-                "name": "EGAFI 003 - Marketing que Genera Ventas (3 sesiones)",
-                "date_start": "21 Julio 2026",
-                "date_end": "24 Agosto 2026",
-                "status": "En Proceso"
-            },
-            {
-                "name": "Evaluación 360° (27 colaboradores)",
-                "date_start": "26 Julio 2026",
-                "date_end": "08 Agosto 2026",
-                "status": "En Proceso"
-            },
-            {
-                "name": "Experiencia como mentor - EGAFI Ventas Inteligentes",
-                "date_start": "27 Julio 2026",
-                "date_end": "02 Agosto 2026",
-                "status": "Completado"
-            },
-            {
                 "name": "EGD002 - 19",
                 "date_start": "03 Agosto 2026",
                 "date_end": "26 Septiembre 2026",
                 "status": "En Proceso"
             },
             {
-                "name": "Evaluación 360° - Hugo Eickmeir",
+                "name": "Evaluación 360° Hugo Eickmeir",
                 "date_start": "05 Agosto 2026",
                 "date_end": "05 Septiembre 2026",
                 "status": "En Proceso"
             },
             {
-                "name": "Ferra Mercado Ferretero - Diagnóstico Inicial",
+                "name": "Experiencia como mentor: Marco Jurídico Aplicado a la Gestión Empresarial",
+                "date_start": "05 Agosto 2026",
+                "date_end": "26 Septiembre 2026",
+                "status": "En Proceso"
+            },
+            {
+                "name": "FERRA MERCADO FERRETERO - Diagnóstico Inicial",
                 "date_start": "05 Agosto 2026",
                 "date_end": "06 Septiembre 2026",
                 "status": "En Proceso"
             },
-        ],
+            {
+                "name": "EGD002 - 20",
+                "date_start": "10 Agosto 2026",
+                "date_end": "26 Septiembre 2026",
+                "status": "En Proceso"
+            },
+            {
+                "name": "Masterclass Liderazgo Consciente",
+                "date_start": "13 Agosto 2026",
+                "date_end": "16 Agosto 2026",
+                "status": "Completado"
+            },
+            {
+                "name": "DPS",
+                "date_start": "14 Agosto 2026",
+                "date_end": "15 Agosto 2026",
+                "status": "Completado"
+            },
+            {
+                "name": "Clima - Hotel Colli",
+                "date_start": "17 Agosto 2026",
+                "date_end": "29 Agosto 2026",
+                "status": "Completado"
+            },
+            {
+                "name": "DNC - Hotel Colli",
+                "date_start": "17 Agosto 2026",
+                "date_end": "29 Agosto 2026",
+                "status": "Completado"
+            },
+            {
+                "name": "EGD002 - 21",
+                "date_start": "18 Agosto 2026",
+                "date_end": "26 Septiembre 2026",
+                "status": "En Proceso"
+            },
+            {
+                "name": "EGD002 - 22",
+                "date_start": "25 Agosto 2026",
+                "date_end": "26 Septiembre 2026",
+                "status": "En Proceso"
+            },
+            {
+                "name": "EGD002 - 23",
+                "date_start": "01 Septiembre 2026",
+                "date_end": "26 Septiembre 2026",
+                "status": "En Proceso"
+            }
+        ]
     },
     {
         id: 2,
@@ -122,32 +92,32 @@ export const platforms = [
         description: "Página web de Humana11",
         records: [
             {
-                "name": "Entrada Blog | Tecnología en Desarrollo Organizacional: del “Piloto IA” al rediseño del Sistema de Trabajo",
-                "date_start": "01 de Junio 2026",
+                "name": "Entrada Blog | Ciberseguridad y Gobernanza: Protegiendo los Activos Digitales en Empresas Familiares",
+                "date_start": "28 de Agosto 2026",
                 "date_end": null,
                 "status": "Publicado"
             },
             {
-                "name": "Entrada Blog | La presión de lo inmediato: por qué el “sesgo de acción” está saboteando la estrategia de tu empresa",
-                "date_start": "29 de Mayo 2026",
+                "name": "Entrada Blog | ¿Qué es un assessment center?",
+                "date_start": "27 de Agosto 2026",
                 "date_end": null,
                 "status": "Publicado"
             },
             {
-                "name": "Entrada Blog | De leads a aliados: por qué las empresas más rentables no venden, construyen relaciones",
-                "date_start": "20 de Mayo 2026",
+                "name": "Entrada Blog | Más allá del título: por qué tus mejores candidatos ya traen microcredenciales",
+                "date_start": "26 de Agosto 2026",
                 "date_end": null,
                 "status": "Publicado"
             },
             {
-                "name": "Entrada Blog | El Liderazgo Innovador de Bridgit Mendler",
-                "date_start": "13 de Mayo 2026",
+                "name": "Entrada Blog | Bertha González Nieves: liderazgo femenino que transformó la industria tequilera",
+                "date_start": "25 de Agosto 2026",
                 "date_end": null,
                 "status": "Publicado"
             },
             {
-                "name": "Entrada Blog | ¿Cómo hablar de mis debilidades laborales?",
-                "date_start": "07 de Mayo 2026",
+                "name": "Entrada Blog | Cómo Crear Prompts Efectivos para Optimizar los Resultados con IA",
+                "date_start": "11 de Agosto 2026",
                 "date_end": null,
                 "status": "Publicado"
             }
@@ -161,14 +131,14 @@ export const platforms = [
         records: [
             {
                 "name": "Programa | Diplomado en Perfeccionamiento de Operadores de Logística y Transporte",
-                "date_start": "Julio 2026",
+                "date_start": "06 de Agosto 2026",
                 "date_end": null,
                 "status": "Activo"
             },
             {
-                "name": "Módulo | Eje 4: Innovación y emprendimiento",
-                "date_start": "10 de Julio 2026",
-                "date_end": "28 de Agosto 2026",
+                "name": "Programa | EGD-003",
+                "date_start": "31 de Agosto 2026",
+                "date_end": null,
                 "status": "Activo"
             },
             {
@@ -189,6 +159,48 @@ export const platforms = [
                 "date_end": "14 de Agosto 2026",
                 "status": "Activo"
             },
+            {
+                "name": "Módulo | Gestión del Cambio Organizacional",
+                "date_start": "18 de Agosto 2026",
+                "date_end": "26 de Septiembre 2026",
+                "status": "Activo"
+            },
+            {
+                "name": "Módulo | Eje 5: Liderazgo",
+                "date_start": "21 de Agosto 2026",
+                "date_end": "11 de Septiembre 2026",
+                "status": "Activo"
+            },
+            {
+                "name": "Módulo | Desarrollo ejecutivo gerencial 2: Proyección y toma de decisiones",
+                "date_start": "01 de Septiembre 2026",
+                "date_end": "18 de Septiembre 2026",
+                "status": "Activo"
+            },
+            {
+                "name": "Módulo | Informe académico: Final del ciclo",
+                "date_start": "01 de Septiembre 2026",
+                "date_end": "24 de Septiembre 2026",
+                "status": "Activo"
+            },
+            {
+                "name": "Módulo | Eje 6: Desarrollo Organizacional",
+                "date_start": "18 de Septiembre 2026",
+                "date_end": "30 de Octubre 2026",
+                "status": "Activo"
+            },
+            {
+                "name": "Módulo | Desarrollo Ejecutivo Gerencial: Proyección y toma de decisiones",
+                "date_start": "22 de Septiembre 2026",
+                "date_end": "26 de Septiembre 2026",
+                "status": "Activo"
+            },
+            {
+                "name": "Módulo | Inducción a la plataforma",
+                "date_start": "23 de Septiembre 2026",
+                "date_end": "03 de Abril 2027",
+                "status": "Activo"
+            }
         ]
     },
     {
@@ -198,41 +210,23 @@ export const platforms = [
         description: "Reclutamiento y assessment psicométrico",
         records: [
             {
-                "name": "Vacante | Gerente de Operaciones MUMÚ",
-                "date_start": "20 de Julio 2026",
+                "name": "Vacante | Director de la Universidad Humana Empresaria",
+                "date_start": "26 de Agosto 2026",
                 "date_end": null,
                 "status": "Activo"
             },
             {
-                "name": "Vacante | Gerente de Academia BRICK",
-                "date_start": "20 de Julio 2026",
+                "name": "Vacante | Gerente de Operaciones La Mazorca",
+                "date_start": "03 de Septiembre 2026",
                 "date_end": null,
                 "status": "Activo"
             },
             {
-                "name": "Vacante | Dirección de Atención a Inversionistas",
-                "date_start": "20 de Julio 2026",
-                "date_end": null,
+                "name": "Candidatos | 425 nuevos candidatos registrados",
+                "date_start": "02 de Agosto 2026",
+                "date_end": "03 de Septiembre 2026",
                 "status": "Activo"
-            },
-            {
-                "name": "Vacante | Dirección de Recursos Humanos",
-                "date_start": "20 de Julio 2026",
-                "date_end": null,
-                "status": "Activo"
-            },
-            {
-                "name": "Vacante | Mentor Julio 2026",
-                "date_start": "28 de Julio 2026",
-                "date_end": null,
-                "status": "Cerrado"
-            },
-            {
-                "name": "Candidatos | 193 nuevos candidatos registrados",
-                "date_start": "01 de Julio 2026",
-                "date_end": "06 de Agosto 2026",
-                "status": "Activo"
-            },
+            }
         ]
     },
 ];

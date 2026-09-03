@@ -1,0 +1,95 @@
+// Tareas de julio–agosto 2026 apoyadas con IA. Horas: estimaciones comparativas (manual vs. asistido con IA).
+export const tareasIA = [
+    // SuiteDO
+    { plataforma: "SuiteDO", tarea: "Chatbot Humi para diagnósticos", cat: "IA / Chatbot", manualHoras: 40, iaHoras: 12 },
+    { plataforma: "SuiteDO", tarea: "Habilitar el registro de consultores", cat: "Funcionalidad", manualHoras: 12, iaHoras: 4 },
+    { plataforma: "SuiteDO", tarea: "Corregir error al listar colaboradores como participantes", cat: "Funcionalidad", manualHoras: 6, iaHoras: 2 },
+    { plataforma: "SuiteDO", tarea: "Habilitar la recuperación de contraseña", cat: "Seguridad", manualHoras: 6, iaHoras: 2 },
+    { plataforma: "SuiteDO", tarea: "Implementar FormRequests (validación de peticiones)", cat: "Seguridad", manualHoras: 12, iaHoras: 4 },
+    { plataforma: "SuiteDO", tarea: "Endurecer seguridad: evitar inyección por payload ($request->all()), rate limit de contraseñas y validación de carga de archivos", cat: "Seguridad", manualHoras: 16, iaHoras: 5 },
+    { plataforma: "SuiteDO", tarea: "API Resources (chat, content, enterprise) y ocultar secretos de 2FA", cat: "Seguridad", manualHoras: 12, iaHoras: 4 },
+    { plataforma: "SuiteDO", tarea: "Enumerar preguntas en el reporte de patrones de conducta", cat: "Funcionalidad", manualHoras: 4, iaHoras: 1 },
+    { plataforma: "SuiteDO", tarea: "Elaborar informe técnico del diagnóstico de cultura", cat: "IA / Chatbot", manualHoras: 12, iaHoras: 4 },
+    { plataforma: "SuiteDO", tarea: "Chatbot Humi: añadir opción con IA", cat: "IA / Chatbot", manualHoras: 16, iaHoras: 5 },
+    { plataforma: "SuiteDO", tarea: "Refactorizar la BD de diagnósticos NOM-035 y Cultura", cat: "Base de Datos", manualHoras: 16, iaHoras: 5 },
+    { plataforma: "SuiteDO", tarea: "Revisar los tipos de preguntas", cat: "Funcionalidad", manualHoras: 4, iaHoras: 1 },
+    { plataforma: "SuiteDO", tarea: "Reporte en Excel de evaluación 360°", cat: "Funcionalidad", manualHoras: 12, iaHoras: 4 },
+    { plataforma: "SuiteDO", tarea: "Ocultar el botón Ordenar cuando no hay registros (gestión de plantillas)", cat: "Frontend / UX", manualHoras: 2, iaHoras: 1 },
+    { plataforma: "SuiteDO", tarea: "Asignar permisos de contraseñas al crear un administrador", cat: "Seguridad", manualHoras: 8, iaHoras: 3 },
+    { plataforma: "SuiteDO", tarea: "Generar el reporte Excel 360° automáticamente con IA", cat: "IA / Chatbot", manualHoras: 24, iaHoras: 8 },
+    { plataforma: "SuiteDO", tarea: "Gestionar permisos de usuarios de un cliente desde el administrador", cat: "Funcionalidad", manualHoras: 10, iaHoras: 3 },
+    { plataforma: "SuiteDO", tarea: "Ocultar la tolerancia en diagnósticos de Cultura y NOM-035 (campo nullable en BD)", cat: "Funcionalidad", manualHoras: 4, iaHoras: 1 },
+    { plataforma: "SuiteDO", tarea: "Validar el funcionamiento de NOM-035 y el diagnóstico de Cultura", cat: "Calidad", manualHoras: 8, iaHoras: 3 },
+    { plataforma: "SuiteDO", tarea: "Advertir e impedir el cambio de tipo de encuesta para no romper diagnósticos aplicados", cat: "Funcionalidad", manualHoras: 6, iaHoras: 2 },
+    { plataforma: "SuiteDO", tarea: "Aplicar un diagnóstico desde plantillas", cat: "Funcionalidad", manualHoras: 10, iaHoras: 3 },
+    { plataforma: "SuiteDO", tarea: "Recordar este dispositivo al iniciar sesión", cat: "Seguridad", manualHoras: 6, iaHoras: 2 },
+    { plataforma: "SuiteDO", tarea: "Onboarding tours en flujos clave del admin (crear plantilla, aplicar diagnóstico) con Driver.js", cat: "Frontend / UX", manualHoras: 16, iaHoras: 5 },
+    { plataforma: "SuiteDO", tarea: "Leyenda de solo lectura en diagnósticos fuera de borrador", cat: "Frontend / UX", manualHoras: 2, iaHoras: 1 },
+    { plataforma: "SuiteDO", tarea: "Renombrar «Escala personalizada» a «Varias opciones»", cat: "Frontend / UX", manualHoras: 2, iaHoras: 1 },
+    { plataforma: "SuiteDO", tarea: "Rediseño de categorías y preguntas", cat: "Frontend / UX", manualHoras: 12, iaHoras: 4 },
+    { plataforma: "SuiteDO", tarea: "Quitar el candado del reporte anónimo", cat: "Funcionalidad", manualHoras: 3, iaHoras: 1 },
+    { plataforma: "SuiteDO", tarea: "Filtro por colaboradores en diagnósticos NOM-035", cat: "Funcionalidad", manualHoras: 6, iaHoras: 2 },
+    { plataforma: "SuiteDO", tarea: "Secciones desplegables (preguntas y categorías)", cat: "Frontend / UX", manualHoras: 4, iaHoras: 1 },
+    { plataforma: "SuiteDO", tarea: "Reincorporar instrucciones (Driver.js) en la creación de categorías y preguntas", cat: "Frontend / UX", manualHoras: 4, iaHoras: 1 },
+    { plataforma: "SuiteDO", tarea: "Establecer estándares y pruebas de código", cat: "Calidad", manualHoras: 16, iaHoras: 5 },
+
+    // Humana11-Frontend
+    { plataforma: "Humana11-Frontend", tarea: "Crear una isla de Astro para la sección de recursos", cat: "Frontend / UX", manualHoras: 8, iaHoras: 3 },
+    { plataforma: "Humana11-Frontend", tarea: "Optimizar imágenes con <Image /> de Astro (lazy load + sharp) para mejorar el performance", cat: "Frontend / UX", manualHoras: 8, iaHoras: 3 },
+    { plataforma: "Humana11-Frontend", tarea: "Mejorar la accesibilidad (a11y) para SEO", cat: "Frontend / UX", manualHoras: 10, iaHoras: 3 },
+    { plataforma: "Humana11-Frontend", tarea: "Centrar el modal de testimoniales", cat: "Frontend / UX", manualHoras: 2, iaHoras: 1 },
+
+    // Humana11-Web
+    { plataforma: "Humana11-Web", tarea: "Actualizar la sección de Espacios", cat: "Funcionalidad", manualHoras: 8, iaHoras: 3 },
+    { plataforma: "Humana11-Web", tarea: "Corregir el error 403 para usuarios Humana11", cat: "Seguridad", manualHoras: 6, iaHoras: 2 },
+
+    // Humana11-Admin
+    { plataforma: "Humana11-Admin", tarea: "Registrar todas las contraseñas en el gestor", cat: "Seguridad", manualHoras: 6, iaHoras: 2 },
+    { plataforma: "Humana11-Admin", tarea: "Visualizar las contraseñas asignadas al usuario", cat: "Seguridad", manualHoras: 6, iaHoras: 2 },
+    { plataforma: "Humana11-Admin", tarea: "Mostrar badges de permisos en la tabla de usuarios", cat: "Funcionalidad", manualHoras: 6, iaHoras: 2 },
+    { plataforma: "Humana11-Admin", tarea: "Chatbot Humi con opciones fijas y opciones con IA", cat: "IA / Chatbot", manualHoras: 40, iaHoras: 12 },
+    { plataforma: "Humana11-Admin", tarea: "Endurecer seguridad: evitar inyección por payload ($request->all()), rate limit de contraseñas y validación de carga de archivos", cat: "Seguridad", manualHoras: 16, iaHoras: 5 },
+    { plataforma: "Humana11-Admin", tarea: "Agregar los FormRequests necesarios", cat: "Seguridad", manualHoras: 10, iaHoras: 3 },
+    { plataforma: "Humana11-Admin", tarea: "Agregar los API Resources necesarios", cat: "Seguridad", manualHoras: 8, iaHoras: 3 },
+    { plataforma: "Humana11-Admin", tarea: "Recordar este dispositivo al iniciar sesión", cat: "Seguridad", manualHoras: 6, iaHoras: 2 },
+    { plataforma: "Humana11-Admin", tarea: "Migrar de TypeScript 6 a TypeScript 7", cat: "Deuda Técnica", manualHoras: 8, iaHoras: 3 },
+
+    // Talento
+    { plataforma: "Talento", tarea: "React Table: conservar el número de paginación al recargar", cat: "Frontend / UX", manualHoras: 6, iaHoras: 2 },
+    { plataforma: "Talento", tarea: "Recordar este dispositivo al iniciar sesión", cat: "Seguridad", manualHoras: 6, iaHoras: 2 },
+    { plataforma: "Talento", tarea: "Diagnósticos para vacantes", cat: "Funcionalidad", manualHoras: 16, iaHoras: 5 },
+    { plataforma: "Talento", tarea: "Diagnósticos con plantillas", cat: "Funcionalidad", manualHoras: 12, iaHoras: 4 },
+    { plataforma: "Talento", tarea: "Aplicar diagnósticos al finalizar el proceso de la vacante", cat: "Funcionalidad", manualHoras: 8, iaHoras: 3 },
+    { plataforma: "Talento", tarea: "Diagnósticos NPS", cat: "Funcionalidad", manualHoras: 12, iaHoras: 4 },
+    { plataforma: "Talento", tarea: "Puntuación de opciones de preguntas del diagnóstico", cat: "Funcionalidad", manualHoras: 6, iaHoras: 2 },
+    { plataforma: "Talento", tarea: "Ponderación de preguntas por sección del diagnóstico", cat: "Funcionalidad", manualHoras: 6, iaHoras: 2 },
+    { plataforma: "Talento", tarea: "Seleccionar NPS al finalizar una vacante (cliente y candidato)", cat: "Funcionalidad", manualHoras: 6, iaHoras: 2 },
+    { plataforma: "Talento", tarea: "Reporte NPS", cat: "Funcionalidad", manualHoras: 8, iaHoras: 3 },
+    { plataforma: "Talento", tarea: "Seeder de NPS", cat: "Base de Datos", manualHoras: 3, iaHoras: 1 },
+    { plataforma: "Talento", tarea: "Mostrar el botón Contratar al completar el proceso de la vacante", cat: "Funcionalidad", manualHoras: 4, iaHoras: 1 },
+    { plataforma: "Talento", tarea: "Añadir captcha al formulario de registro de candidatos", cat: "Seguridad", manualHoras: 4, iaHoras: 1 },
+
+    // Humana11
+    { plataforma: "Humana11", tarea: "Gestión de cupones de descuento para EGAFI (−$1,000)", cat: "Funcionalidad", manualHoras: 12, iaHoras: 4 },
+    { plataforma: "Humana11", tarea: "React Table: conservar el número de paginación al recargar", cat: "Frontend / UX", manualHoras: 6, iaHoras: 2 },
+
+    // UHE
+    { plataforma: "UHE", tarea: "Chatbot Humi: añadir opción con IA", cat: "IA / Chatbot", manualHoras: 16, iaHoras: 5 },
+    { plataforma: "UHE", tarea: "Corregir: el Quiz no se mostraba", cat: "Funcionalidad", manualHoras: 4, iaHoras: 1 },
+    { plataforma: "UHE", tarea: "Corregir: la Encuesta no se mostraba", cat: "Funcionalidad", manualHoras: 4, iaHoras: 1 },
+    { plataforma: "UHE", tarea: "Fechas de inicio y fin opcionales en Quiz y Encuesta (desbloquear la fecha final al fijar la de inicio)", cat: "Funcionalidad", manualHoras: 8, iaHoras: 3 },
+    { plataforma: "UHE", tarea: "Corregir: no se veían los participantes del Quiz", cat: "Funcionalidad", manualHoras: 4, iaHoras: 1 },
+    { plataforma: "UHE", tarea: "Gráfica de respuestas cerradas (Sí/No) en el reporte de encuestas", cat: "Funcionalidad", manualHoras: 8, iaHoras: 3 },
+    { plataforma: "UHE", tarea: "Recordar este dispositivo al iniciar sesión", cat: "Seguridad", manualHoras: 6, iaHoras: 2 },
+    { plataforma: "UHE", tarea: "Promedio del quiz entre todos los participantes", cat: "Funcionalidad", manualHoras: 4, iaHoras: 1 },
+    { plataforma: "UHE", tarea: "Encuesta: opción múltiple", cat: "Funcionalidad", manualHoras: 6, iaHoras: 2 },
+    { plataforma: "UHE", tarea: "Varias opciones en la encuesta de contenido", cat: "Funcionalidad", manualHoras: 6, iaHoras: 2 },
+    { plataforma: "UHE", tarea: "Migrar de TypeScript 6 a TypeScript 7", cat: "Deuda Técnica", manualHoras: 8, iaHoras: 3 },
+    { plataforma: "UHE", tarea: "Rediseño de categorías y preguntas", cat: "Frontend / UX", manualHoras: 12, iaHoras: 4 },
+    { plataforma: "UHE", tarea: "Bloquear (candado) la ponderación de preguntas del Quiz", cat: "Funcionalidad", manualHoras: 4, iaHoras: 1 },
+    { plataforma: "UHE", tarea: "Opción «Otro» en las opciones de diagnóstico", cat: "Funcionalidad", manualHoras: 4, iaHoras: 1 },
+    { plataforma: "UHE", tarea: "Crear apartado para subir los certificados de los alumnos", cat: "Funcionalidad", manualHoras: 10, iaHoras: 3 },
+
+    // Otros
+    { plataforma: "Otros", tarea: "Reporte de uso de espacios", cat: "Funcionalidad", manualHoras: 8, iaHoras: 3 },
+];

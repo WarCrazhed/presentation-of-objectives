@@ -1,15 +1,16 @@
-import { Fragment } from 'react';
 import { platforms } from '../data/platforms';
+import { Cap, Doc } from '../components/icons';
+import { FootNote, SlideHeader, Stat, StatStrip } from '../components/ui';
 
 export const PeriodActivity = () => {
     // Los números se derivan de platforms.js (misma fuente que "Uso de Plataformas")
-    // para que ambos slides siempre cuadren. Solo registros relacionados con junio.
+    // para que ambos slides siempre cuadren. Solo registros de agosto y septiembre 2026.
     const byName = (name) => platforms.find((p) => p.name === name)?.records ?? [];
 
     const talento = byName("Talento");
     const suitedo = byName("Suitedo");
     const uhe = byName("UHE");
-    const web = byName("Página Web");
+    const blogs = byName("Página Web");
 
     const strip = (name) => name.includes("|") ? name.split("|").slice(1).join("|").trim() : name;
 
@@ -17,85 +18,57 @@ export const PeriodActivity = () => {
     const candidatos = talento.filter((r) => r.name.startsWith("Candidato"));
     const programas = uhe.filter((r) => r.name.startsWith("Programa"));
     const modulos = uhe.filter((r) => r.name.startsWith("Módulo"));
-    const blogs = web;
 
     const kpis = [
-        { label: "Candidatos (Talento)", value: candidatos.length, icon: "🧑‍💼" },
-        { label: "Vacantes (Talento)", value: vacantes.length, icon: "📢" },
-        { label: "Diagnósticos (SuiteDO)", value: suitedo.length, icon: "📊" },
-        { label: "Programas (UHE)", value: programas.length, icon: "🎓" },
-        { label: "Módulos (UHE)", value: modulos.length, icon: "📚" },
-        { label: "Blogs (Humana11)", value: blogs.length, icon: "📝" },
+        { label: "Candidatos", value: candidatos.length, hint: "Talento" },
+        { label: "Vacantes", value: vacantes.length, hint: "Talento" },
+        { label: "Diagnósticos", value: suitedo.length, hint: "SuiteDO" },
+        { label: "Programas", value: programas.length, hint: "UHE" },
+        { label: "Módulos", value: modulos.length, hint: "UHE" },
+        { label: "Blogs", value: blogs.length, hint: "Humana11" },
+    ];
+
+    const listas = [
+        { title: "Programas y módulos — UHE", icon: Cap, items: programas.concat(modulos) },
+        { title: "Blogs publicados — Humana11", icon: Doc, items: blogs },
     ];
 
     return (
-        <div>
-            <div className="flex flex-col py-12 md:py-20">
-                <div className="container m-auto p-4 md:p-8">
-                    <h1 className="text-2xl md:text-4xl lg:text-6xl font-black text-zinc-900 dark:text-white mb-4">
-                        Actividad del Periodo
-                    </h1>
-                    <p className="text-xl md:text-2xl font-bold text-zinc-600 dark:text-zinc-300 mb-8">
-                        Registros relacionados con julio 2026 en las plataformas del ecosistema.
-                    </p>
+        <div className="mx-auto flex max-w-[1400px] flex-col gap-5 px-4 py-10 sm:px-7 md:py-14">
+            <SlideHeader
+                number="03"
+                eyebrow="periodo"
+                title="Actividad del periodo"
+                description="Registros de agosto y septiembre 2026 en las plataformas del ecosistema."
+            />
 
-                    {/* Tarjetas KPI */}
-                    <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-10">
-                        {kpis.map((kpi) => (
-                            <div key={kpi.label} className="bg-white/80 dark:bg-zinc-900/80 backdrop-blur-sm rounded-2xl shadow-lg p-4 md:p-6 border border-zinc-200 dark:border-zinc-800 transition-all hover:scale-105">
-                                <span className="text-3xl">{kpi.icon}</span>
-                                <p className="text-3xl sm:text-4xl font-black text-lime-600 dark:text-lime-400 mt-2">{kpi.value}</p>
-                                <p className="text-sm font-bold text-zinc-800 dark:text-zinc-100 mt-1">{kpi.label}</p>
-                            </div>
-                        ))}
-                    </div>
+            <StatStrip className="grid-cols-2 sm:grid-cols-3 lg:grid-cols-6">
+                {kpis.map(({ label, value, hint }) => (
+                    <Stat key={label} label={label} value={value} hint={hint} />
+                ))}
+            </StatStrip>
 
-                    {/* Detalle */}
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                        {/* Programas y Módulos UHE */}
-                        <div className="bg-white/80 dark:bg-zinc-900/80 backdrop-blur-sm rounded-2xl shadow-lg p-6">
-                            <h2 className="text-xl font-black text-zinc-900 dark:text-zinc-100 mb-4">
-                                🎓 Programas y módulos — UHE
-                            </h2>
-                            <ul className="space-y-2 text-sm text-zinc-600 dark:text-zinc-300">
-                                {programas.map((p) => (
-                                    <li key={p.name} className="flex items-start gap-2">
-                                        <span className="text-lime-600 dark:text-lime-400 font-bold">▸</span>
-                                        <span className="font-bold text-zinc-900 dark:text-zinc-100">Programa:</span> {strip(p.name)}
-                                    </li>
-                                ))}
-                                {modulos.map((m) => (
-                                    <li key={m.name} className="flex items-start gap-2">
-                                        <span className="text-lime-600 dark:text-lime-400 font-bold">▸</span>
-                                        {strip(m.name)}
-                                    </li>
-                                ))}
-                            </ul>
+            <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+                {listas.map((lista) => (
+                    <div key={lista.title} className="flex flex-col rounded-lg border border-line bg-panel p-5">
+                        <div className="flex items-center gap-2.5 pb-3">
+                            <lista.icon className="size-4 text-accent" />
+                            <h2 className="text-sm font-semibold">{lista.title}</h2>
+                            <span className="num text-[11px] text-faint">{lista.items.length}</span>
                         </div>
-
-                        {/* Blogs Humana11 */}
-                        <div className="bg-white/80 dark:bg-zinc-900/80 backdrop-blur-sm rounded-2xl shadow-lg p-6">
-                            <h2 className="text-xl font-black text-zinc-900 dark:text-zinc-100 mb-4">
-                                📝 Blogs publicados — Humana11
-                            </h2>
-                            <ul className="space-y-3 text-sm text-zinc-600 dark:text-zinc-300">
-                                {blogs.map((b, i) => (
-                                    <Fragment key={i}>
-                                        <li className="flex items-start gap-2">
-                                            <span className="text-lime-600 dark:text-lime-400 font-bold">▸</span>
-                                            <span>{strip(b.name)}</span>
-                                        </li>
-                                    </Fragment>
-                                ))}
-                            </ul>
-                        </div>
+                        <ul className="flex flex-col">
+                            {lista.items.map((item) => (
+                                <li key={item.name} className="flex gap-2.5 border-t border-line-soft py-2">
+                                    <span className="mt-1.5 size-1 shrink-0 rounded-full bg-accent" />
+                                    <span className="text-xs leading-relaxed text-muted">{strip(item.name)}</span>
+                                </li>
+                            ))}
+                        </ul>
                     </div>
-
-                    <div className="mt-6 text-xs text-zinc-500 dark:text-zinc-400 text-right">
-                        Los conteos se derivan de la misma fuente que «Uso de Plataformas».
-                    </div>
-                </div>
+                ))}
             </div>
+
+            <FootNote>los conteos se derivan de la misma fuente que «uso de plataformas»</FootNote>
         </div>
     );
 };

@@ -2,6 +2,120 @@
 
 @variant dark (&:where(.dark, .dark *));
 
-* {
-    font-family: 'Poppins', sans-serif;
+/*
+ * Sistema de diseño de la presentación (dirección "dashboard denso").
+ * Un solo acento: marca acción y estado «completado», nunca decora.
+ * El modo oscuro es el diseño base; el claro es su contraparte, no un volteo.
+ */
+@theme {
+    --font-sans: 'Poppins', system-ui, sans-serif;
+    --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+    /* superficies */
+    --color-canvas: #f4f5f2;
+    --color-panel: #ffffff;
+    --color-panel-2: #eef0ec;
+    --color-line: #dcdfd8;
+    --color-line-soft: #e7e9e3;
+    --color-grid: #e2e5df;
+    --color-cell: #e7e9e3;
+
+    /* texto */
+    --color-ink: #14181a;
+    --color-muted: #55605b;
+    --color-dim: #6f7a75;
+    --color-faint: #9aa39d;
+
+    /* acento */
+    --color-accent: #4d7c0f;
+    --color-accent-ink: #ffffff;
+    --color-accent-soft: #a3b18a;
+
+    /* estados: siempre punto + palabra, nunca solo color */
+    --color-ok: #3f6212;
+    --color-ok-bg: #eaf5d8;
+    --color-warn: #92400e;
+    --color-warn-bg: #fdf0d5;
+    --color-info: #1d4ed8;
+    --color-info-bg: #e4ecfd;
+    --color-teal: #0f766e;
+    --color-teal-bg: #dcf3ef;
+    --color-danger: #b91c1c;
+    --color-danger-bg: #fbe6e6;
+
+    /* categorías de tarea (slide de IA) */
+    --color-cat-sec: #a21caf;
+    --color-cat-func: #1d4ed8;
+    --color-cat-ia: #4d7c0f;
+    --color-cat-ux: #c2410c;
+    --color-cat-db: #0e7490;
+    --color-cat-qa: #6d28d9;
+    --color-cat-debt: #b91c1c;
+}
+
+.dark {
+    --color-canvas: #0a0c0b;
+    --color-panel: #0f1211;
+    --color-panel-2: #14181a;
+    --color-line: #232826;
+    --color-line-soft: #1a1f1d;
+    --color-grid: #1c211f;
+    --color-cell: #171b19;
+
+    --color-ink: #e8ebe9;
+    --color-muted: #8b938f;
+    --color-dim: #6f7874;
+    --color-faint: #4b5550;
+
+    --color-accent: #a3e635;
+    --color-accent-ink: #0a0c0b;
+    --color-accent-soft: #4b5f2a;
+
+    --color-ok: #a3e635;
+    --color-ok-bg: #1b2410;
+    --color-warn: #fbbf24;
+    --color-warn-bg: #241c08;
+    --color-info: #93c5fd;
+    --color-info-bg: #111c2e;
+    --color-teal: #5eead4;
+    --color-teal-bg: #0f2420;
+    --color-danger: #fca5a5;
+    --color-danger-bg: #2a1414;
+
+    --color-cat-sec: #f0abfc;
+    --color-cat-func: #93c5fd;
+    --color-cat-ia: #a3e635;
+    --color-cat-ux: #fdba74;
+    --color-cat-db: #67e8f9;
+    --color-cat-qa: #c4b5fd;
+    --color-cat-debt: #fca5a5;
+}
+
+html {
+    color-scheme: light;
+}
+
+.dark html,
+html.dark {
+    color-scheme: dark;
+}
+
+body {
+    margin: 0;
+    background-color: var(--color-canvas);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Fondo de la presentación: retícula de puntos en CSS (sustituye la escena 3D). */
+.dot-grid {
+    background-image: radial-gradient(var(--color-grid) 1px, transparent 1px);
+    background-size: 28px 28px;
+}
+
+/* Toda cifra comparable va en mono tabular para que las columnas alineen. */
+.num {
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
 }

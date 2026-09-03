@@ -1,3 +1,6 @@
+import { Bot, Cloud, Diskette, Mail, Sparkle, Users } from '../components/icons';
+import { FootNote, SlideHeader, Stat, StatStrip } from '../components/ui';
+
 export const OperatingExpenses = () => {
     const expenses = [
         {
@@ -7,7 +10,7 @@ export const OperatingExpenses = () => {
             period: "Mensual",
             description: "Alojamiento de plataformas, base de datos y archivos.",
             status: "",
-            icon: "☁️"
+            icon: Cloud
         },
         {
             name: "Nómina",
@@ -16,7 +19,7 @@ export const OperatingExpenses = () => {
             period: "Mensual",
             description: "Compensación del equipo de Funcionalidad Tecnológica.",
             status: "Pagado",
-            icon: "👥"
+            icon: Users
         },
         {
             name: "Resend (Envío de correos)",
@@ -25,16 +28,16 @@ export const OperatingExpenses = () => {
             period: "Mensual",
             description: "Servicio de infraestructura de correo electrónico.",
             status: "Pagado",
-            icon: "📧"
+            icon: Mail
         },
         {
             name: "Gemini API",
-            amount: 23.97,
+            amount: 13.31,
             currency: "MXN",
             period: "Variable",
             description: "Servicios de Inteligencia Artificial para aplicaciones.",
             status: "Versión Pro",
-            icon: "✨"
+            icon: Sparkle
         },
         {
             name: "Claude Max (2 cuentas)",
@@ -43,85 +46,122 @@ export const OperatingExpenses = () => {
             period: "Mensual",
             description: "Asistente de IA para desarrollo (Claude Code). 2 cuentas del área.",
             status: "Versión Max",
-            icon: "🤖"
+            icon: Bot
         },
         {
-            name: "Disco SSD 480GB STYLOSTECH",
-            amount: 1369.00,
-            currency: "MXN",
-            period: "Único",
-            description: "SSD 2.5\" SATA III, reemplazo del disco dañado en el equipo de Marlett.",
+            name: "R2 Object Storage (S3 compatible)",
+            amount: 0,
+            currency: "USD",
+            period: "Mensual",
+            description: "Almacenamiento de objetos en la nube.",
             status: "Pagado",
-            icon: "💾"
+            icon: Diskette
         }
     ];
 
-    const totalMonthlyMXN = expenses
-        .filter(e => e.currency === "MXN" && e.period !== "Único")
-        .reduce((acc, curr) => acc + curr.amount, 0);
+    const money = (n) => n.toLocaleString('es-MX', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
-    const totalOneTimeMXN = expenses
-        .filter(e => e.currency === "MXN" && e.period === "Único")
-        .reduce((acc, curr) => acc + curr.amount, 0);
+    const recurrentes = expenses.filter((e) => e.currency === "MXN" && e.period !== "Único");
+    const unicos = expenses.filter((e) => e.currency === "MXN" && e.period === "Único");
+
+    const totalMonthlyMXN = recurrentes.reduce((acc, curr) => acc + curr.amount, 0);
+    const totalOneTimeMXN = unicos.reduce((acc, curr) => acc + curr.amount, 0);
+    const totalIA = expenses
+        .filter((e) => e.name.startsWith('Gemini') || e.name.startsWith('Claude'))
+        .reduce((acc, e) => acc + e.amount, 0);
+
+    // Barras de magnitud, un solo tono, ordenadas de mayor a menor.
+    const maxAmount = Math.max(...recurrentes.map((e) => e.amount));
+    const ranking = [...recurrentes].sort((a, b) => b.amount - a.amount);
 
     return (
-        <div className="flex flex-col min-h-screen py-12 md:py-20">
-            <div className="container m-auto p-4 md:p-8">
-                <div className="mb-12">
-                    <h1 className="text-2xl md:text-4xl lg:text-6xl font-black text-zinc-900 dark:text-white mb-4">
-                        Gastos Operativos
-                    </h1>
-                    <p className="text-xl md:text-2xl font-bold text-zinc-600 dark:text-zinc-300">
-                        Desglose de inversión y costos fijos del departamento.
+        <div className="mx-auto flex max-w-[1400px] flex-col gap-5 px-4 py-10 sm:px-7 md:py-14">
+            <SlideHeader
+                number="06"
+                eyebrow="costos"
+                title="Gastos operativos"
+                description="Inversión y costos fijos del departamento."
+            />
+
+            <StatStrip className="grid-cols-2 lg:grid-cols-4">
+                <div className="flex flex-col gap-2 bg-panel px-5 py-5 max-lg:col-span-2">
+                    <p className="text-[11px] uppercase tracking-[0.14em] text-dim">Total mensual</p>
+                    <p className="flex items-baseline gap-2.5">
+                        <span className="num text-4xl font-medium tracking-tight">${money(totalMonthlyMXN)}</span>
+                        <span className="num text-sm text-muted">MXN</span>
+                    </p>
+                    <p className="text-xs text-dim">
+                        <span className="num">{recurrentes.length}</span> conceptos recurrentes
                     </p>
                 </div>
+                <Stat label="Gasto único" value={`$${money(totalOneTimeMXN)}`} hint={`${unicos.length} concepto`} />
+                <Stat label="Anualizado" value={`$${money(totalMonthlyMXN * 12)}`} hint="proyección" />
+                <Stat
+                    label="Herramientas IA"
+                    value={`$${money(totalIA)}`}
+                    hint={`${(totalIA / totalMonthlyMXN * 100).toFixed(1)}% del mes`}
+                    accent
+                />
+            </StatStrip>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-                    {expenses.map((expense, index) => (
-                        <div key={index} className="bg-white/80 dark:bg-zinc-900/80 backdrop-blur-sm p-6 rounded-2xl shadow-xl border border-zinc-200 dark:border-zinc-800 transition-all hover:scale-105">
-                            <div className="flex justify-between items-start mb-4">
-                                <span className="text-4xl">{expense.icon}</span>
-                                <span className={`text-[10px] uppercase font-bold tracking-wider px-2 py-1 rounded-full ${expense.status === "Pagado" ? "bg-lime-100 text-lime-700 dark:bg-lime-900/30 dark:text-lime-400" :
-                                    expense.status === "Pendiente de pago" ? "bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400" :
-                                        "bg-zinc-100 text-zinc-600 dark:bg-zinc-800 dark:text-zinc-400"
-                                    }`}>
-                                    {expense.status}
-                                </span>
+            <div className="flex flex-col gap-4 rounded-lg border border-line bg-panel p-5">
+                <h2 className="text-sm font-semibold">Peso de cada concepto en el gasto mensual</h2>
+                <div className="flex flex-col gap-2.5">
+                    {ranking.map((expense) => (
+                        <div key={expense.name} className="grid grid-cols-[13rem_1fr] items-center gap-3 sm:grid-cols-[13rem_1fr_9rem]">
+                            <div className="flex min-w-0 items-center gap-2.5">
+                                <expense.icon className="size-4 shrink-0 text-accent" />
+                                <span className="truncate text-xs">{expense.name}</span>
                             </div>
-                            <h3 className="text-lg font-bold text-zinc-800 dark:text-zinc-100 mb-1">{expense.name}</h3>
-                            <p className="text-sm text-zinc-500 dark:text-zinc-400 mb-4 h-10 line-clamp-2">{expense.description}</p>
-                            <div className="flex items-baseline gap-1">
-                                <span className="text-xl sm:text-2xl font-black text-lime-600 dark:text-lime-400">
-                                    {expense.amount.toLocaleString('es-MX', { style: 'currency', currency: expense.currency })}
-                                </span>
-                                <span className="text-xs font-bold text-zinc-400 uppercase">{expense.currency}</span>
+                            <div className="h-3 min-w-[3px] rounded-[3px] bg-accent" style={{ width: `${expense.amount / maxAmount * 100}%` }} />
+                            <div className="num flex items-baseline gap-3 text-[11px] max-sm:col-span-2 max-sm:justify-end">
+                                <span>${money(expense.amount)}</span>
+                                <span className="text-dim">{(expense.amount / totalMonthlyMXN * 100).toFixed(1)}%</span>
                             </div>
-                            <p className="text-xs text-zinc-400 mt-1">{expense.period}</p>
                         </div>
                     ))}
                 </div>
-
-                <div className="bg-gradient-to-r from-lime-600 to-lime-800 rounded-3xl p-6 md:p-8 text-white shadow-2xl flex flex-col md:flex-row items-center justify-between gap-6 md:gap-8">
-                    <div className="space-y-2 text-center md:text-left">
-                        <h4 className="text-lime-100 font-medium uppercase tracking-widest text-sm">Resumen de Inversión Mensual</h4>
-                        <p className="text-3xl md:text-5xl font-black">
-                            {totalMonthlyMXN.toLocaleString('es-MX', { style: 'currency', currency: 'MXN' })}
-                        </p>
-                        <p className="text-sm text-lime-100">
-                            + {totalOneTimeMXN.toLocaleString('es-MX', { style: 'currency', currency: 'MXN' })} en gastos únicos (hardware)
-                        </p>
-                    </div>
-                    <div className="flex items-center gap-4 bg-white/10 backdrop-blur-md p-4 rounded-2xl">
-                        <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center text-lime-700">
-                            <span className="font-bold">✓</span>
-                        </div>
-                        <p className="text-sm font-medium leading-tight">
-                            Presupuesto actualizado <br />
-                            <span className="text-lime-200">Sincronizado con Administración</span>
-                        </p>
-                    </div>
-                </div>
             </div>
+
+            <div className="overflow-x-auto rounded-lg border border-line bg-panel">
+                <table className="w-full min-w-[860px] border-collapse">
+                    <thead>
+                        <tr className="bg-panel-2 font-mono text-[10px] uppercase tracking-wide text-dim">
+                            <th scope="col" className="border-b border-line px-4 py-2 text-left font-normal">Concepto</th>
+                            <th scope="col" className="border-b border-line px-2 py-2 text-left font-normal">Descripción</th>
+                            <th scope="col" className="border-b border-line px-2 py-2 text-left font-normal">Periodicidad</th>
+                            <th scope="col" className="border-b border-line px-2 py-2 text-left font-normal">Estado</th>
+                            <th scope="col" className="border-b border-line px-4 py-2 text-right font-normal">Monto MXN</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {expenses.map((expense) => (
+                            <tr key={expense.name} className="border-b border-line-soft transition-colors hover:bg-panel-2">
+                                <td className="px-4 py-2">
+                                    <span className="flex items-center gap-2.5 text-xs">
+                                        <expense.icon className="size-4 shrink-0 text-accent" />
+                                        {expense.name}
+                                    </span>
+                                </td>
+                                <td className="px-2 py-2 text-xs text-muted">{expense.description}</td>
+                                <td className="px-2 py-2">
+                                    <span className="inline-flex rounded bg-panel-2 px-2 py-0.5 text-[10px] text-muted">{expense.period}</span>
+                                </td>
+                                <td className={`px-2 py-2 text-[11px] ${expense.status ? 'text-muted' : 'text-faint'}`}>{expense.status || '—'}</td>
+                                <td className="num px-4 py-2 text-right text-xs">${money(expense.amount)}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                    <tfoot>
+                        <tr className="bg-panel-2">
+                            <td className="border-t border-line px-4 py-2.5 text-xs font-semibold" colSpan={4}>Total mensual</td>
+                            <td className="num border-t border-line px-4 py-2.5 text-right text-xs text-accent">${money(totalMonthlyMXN)}</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+
+            <FootNote>montos en mxn · el gasto único no suma al total mensual</FootNote>
         </div>
     );
 };
