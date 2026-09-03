@@ -17,6 +17,11 @@ Presentación interna del área de **Funcionalidad Tecnológica** (ecosistema Hu
 
 > Nota: el lockfile actual es `package-lock.json` (npm). Usa el gestor que tengas configurado; el proyecto es estándar Vite.
 
+### Datos de «Uso de Plataformas»
+- `/update-tasks <meses> <año>` — comando del repo (`.claude/commands/update-tasks.md`). Regenera `src/data/platforms.js` con la actividad real del ecosistema. Ejemplo: `/update-tasks agosto + septiembre 2026`.
+- Por debajo corre `node scripts/uso-plataformas.mjs "<periodo>"`, que entra por SSH al server de BD (`216.238.86.245`) y ejecuta **solo `SELECT`** contra `suitedo`, `humana11`, `uhe` y `talento`. Un guardia en el script aborta cualquier sentencia que no empiece en `SELECT`.
+- `src/data/platforms.js` es **generado**: edítalo a mano solo si no vas a regenerarlo. Las correcciones de redacción permanentes van en el mapa `CORRECCIONES` del script, no en el archivo de salida.
+
 ## Arquitectura
 - `src/main.jsx` — entry; monta `<App />` envuelto en `<ThemeProvider>` y `<StrictMode>`.
 - `src/App.jsx` — **núcleo**. Contiene:

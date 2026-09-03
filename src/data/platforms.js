@@ -4,6 +4,7 @@
 //   Página Web → resources con published_at en el periodo
 //   UHE        → prg_programs creados + prg_modules que inician en el periodo
 //   Talento    → vacancies creadas en el periodo + alta de candidates agregada
+// Generado por scripts/uso-plataformas.mjs — no editar a mano si vas a regenerarlo.
 export const platforms = [
     {
         id: 1,
@@ -24,15 +25,15 @@ export const platforms = [
                 "status": "En Proceso"
             },
             {
-                "name": "Experiencia como mentor: Marco Jurídico Aplicado a la Gestión Empresarial",
-                "date_start": "05 Agosto 2026",
-                "date_end": "26 Septiembre 2026",
-                "status": "En Proceso"
-            },
-            {
                 "name": "FERRA MERCADO FERRETERO - Diagnóstico Inicial",
                 "date_start": "05 Agosto 2026",
                 "date_end": "06 Septiembre 2026",
+                "status": "En Proceso"
+            },
+            {
+                "name": "Experiencia como mentor: Marco Jurídico Aplicado a la Gestión Empresarial",
+                "date_start": "05 Agosto 2026",
+                "date_end": "26 Septiembre 2026",
                 "status": "En Proceso"
             },
             {
@@ -76,6 +77,12 @@ export const platforms = [
                 "date_start": "25 Agosto 2026",
                 "date_end": "26 Septiembre 2026",
                 "status": "En Proceso"
+            },
+            {
+                "name": "padrino",
+                "date_start": "31 Agosto 2026",
+                "date_end": "31 Agosto 2026",
+                "status": "Completado"
             },
             {
                 "name": "EGD002 - 23",
@@ -228,5 +235,5 @@ export const platforms = [
                 "status": "Activo"
             }
         ]
-    },
+    }
 ];
