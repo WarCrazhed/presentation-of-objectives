@@ -1,4 +1,5 @@
 import { QRCodeSVG } from 'qrcode.react';
+import isotipo from '../assets/humana11-isotipo.svg';
 import { platforms } from '../data/platforms';
 import { strategicObjectives } from '../data/objectives';
 import { tareasIA } from '../data/aiTasks';
@@ -18,8 +19,8 @@ export const Home = () => {
 
     return (
         <div className="mx-auto flex min-h-[calc(100vh-8rem)] max-w-6xl flex-col items-center justify-center gap-12 px-4 py-16 sm:px-7 lg:flex-row lg:justify-between lg:gap-16">
-            <div className="flex flex-col items-center gap-6 text-center lg:items-start lg:text-left">
-                <span className="inline-flex items-center gap-2 rounded-full border border-line bg-panel px-3 py-1.5 font-mono text-[11px] text-muted">
+            <div className="text-halo text-scrim flex flex-col items-center gap-6 text-center lg:items-start lg:text-left">
+                <span className="inline-flex items-center gap-2 rounded-full border border-line glass px-3 py-1.5 font-mono text-[11px] text-muted">
                     <span className="size-1.5 rounded-full bg-accent" />
                     ene – dic 2026
                 </span>
@@ -41,7 +42,7 @@ export const Home = () => {
                     </div>
                 </div>
 
-                <div className="mt-2 grid w-full grid-cols-2 overflow-hidden rounded-lg border border-line bg-panel sm:grid-cols-4">
+                <div className="mt-2 grid w-full grid-cols-2 overflow-hidden rounded-lg border border-line glass sm:grid-cols-4">
                     {resumen.map((item) => (
                         <div key={item.label} className="flex flex-col gap-1 border-b border-line px-5 py-3.5 last:border-b-0 sm:border-b-0 sm:border-r sm:last:border-r-0">
                             <p className={`num text-xl font-medium ${item.accent ? 'text-accent' : 'text-ink'}`}>{item.value}</p>
@@ -51,7 +52,7 @@ export const Home = () => {
                 </div>
             </div>
 
-            <div className="flex shrink-0 flex-col items-center gap-3 rounded-xl border border-line bg-panel p-4">
+            <div className="flex shrink-0 flex-col items-center gap-3 rounded-xl border border-line glass p-4">
                 <div className="rounded bg-white p-3">
                     <QRCodeSVG
                         value="https://presentation-of-objectives.netlify.app/"
@@ -60,6 +61,7 @@ export const Home = () => {
                         fgColor={"#14181a"}
                         level={"H"}
                         includeMargin={false}
+                        imageSettings={{ src: isotipo, width: 40, height: 40, excavate: true }}
                     />
                 </div>
                 <p className="font-mono text-[10px] uppercase tracking-[0.1em] text-dim">Escanear para abrir</p>

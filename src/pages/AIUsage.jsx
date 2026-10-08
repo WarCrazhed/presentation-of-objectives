@@ -65,14 +65,14 @@ export const AIUsage = () => {
                 number="05"
                 eyebrow="inteligencia artificial"
                 title="Uso de IA en el área"
-                description="Tareas desarrolladas con apoyo de IA durante julio y agosto, y el tiempo que representaron frente al trabajo manual."
+                description="Tareas desarrolladas con apoyo de IA durante septiembre y octubre 2026, y el tiempo que representaron frente al trabajo manual."
             >
                 <SearchField value={query} onChange={setQuery} placeholder="Buscar tarea, plataforma o categoría…" />
             </SlideHeader>
 
             {/* Cifra protagonista */}
             <StatStrip className="grid-cols-2 lg:grid-cols-4">
-                <div className="flex flex-col gap-2 bg-panel px-5 py-5 max-lg:col-span-2">
+                <div className="flex flex-col gap-2 cell-divider px-5 py-5 max-lg:col-span-2">
                     <p className="text-[11px] uppercase tracking-[0.14em] text-dim">Horas ahorradas</p>
                     <p className="flex items-baseline gap-3">
                         <span className="num text-4xl font-medium tracking-tight text-accent">{totalAhorro} h</span>
@@ -88,7 +88,7 @@ export const AIUsage = () => {
             </StatStrip>
 
             {/* Horas por plataforma */}
-            <div className="flex flex-col gap-4 rounded-lg border border-line bg-panel p-5">
+            <div className="flex flex-col gap-4 rounded-lg border border-line glass p-5">
                 <div className="flex flex-wrap items-baseline justify-between gap-3">
                     <h2 className="text-sm font-semibold">Horas por plataforma</h2>
                     <div className="flex items-center gap-3.5 text-[11px] text-dim">
@@ -119,7 +119,7 @@ export const AIUsage = () => {
             </div>
 
             {/* Detalle */}
-            <div className="overflow-x-auto rounded-lg border border-line bg-panel">
+            <div className="overflow-x-auto rounded-lg border border-line glass">
                 <table className="w-full min-w-[1000px] border-collapse">
                     <thead>
                         <tr className="bg-panel-2 font-mono text-[10px] uppercase tracking-wide text-dim">
@@ -178,19 +178,19 @@ export const AIUsage = () => {
             </div>
 
             {/* Justificación / mejora del flujo de trabajo */}
-            <div className="flex flex-col gap-3 rounded-lg border border-line bg-panel p-5">
+            <div className="flex flex-col gap-3 rounded-lg border border-line glass p-5">
                 <h2 className="text-sm font-semibold">Mejora en el flujo de trabajo</h2>
                 <p className="text-xs leading-relaxed text-muted">
-                    El apoyo de IA permitió al área atender en dos meses <span className="num">{tareasIA.length}</span> tareas
+                    El apoyo de IA permitió al área atender en septiembre y octubre <span className="num">{tareasIA.length}</span> tareas
                     en <span className="num">{resumenPlataformas.length}</span> plataformas del ecosistema, cubriendo seguridad,
                     funcionalidades nuevas, experiencia de usuario, deuda técnica y capacidades con IA.
                 </p>
                 <ul className="flex flex-col gap-2 text-xs leading-relaxed text-muted">
                     {[
-                        'Seguridad reforzada: FormRequests, API Resources, rate limit de contraseñas, protección contra inyección por payload, captcha, 2FA y «recordar dispositivo» replicados en las plataformas.',
-                        'Diagnósticos ampliados: NOM-035 y Cultura refactorizados, evaluación 360° en Excel, y diagnósticos con plantillas y NPS integrados a Talento.',
-                        'Capacidades con IA: chatbot Humi con opciones fijas y con IA, e informes/reportes 360° generados automáticamente.',
-                        'Experiencia y calidad: onboarding tours con Driver.js, optimización de imágenes y accesibilidad (SEO) en el frontend, migración a TypeScript 7 y estándares con pruebas de código.'
+                        'Seguridad reforzada: auditoría de permisos en UHE (24 controladores de administración), sanitización de contenidos, archivos privados en el chat, roles asignados solo por Superadmin, reCAPTCHA y 2FA en Criba-Mentores.',
+                        'Diagnósticos ampliados: nuevo NineBox con carga desde Excel y filtros, varios líderes y autoevaluados en DT y 360°, recordatorios por correo y reportes más ordenados y sin errores de descarga.',
+                        'Nuevas plataformas y módulos: Criba-Mentores con alta automática de mentores en SuiteDO y UHE, chat de participantes en UHE y módulo Comunidad en Humana11.',
+                        'Operación y automatización: respaldos de BD y almacenamiento hacia la NAS, reglas de Claude por proyecto y un comando que genera este reporte desde las bases de datos.'
                     ].map((punto) => (
                         <li key={punto} className="flex gap-2.5">
                             <span className="mt-1.5 size-1 shrink-0 rounded-full bg-accent" />

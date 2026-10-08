@@ -7,10 +7,10 @@ import { Close, Search } from '../icons'
 
 // Encabezado de slide: numeral, título y bajada. Sin gradientes: la jerarquía es el tamaño.
 export const SlideHeader = ({ number, eyebrow, title, description, children }) => (
-    <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-        <div className="flex flex-col gap-1.5">
+    <div className="text-halo flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+        <div className="text-scrim flex flex-col gap-1.5">
             {eyebrow && (
-                <p className="font-mono text-[11px] uppercase tracking-[0.12em] text-dim">
+                <p className="font-mono text-[11px] uppercase tracking-[0.12em] text-muted">
                     {number} · {eyebrow}
                 </p>
             )}
@@ -23,13 +23,13 @@ export const SlideHeader = ({ number, eyebrow, title, description, children }) =
 
 // Tira de cifras. Las celdas se separan con el propio borde, no con sombras.
 export const StatStrip = ({ children, className = '' }) => (
-    <div className={`grid gap-px overflow-hidden rounded-lg border border-line bg-line ${className}`}>
+    <div className={`grid gap-px overflow-hidden rounded-lg border border-line glass ${className}`}>
         {children}
     </div>
 )
 
 export const Stat = ({ label, value, hint, accent = false, className = '' }) => (
-    <div className={`flex flex-col gap-1.5 bg-panel px-5 py-4 ${className}`}>
+    <div className={`flex flex-col gap-1.5 cell-divider px-5 py-4 ${className}`}>
         <p className="text-[10px] uppercase tracking-[0.14em] text-dim">{label}</p>
         <p className={`num text-2xl font-medium tracking-tight ${accent ? 'text-accent' : 'text-ink'}`}>{value}</p>
         {hint && <p className="font-mono text-[10px] text-faint">{hint}</p>}
@@ -76,5 +76,5 @@ export const SearchField = ({ value, onChange, placeholder }) => (
 )
 
 export const FootNote = ({ children }) => (
-    <p className="text-right font-mono text-[10px] text-faint">{children}</p>
+    <p className="text-halo text-right font-mono text-[10px] text-dim">{children}</p>
 )

@@ -56,7 +56,7 @@ export const StrategicObjective = () => {
                 <Stat label="En curso / por iniciar" value={`${enCurso} / ${porIniciar}`} />
             </StatStrip>
 
-            <div className="overflow-x-auto rounded-lg border border-line bg-panel">
+            <div className="overflow-x-auto rounded-lg border border-line glass">
                 <table className="w-full min-w-[1100px] border-collapse">
                     <thead>
                         <tr className="bg-panel-2 font-mono text-[10px] uppercase tracking-wide text-dim">

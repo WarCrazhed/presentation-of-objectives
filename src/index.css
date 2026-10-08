@@ -108,14 +108,50 @@ body {
     -webkit-font-smoothing: antialiased;
 }
 
-/* Fondo de la presentación: retícula de puntos en CSS (sustituye la escena 3D). */
-.dot-grid {
-    background-image: radial-gradient(var(--color-grid) 1px, transparent 1px);
-    background-size: 28px 28px;
-}
-
 /* Toda cifra comparable va en mono tabular para que las columnas alineen. */
 .num {
     font-family: var(--font-mono);
     font-variant-numeric: tabular-nums;
+}
+
+/*
+ * Tarjetas translúcidas: insinúan el fondo de píxeles sin dejar que compita con el texto.
+ * Panel casi opaco + desenfoque suficiente para que los puntos de 2px se vuelvan bruma.
+ */
+@utility glass {
+    background-color: color-mix(in oklab, var(--color-panel) 86%, transparent);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+}
+
+/* Texto que va directo sobre el fondo de píxeles: un halo del color del lienzo lo despega de los puntos. */
+@utility text-halo {
+    text-shadow:
+        0 0 2px var(--color-canvas),
+        0 0 6px var(--color-canvas),
+        0 0 12px var(--color-canvas);
+}
+
+/* Divisor de 1px para celdas en retícula (StatStrip) sin pintar el fondo del padre. */
+@utility cell-divider {
+    box-shadow: 0 0 0 1px var(--color-line);
+}
+
+/*
+ * Velo detrás de un bloque de texto sobre el fondo de píxeles: elipse del color
+ * del lienzo que se desvanece hacia afuera. El halo por letra no alcanza en texto
+ * chico; esto aparta las nubes de puntos de todo el bloque sin dibujar una caja.
+ */
+@utility text-scrim {
+    position: relative;
+    isolation: isolate;
+
+    &::before {
+        content: "";
+        position: absolute;
+        inset: -2rem -4rem;
+        z-index: -1;
+        pointer-events: none;
+        background: radial-gradient(closest-side, var(--color-canvas) 65%, transparent);
+    }
 }

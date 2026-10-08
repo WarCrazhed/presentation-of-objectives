@@ -45,7 +45,7 @@ export const Platforms = () => {
             </StatStrip>
 
             {filtered.length === 0 && (
-                <p className="rounded-lg border border-line bg-panel px-4 py-10 text-center text-sm text-dim">
+                <p className="rounded-lg border border-line glass px-4 py-10 text-center text-sm text-dim">
                     No se encontraron resultados para «{query}».
                 </p>
             )}
@@ -58,7 +58,7 @@ export const Platforms = () => {
                     }, {});
 
                     return (
-                        <div key={platform.id} className="flex flex-col overflow-hidden rounded-lg border border-line bg-panel">
+                        <div key={platform.id} className="flex flex-col overflow-hidden rounded-lg border border-line glass">
                             <div className="flex items-center justify-between gap-4 border-b border-line bg-panel-2 px-4 py-3.5">
                                 <div className="flex min-w-0 items-center gap-3">
                                     <div className="flex size-9 shrink-0 items-center justify-center overflow-hidden rounded-md border border-line bg-panel p-1.5">

@@ -1,20 +1,24 @@
 import { Bot, Cloud, Diskette, Mail, Sparkle, Users } from '../components/icons';
 import { FootNote, SlideHeader, Stat, StatStrip } from '../components/ui';
 
+// Tipo de cambio para los servicios cobrados en dólares (FIX Banxico).
+const USD_MXN = 17.978;
+const USD_MXN_FECHA = '7 oct 2026';
+
 export const OperatingExpenses = () => {
     const expenses = [
         {
-            name: "Servicio en la nube (itfoundry)",
-            amount: 4034.70,
-            currency: "MXN",
+            name: "Servicio en la nube Vultr",
+            amount: 86.40,
+            currency: "USD",
             period: "Mensual",
             description: "Alojamiento de plataformas, base de datos y archivos.",
-            status: "",
+            status: "Pagado",
             icon: Cloud
         },
         {
             name: "Nómina",
-            amount: 44000.00,
+            amount: 35000.00,
             currency: "MXN",
             period: "Mensual",
             description: "Compensación del equipo de Funcionalidad Tecnológica.",
@@ -32,7 +36,7 @@ export const OperatingExpenses = () => {
         },
         {
             name: "Gemini API",
-            amount: 13.31,
+            amount: 4.32,
             currency: "MXN",
             period: "Variable",
             description: "Servicios de Inteligencia Artificial para aplicaciones.",
@@ -41,7 +45,7 @@ export const OperatingExpenses = () => {
         },
         {
             name: "Claude Max (2 cuentas)",
-            amount: 1840.00,
+            amount: 3680.00,
             currency: "MXN",
             period: "Mensual",
             description: "Asistente de IA para desarrollo (Claude Code). 2 cuentas del área.",
@@ -61,18 +65,21 @@ export const OperatingExpenses = () => {
 
     const money = (n) => n.toLocaleString('es-MX', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
-    const recurrentes = expenses.filter((e) => e.currency === "MXN" && e.period !== "Único");
-    const unicos = expenses.filter((e) => e.currency === "MXN" && e.period === "Único");
+    // Todo se suma en pesos: los montos en USD se convierten con el FIX.
+    const toMXN = (e) => (e.currency === "USD" ? e.amount * USD_MXN : e.amount);
 
-    const totalMonthlyMXN = recurrentes.reduce((acc, curr) => acc + curr.amount, 0);
-    const totalOneTimeMXN = unicos.reduce((acc, curr) => acc + curr.amount, 0);
+    const recurrentes = expenses.filter((e) => e.period !== "Único");
+    const unicos = expenses.filter((e) => e.period === "Único");
+
+    const totalMonthlyMXN = recurrentes.reduce((acc, curr) => acc + toMXN(curr), 0);
+    const totalOneTimeMXN = unicos.reduce((acc, curr) => acc + toMXN(curr), 0);
     const totalIA = expenses
         .filter((e) => e.name.startsWith('Gemini') || e.name.startsWith('Claude'))
-        .reduce((acc, e) => acc + e.amount, 0);
+        .reduce((acc, e) => acc + toMXN(e), 0);
 
     // Barras de magnitud, un solo tono, ordenadas de mayor a menor.
-    const maxAmount = Math.max(...recurrentes.map((e) => e.amount));
-    const ranking = [...recurrentes].sort((a, b) => b.amount - a.amount);
+    const maxAmount = Math.max(...recurrentes.map(toMXN));
+    const ranking = [...recurrentes].sort((a, b) => toMXN(b) - toMXN(a));
 
     return (
         <div className="mx-auto flex max-w-[1400px] flex-col gap-5 px-4 py-10 sm:px-7 md:py-14">
@@ -84,7 +91,7 @@ export const OperatingExpenses = () => {
             />
 
             <StatStrip className="grid-cols-2 lg:grid-cols-4">
-                <div className="flex flex-col gap-2 bg-panel px-5 py-5 max-lg:col-span-2">
+                <div className="flex flex-col gap-2 cell-divider px-5 py-5 max-lg:col-span-2">
                     <p className="text-[11px] uppercase tracking-[0.14em] text-dim">Total mensual</p>
                     <p className="flex items-baseline gap-2.5">
                         <span className="num text-4xl font-medium tracking-tight">${money(totalMonthlyMXN)}</span>
@@ -104,7 +111,7 @@ export const OperatingExpenses = () => {
                 />
             </StatStrip>
 
-            <div className="flex flex-col gap-4 rounded-lg border border-line bg-panel p-5">
+            <div className="flex flex-col gap-4 rounded-lg border border-line glass p-5">
                 <h2 className="text-sm font-semibold">Peso de cada concepto en el gasto mensual</h2>
                 <div className="flex flex-col gap-2.5">
                     {ranking.map((expense) => (
@@ -113,17 +120,17 @@ export const OperatingExpenses = () => {
                                 <expense.icon className="size-4 shrink-0 text-accent" />
                                 <span className="truncate text-xs">{expense.name}</span>
                             </div>
-                            <div className="h-3 min-w-[3px] rounded-[3px] bg-accent" style={{ width: `${expense.amount / maxAmount * 100}%` }} />
+                            <div className="h-3 min-w-[3px] rounded-[3px] bg-accent" style={{ width: `${toMXN(expense) / maxAmount * 100}%` }} />
                             <div className="num flex items-baseline gap-3 text-[11px] max-sm:col-span-2 max-sm:justify-end">
-                                <span>${money(expense.amount)}</span>
-                                <span className="text-dim">{(expense.amount / totalMonthlyMXN * 100).toFixed(1)}%</span>
+                                <span>${money(toMXN(expense))}</span>
+                                <span className="text-dim">{(toMXN(expense) / totalMonthlyMXN * 100).toFixed(1)}%</span>
                             </div>
                         </div>
                     ))}
                 </div>
             </div>
 
-            <div className="overflow-x-auto rounded-lg border border-line bg-panel">
+            <div className="overflow-x-auto rounded-lg border border-line glass">
                 <table className="w-full min-w-[860px] border-collapse">
                     <thead>
                         <tr className="bg-panel-2 font-mono text-[10px] uppercase tracking-wide text-dim">
@@ -148,7 +155,12 @@ export const OperatingExpenses = () => {
                                     <span className="inline-flex rounded bg-panel-2 px-2 py-0.5 text-[10px] text-muted">{expense.period}</span>
                                 </td>
                                 <td className={`px-2 py-2 text-[11px] ${expense.status ? 'text-muted' : 'text-faint'}`}>{expense.status || '—'}</td>
-                                <td className="num px-4 py-2 text-right text-xs">${money(expense.amount)}</td>
+                                <td className="num px-4 py-2 text-right text-xs">
+                                    ${money(toMXN(expense))}
+                                    {expense.currency === "USD" && (
+                                        <span className="block text-[10px] text-dim">{money(expense.amount)} USD × {USD_MXN}</span>
+                                    )}
+                                </td>
                             </tr>
                         ))}
                     </tbody>
@@ -161,7 +173,7 @@ export const OperatingExpenses = () => {
                 </table>
             </div>
 
-            <FootNote>montos en mxn · el gasto único no suma al total mensual</FootNote>
+            <FootNote>montos en mxn · usd convertidos a ${USD_MXN} (fix banxico, {USD_MXN_FECHA}) · el gasto único no suma al total mensual</FootNote>
         </div>
     );
 };

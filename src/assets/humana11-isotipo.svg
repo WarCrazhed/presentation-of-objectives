@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80">
+    <!-- Isotipo Humana11: cuadro gris, círculo blanco que corta los lados y punto verde de marca. -->
+    <rect width="80" height="80" rx="7" fill="#4d4d4f" />
+    <circle cx="40" cy="40" r="42" fill="#ffffff" />
+    <circle cx="40" cy="40" r="17.5" fill="#9ac31c" />
+</svg>

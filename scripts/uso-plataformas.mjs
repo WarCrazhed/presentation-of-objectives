@@ -163,6 +163,26 @@ const construir = (p) => {
             sql: `SELECT COUNT(*), MIN(DATE(created_at)), MAX(DATE(created_at))
                   FROM talento.candidates WHERE ${rango('created_at')}`
         },
+        {
+            clave: 'mentores',
+            // Personas: se reportan agregadas, nunca con nombre.
+            sql: `SELECT COUNT(*), SUM(self_registered_at IS NOT NULL), MIN(DATE(created_at)), MAX(DATE(created_at))
+                  FROM criba.mentors WHERE ${rango('created_at')}`
+        },
+        {
+            clave: 'evaluaciones',
+            sql: `SELECT COUNT(*), COUNT(DISTINCT mentor_id), SUM(decision = 'yes'), MIN(DATE(created_at)), MAX(DATE(created_at))
+                  FROM criba.evaluations WHERE ${rango('created_at')}`
+        },
+        {
+            clave: 'accesos',
+            // Alta de cuentas en SuiteDO / UHE hecha por criba (aprovisionamiento de mentores).
+            sql: `SELECT SUM(${rango('suitedo_access_at')}), SUM(${rango('uhe_access_at')}),
+                         MIN(DATE(LEAST(COALESCE(suitedo_access_at, uhe_access_at), COALESCE(uhe_access_at, suitedo_access_at)))),
+                         MAX(DATE(GREATEST(COALESCE(suitedo_access_at, uhe_access_at), COALESCE(uhe_access_at, suitedo_access_at))))
+                  FROM criba.mentors
+                  WHERE ${rango('suitedo_access_at')} OR ${rango('uhe_access_at')}`
+        },
         { clave: 'hoy', sql: `SELECT CURDATE()` }
     ])
 
@@ -226,12 +246,44 @@ const construir = (p) => {
         })
     }
 
+    /* Criba-Mentores — altas, evaluaciones y accesos, solo agregados */
+    const criba = []
+    const n = (v) => Number(v === 'NULL' ? 0 : v ?? 0)
+    const cuentas = (v) => `${n(v)} ${n(v) === 1 ? 'cuenta creada' : 'cuentas creadas'}`
+    const [altas, auto, desdeM, hastaM] = datos.mentores?.[0] ?? ['0']
+    if (n(altas) > 0) {
+        criba.push({
+            name: `Mentores | ${altas} nuevos mentores registrados` + (n(auto) ? ` (${n(auto)} por autorregistro)` : ''),
+            date_start: fecha(desdeM),
+            date_end: fecha(hastaM),
+            status: 'Activo'
+        })
+    }
+    const [evals, evaluados, aprobadas, desdeE, hastaE] = datos.evaluaciones?.[0] ?? ['0']
+    if (n(evals) > 0) {
+        criba.push({
+            name: `Evaluaciones | ${evals} evaluaciones a ${evaluados} mentores (${n(aprobadas)} aprobatorias)`,
+            date_start: fecha(desdeE),
+            date_end: fecha(hastaE),
+            status: 'Completado'
+        })
+    }
+    const [enSuitedo, enUhe, desdeA, hastaA] = datos.accesos?.[0] ?? ['0', '0']
+    if (n(enSuitedo) + n(enUhe) > 0) {
+        criba.push({
+            name: `Accesos | ${cuentas(enSuitedo)} en SuiteDO y ${n(enUhe)} en UHE`,
+            date_start: fecha(desdeA),
+            date_end: fecha(hastaA),
+            status: 'Activo'
+        })
+    }
+
     // Nombres que conviene revisar a ojo antes de presentar (no se tocan automáticamente).
     const revisar = [...suitedo, ...web, ...uhe, ...talento]
         .map((r) => r.name)
         .filter((n) => /[A-ZÁÉÍÓÚÑ]{4,}/.test(n.replace(/^(Entrada Blog|Programa|Módulo|Vacante|Candidatos) \| /, '')))
 
-    return { suitedo, web, uhe, talento, descartados, revisar, corregidos, hoy }
+    return { suitedo, web, uhe, talento, criba, descartados, revisar, corregidos, hoy }
 }
 
 /* ----------------------------------------------------------------- archivo */
@@ -240,7 +292,8 @@ const PLATAFORMAS = [
     { id: 1, name: 'Suitedo', img: 'https://suitedo.com/resources/suitedo-logo.png', description: 'Plataforma de desarrollo organizacional', clave: 'suitedo' },
     { id: 2, name: 'Página Web', img: 'https://humana11.com/img/logos/humana11.webp', description: 'Página web de Humana11', clave: 'web' },
     { id: 3, name: 'UHE', img: 'https://universidadhumanaempresaria.com/UHE/isotipoUHE_Sinfondo.png', description: 'Universidad Humana Empresaria', clave: 'uhe' },
-    { id: 4, name: 'Talento', img: 'https://talento11.com/img/talento.png', description: 'Reclutamiento y assessment psicométrico', clave: 'talento' }
+    { id: 4, name: 'Talento', img: 'https://talento11.com/img/talento.png', description: 'Reclutamiento y assessment psicométrico', clave: 'talento' },
+    { id: 5, name: 'Criba de Mentores', img: 'https://humana11.com/img/logos/humana11.webp', description: 'Padrón y evaluación de mentores', clave: 'criba' }
 ]
 
 const generar = (datos, periodo) => {
@@ -266,11 +319,12 @@ const generar = (datos, periodo) => {
     ].join('\n')).join(',\n')
 
     return `// Actividad de ${periodo.etiqueta}, consultada el ${datos.hoy} contra las BD del
-// ecosistema en 216.238.86.245 (suitedo, humana11, uhe, talento). Solo lectura.
+// ecosistema en 216.238.86.245 (suitedo, humana11, uhe, talento, criba). Solo lectura.
 //   Suitedo    → diagnostic_applieds con start_datetime en el periodo
 //   Página Web → resources con published_at en el periodo
 //   UHE        → prg_programs creados + prg_modules que inician en el periodo
 //   Talento    → vacancies creadas en el periodo + alta de candidates agregada
+//   Criba      → mentors, evaluations y accesos a SuiteDO/UHE en el periodo, solo agregados
 // Generado por scripts/uso-plataformas.mjs — no editar a mano si vas a regenerarlo.
 export const platforms = [
 ${bloques}
@@ -303,13 +357,15 @@ const main = () => {
         console.log(`Escrito ${path.relative(RAIZ, DESTINO)}`)
     }
 
-    const total = datos.suitedo.length + datos.web.length + datos.uhe.length + datos.talento.length
+    const total = datos.suitedo.length + datos.web.length + datos.uhe.length + datos.talento.length + datos.criba.length
     console.log('')
     console.log('## Registros')
     console.log(`Suitedo      ${datos.suitedo.length}  (${datos.suitedo.filter((r) => r.status === 'En Proceso').length} en proceso, ${datos.suitedo.filter((r) => r.status === 'Completado').length} completados)`)
     console.log(`Página Web   ${datos.web.length}`)
     console.log(`UHE          ${datos.uhe.length}  (${datos.uhe.filter((r) => r.name.startsWith('Programa')).length} programas, ${datos.uhe.filter((r) => r.name.startsWith('Módulo')).length} módulos)`)
     console.log(`Talento      ${datos.talento.length}`)
+    console.log(`Criba        ${datos.criba.length}`)
+    datos.criba.forEach((r) => console.log(`  · ${r.name}`))
     console.log(`TOTAL        ${total}`)
 
     if (datos.descartados.length) {

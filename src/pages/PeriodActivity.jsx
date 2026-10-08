@@ -4,7 +4,7 @@ import { FootNote, SlideHeader, Stat, StatStrip } from '../components/ui';
 
 export const PeriodActivity = () => {
     // Los números se derivan de platforms.js (misma fuente que "Uso de Plataformas")
-    // para que ambos slides siempre cuadren. Solo registros de agosto y septiembre 2026.
+    // para que ambos slides siempre cuadren. Solo registros de septiembre y octubre 2026.
     const byName = (name) => platforms.find((p) => p.name === name)?.records ?? [];
 
     const talento = byName("Talento");
@@ -39,7 +39,7 @@ export const PeriodActivity = () => {
                 number="03"
                 eyebrow="periodo"
                 title="Actividad del periodo"
-                description="Registros de agosto y septiembre 2026 en las plataformas del ecosistema."
+                description="Registros de septiembre y octubre 2026 en las plataformas del ecosistema."
             />
 
             <StatStrip className="grid-cols-2 sm:grid-cols-3 lg:grid-cols-6">
@@ -50,7 +50,7 @@ export const PeriodActivity = () => {
 
             <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
                 {listas.map((lista) => (
-                    <div key={lista.title} className="flex flex-col rounded-lg border border-line bg-panel p-5">
+                    <div key={lista.title} className="flex flex-col rounded-lg border border-line glass p-5">
                         <div className="flex items-center gap-2.5 pb-3">
                             <lista.icon className="size-4 text-accent" />
                             <h2 className="text-sm font-semibold">{lista.title}</h2>

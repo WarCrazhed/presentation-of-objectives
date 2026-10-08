@@ -84,7 +84,7 @@ export const App = () => {
         return (
             <Layout>
                 <div className="flex min-h-[calc(100vh-13rem)] items-center justify-center px-4 py-16">
-                    <div className="flex w-full max-w-sm flex-col gap-5 rounded-xl border border-line bg-panel p-8">
+                    <div className="flex w-full max-w-sm flex-col gap-5 rounded-xl border border-line glass p-8">
                         <span className="inline-flex size-10 items-center justify-center rounded-lg border border-line bg-panel-2 text-accent">
                             <Lock className="size-5" />
                         </span>
@@ -143,7 +143,7 @@ export const App = () => {
         <Layout counter={`${pad(currentSlide + 1)} / ${pad(slides.length)}`}>
             {slides[currentSlide].view}
 
-            <footer className="fixed bottom-0 left-0 right-0 z-40 border-t border-line bg-panel">
+            <footer className="fixed bottom-0 left-0 right-0 z-40 border-t border-line glass">
                 <div className="mx-auto flex max-w-6xl items-center gap-4 px-4 py-2.5 sm:px-7">
                     <button
                         onClick={prevSlide}

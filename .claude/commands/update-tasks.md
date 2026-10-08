@@ -29,6 +29,7 @@ De dónde sale cada plataforma:
 | Página Web | `humana11.resources` | `published_at` |
 | UHE | `uhe.prg_programs` + `uhe.prg_modules` | `created_at` / `start_date` |
 | Talento | `talento.vacancies` + `talento.candidates` | `created_at` |
+| Criba de Mentores | `criba.mentors` + `criba.evaluations` | `created_at` / `suitedo_access_at` / `uhe_access_at` |
 
 Dos columnas no son de fiar y por eso el script no las usa: `vacancies.published_at` está
 NULL en toda la tabla y `vacancies.updated_at` trae un update masivo; `prg_programs.start_date`
