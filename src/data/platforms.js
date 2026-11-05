@@ -1,7 +1,7 @@
-// Actividad de septiembre y octubre 2026, consultada el 2026-10-08 contra las BD del
+// Actividad de octubre y noviembre 2026, consultada el 2026-11-05 contra las BD del
 // ecosistema en 216.238.86.245 (suitedo, humana11, uhe, talento, criba). Solo lectura.
 //   Suitedo    → diagnostic_applieds con start_datetime en el periodo
-//   Página Web → resources con published_at en el periodo
+//   Página Web → resources con published_at en el periodo + posts/comentarios/reacciones de Comunidad (agregados)
 //   UHE        → prg_programs creados + prg_modules que inician en el periodo
 //   Talento    → vacancies creadas en el periodo + alta de candidates agregada
 //   Criba      → mentors, evaluations y accesos a SuiteDO/UHE en el periodo, solo agregados
@@ -14,57 +14,9 @@ export const platforms = [
         description: "Plataforma de desarrollo organizacional",
         records: [
             {
-                "name": "EGD002 - 23",
-                "date_start": "01 Septiembre 2026",
-                "date_end": "26 Septiembre 2026",
-                "status": "Completado"
-            },
-            {
-                "name": "Sesión 1: Liderazgo Situacional Gestión de Equipos",
-                "date_start": "03 Septiembre 2026",
-                "date_end": "04 Abril 2027",
-                "status": "En Proceso"
-            },
-            {
-                "name": "NPS- 3 TRIMESTRE",
-                "date_start": "07 Septiembre 2026",
-                "date_end": "30 Septiembre 2026",
-                "status": "Completado"
-            },
-            {
-                "name": "EGD002 - 24",
-                "date_start": "08 Septiembre 2026",
-                "date_end": "26 Septiembre 2026",
-                "status": "Completado"
-            },
-            {
-                "name": "CLIMA LABORAL- H11- 2026",
-                "date_start": "09 Septiembre 2026",
-                "date_end": "30 Septiembre 2026",
-                "status": "Completado"
-            },
-            {
-                "name": "Masterclass 9 de septiembre",
-                "date_start": "09 Septiembre 2026",
-                "date_end": "11 Septiembre 2026",
-                "status": "Completado"
-            },
-            {
-                "name": "DIAGNÓSTICO INICIAL GRÚAS INDUSTRIALES BRAVO",
-                "date_start": "18 Septiembre 2026",
-                "date_end": "10 Octubre 2026",
-                "status": "En Proceso"
-            },
-            {
-                "name": "EGD002 - 25",
-                "date_start": "22 Septiembre 2026",
-                "date_end": "27 Septiembre 2026",
-                "status": "Completado"
-            },
-            {
-                "name": "CLIMA LABORAL - CARNES DE PRIMERA",
-                "date_start": "30 Septiembre 2026",
-                "date_end": "31 Octubre 2026",
+                "name": "Encuesta de satisfacción mentores Humana 11/UHE",
+                "date_start": "01 Octubre 2026",
+                "date_end": "24 Abril 2027",
                 "status": "En Proceso"
             },
             {
@@ -74,10 +26,16 @@ export const platforms = [
                 "status": "En Proceso"
             },
             {
+                "name": "DIAGNOSTICO INICIAL - DIFARVET",
+                "date_start": "01 Octubre 2026",
+                "date_end": "30 Octubre 2026",
+                "status": "Completado"
+            },
+            {
                 "name": "Masterclass - 07/10/2026 - Planeación Estegica",
                 "date_start": "07 Octubre 2026",
                 "date_end": "11 Octubre 2026",
-                "status": "En Proceso"
+                "status": "Completado"
             },
             {
                 "name": "EGD003 - 02",
@@ -86,10 +44,22 @@ export const platforms = [
                 "status": "En Proceso"
             },
             {
+                "name": "DIAGNÓSTICO INICIAL - GRUPO PONS (Porcicultor /Alimentos)",
+                "date_start": "09 Octubre 2026",
+                "date_end": "31 Octubre 2026",
+                "status": "Completado"
+            },
+            {
                 "name": "EGD003 - 03",
                 "date_start": "15 Octubre 2026",
                 "date_end": "03 Abril 2027",
                 "status": "En Proceso"
+            },
+            {
+                "name": "EGAFI Ventas con IA - Sesión 1",
+                "date_start": "16 Octubre 2026",
+                "date_end": "31 Octubre 2026",
+                "status": "Completado"
             },
             {
                 "name": "EGD003 - 04",
@@ -98,8 +68,80 @@ export const platforms = [
                 "status": "En Proceso"
             },
             {
+                "name": "EGAFI Ventas con IA - Sesión 2",
+                "date_start": "23 Octubre 2026",
+                "date_end": "31 Octubre 2026",
+                "status": "Completado"
+            },
+            {
                 "name": "EGD003 - 05",
                 "date_start": "29 Octubre 2026",
+                "date_end": "03 Abril 2027",
+                "status": "En Proceso"
+            },
+            {
+                "name": "EGAFI Ventas con IA - Sesión 3",
+                "date_start": "30 Octubre 2026",
+                "date_end": "31 Octubre 2026",
+                "status": "Completado"
+            },
+            {
+                "name": "HUMANA 11 - DIAGNÓSTICO",
+                "date_start": "03 Noviembre 2026",
+                "date_end": "11 Noviembre 2026",
+                "status": "En Proceso"
+            },
+            {
+                "name": "BACHILLERATO - LENGUA Y COMUNICACIÓN I",
+                "date_start": "04 Noviembre 2026",
+                "date_end": "07 Noviembre 2026",
+                "status": "En Proceso"
+            },
+            {
+                "name": "EGD003 - 06",
+                "date_start": "05 Noviembre 2026",
+                "date_end": "03 Abril 2027",
+                "status": "En Proceso"
+            },
+            {
+                "name": "EGAFI Liderazgo - Sesión 1",
+                "date_start": "06 Noviembre 2026",
+                "date_end": "07 Noviembre 2026",
+                "status": "En Proceso"
+            },
+            {
+                "name": "EGD003 - 07",
+                "date_start": "12 Noviembre 2026",
+                "date_end": "03 Abril 2027",
+                "status": "En Proceso"
+            },
+            {
+                "name": "EGAFI Liderazgo - Sesión 2",
+                "date_start": "13 Noviembre 2026",
+                "date_end": "14 Noviembre 2026",
+                "status": "En Proceso"
+            },
+            {
+                "name": "EGD003 - 08",
+                "date_start": "19 Noviembre 2026",
+                "date_end": "03 Abril 2027",
+                "status": "En Proceso"
+            },
+            {
+                "name": "Evento bimestral: Cata de Vino EGD003",
+                "date_start": "20 Noviembre 2026",
+                "date_end": "03 Abril 2027",
+                "status": "En Proceso"
+            },
+            {
+                "name": "EGAFI Liderazgo - Sesión 3",
+                "date_start": "20 Noviembre 2026",
+                "date_end": "21 Noviembre 2026",
+                "status": "En Proceso"
+            },
+            {
+                "name": "EGD003 - 09",
+                "date_start": "26 Noviembre 2026",
                 "date_end": "03 Abril 2027",
                 "status": "En Proceso"
             }
@@ -112,82 +154,28 @@ export const platforms = [
         description: "Página web de Humana11",
         records: [
             {
-                "name": "Entrada Blog | La relevancia de la evaluación al desempeño en la Alta Dirección",
-                "date_start": "31 de Octubre 2026",
-                "date_end": null,
+                "name": "Comunidad | 26 publicaciones de colaboradores (18 autores)",
+                "date_start": "21 de Octubre 2026",
+                "date_end": "28 de Octubre 2026",
                 "status": "Publicado"
             },
             {
-                "name": "Entrada Blog | La importancia del trabajo híbrido",
-                "date_start": "27 de Octubre 2026",
-                "date_end": null,
+                "name": "Comunidad | 2 reconocimientos entre colaboradores (2 autores)",
+                "date_start": "23 de Octubre 2026",
+                "date_end": "28 de Octubre 2026",
                 "status": "Publicado"
             },
             {
-                "name": "Entrada Blog | Cultura de aprendizaje: cuando el error deja de ser un castigo",
-                "date_start": "24 de Octubre 2026",
-                "date_end": null,
+                "name": "Comunidad | 1 felicitación automática de cumpleaños",
+                "date_start": "26 de Octubre 2026",
+                "date_end": "26 de Octubre 2026",
                 "status": "Publicado"
             },
             {
-                "name": "Entrada Blog | Tres tiendas al día: el secreto detrás del imperio OXXO",
-                "date_start": "20 de Octubre 2026",
-                "date_end": null,
-                "status": "Publicado"
-            },
-            {
-                "name": "Entrada Blog | El error como principal fuente de aprendizaje: convirtiendo fallas en ventaja competitiva",
-                "date_start": "17 de Octubre 2026",
-                "date_end": null,
-                "status": "Publicado"
-            },
-            {
-                "name": "Entrada Blog | Impacto generacional en el trabajo",
-                "date_start": "12 de Octubre 2026",
-                "date_end": null,
-                "status": "Publicado"
-            },
-            {
-                "name": "Entrada Blog | Gamificación ejecutiva: cuando jugar es la decisión más rentable del trimestre",
-                "date_start": "09 de Octubre 2026",
-                "date_end": null,
-                "status": "Publicado"
-            },
-            {
-                "name": "Entrada Blog | Angélica Fuentes: del fondo al liderazgo que empodera a otras mujeres",
-                "date_start": "03 de Octubre 2026",
-                "date_end": null,
-                "status": "Publicado"
-            },
-            {
-                "name": "Entrada Blog | Dilemas del Director General en 2026: decidir en el cruce de la presión, la reinvención y el riesgo",
-                "date_start": "30 de Septiembre 2026",
-                "date_end": null,
-                "status": "Publicado"
-            },
-            {
-                "name": "Entrada Blog | De los datos a las decisiones: El auge de la cultura Data-Driven",
-                "date_start": "26 de Septiembre 2026",
-                "date_end": null,
-                "status": "Publicado"
-            },
-            {
-                "name": "Entrada Blog | ¿Qué es una competencia laboral?",
-                "date_start": "19 de Septiembre 2026",
-                "date_end": null,
-                "status": "Publicado"
-            },
-            {
-                "name": "Entrada Blog | Learning in the Flow of Work: aprende sin detener la operación",
-                "date_start": "15 de Septiembre 2026",
-                "date_end": null,
-                "status": "Publicado"
-            },
-            {
-                "name": "Entrada Blog | Juntas que sí sirven: guía para dejar de perder tiempo",
-                "date_start": "12 de Septiembre 2026",
-                "date_end": null,
-                "status": "Publicado"
+                "name": "Comunidad | 22 comentarios y 229 reacciones",
+                "date_start": "21 de Octubre 2026",
+                "date_end": "28 de Octubre 2026",
+                "status": "Activo"
             }
         ]
     },
@@ -198,45 +186,51 @@ export const platforms = [
         description: "Universidad Humana Empresaria",
         records: [
             {
-                "name": "Módulo | Informe académico: Final del ciclo",
-                "date_start": "01 de Septiembre 2026",
-                "date_end": "26 de Septiembre 2026",
-                "status": "Activo"
-            },
-            {
-                "name": "Módulo | Eje 6: Desarrollo Organizacional",
-                "date_start": "18 de Septiembre 2026",
-                "date_end": "30 de Octubre 2026",
-                "status": "Activo"
-            },
-            {
-                "name": "Módulo | Desarrollo Ejecutivo Gerencial: Proyección y toma de decisiones",
-                "date_start": "22 de Septiembre 2026",
-                "date_end": "26 de Septiembre 2026",
+                "name": "Programa | Bachillerato Virtual UHE®",
+                "date_start": "12 de Octubre 2026",
+                "date_end": null,
                 "status": "Activo"
             },
             {
                 "name": "Módulo | Inducción a la plataforma",
-                "date_start": "23 de Septiembre 2026",
-                "date_end": "03 de Abril 2027",
-                "status": "Activo"
-            },
-            {
-                "name": "Módulo | Dirección y gestión del capital humano: Del propósito al equipo: Liderazgo consciente y dirección de personas",
-                "date_start": "25 de Septiembre 2026",
-                "date_end": "11 de Octubre 2026",
+                "date_start": "01 de Octubre 2026",
+                "date_end": "31 de Diciembre 2029",
                 "status": "Activo"
             },
             {
                 "name": "Módulo | Dirección y gestión del capital humano: Gestión estratégica del ciclo de vida del talento",
-                "date_start": "15 de Octubre 2026",
+                "date_start": "08 de Octubre 2026",
                 "date_end": "31 de Octubre 2026",
                 "status": "Activo"
             },
             {
+                "name": "Módulo | Módulo 1",
+                "date_start": "12 de Octubre 2026",
+                "date_end": "31 de Diciembre 2029",
+                "status": "Activo"
+            },
+            {
+                "name": "Módulo | Dirección estratégica institucional: Estrategia, Modelos de Negocio y Competitividad",
+                "date_start": "15 de Octubre 2026",
+                "date_end": "10 de Abril 2027",
+                "status": "Activo"
+            },
+            {
                 "name": "Módulo | Desarrollo Ejecutivo Gerencial: Proyección y toma de decisiones",
-                "date_start": "29 de Octubre 2026",
-                "date_end": "19 de Noviembre 2026",
+                "date_start": "22 de Octubre 2026",
+                "date_end": "10 de Abril 2027",
+                "status": "Activo"
+            },
+            {
+                "name": "Módulo | Eje 7: Gestión de la Tecnología y Transformación Digital",
+                "date_start": "06 de Noviembre 2026",
+                "date_end": "31 de Diciembre 2026",
+                "status": "Activo"
+            },
+            {
+                "name": "Módulo | Marketing estratégico y comercialización: Marketing Estratégico y Gestión Comercial",
+                "date_start": "19 de Noviembre 2026",
+                "date_end": "10 de Abril 2027",
                 "status": "Activo"
             }
         ]
@@ -248,27 +242,15 @@ export const platforms = [
         description: "Reclutamiento y assessment psicométrico",
         records: [
             {
-                "name": "Vacante | Gerente de Operaciones La Mazorca",
-                "date_start": "03 de Septiembre 2026",
+                "name": "Vacante | Director General Lazzar",
+                "date_start": "29 de Octubre 2026",
                 "date_end": null,
                 "status": "Activo"
             },
             {
-                "name": "Vacante | Coordinador Comercial B2C",
-                "date_start": "10 de Septiembre 2026",
-                "date_end": null,
-                "status": "Activo"
-            },
-            {
-                "name": "Vacante | Mentor Septiembre 2026",
-                "date_start": "23 de Septiembre 2026",
-                "date_end": null,
-                "status": "Activo"
-            },
-            {
-                "name": "Candidatos | 21 nuevos candidatos registrados",
-                "date_start": "03 de Septiembre 2026",
-                "date_end": "07 de Octubre 2026",
+                "name": "Candidatos | 7 nuevos candidatos registrados",
+                "date_start": "03 de Octubre 2026",
+                "date_end": "03 de Noviembre 2026",
                 "status": "Activo"
             }
         ]
@@ -280,10 +262,16 @@ export const platforms = [
         description: "Padrón y evaluación de mentores",
         records: [
             {
-                "name": "Mentores | 13 nuevos mentores registrados",
-                "date_start": "01 de Septiembre 2026",
+                "name": "Mentores | 1 nuevos mentores registrados",
+                "date_start": "02 de Octubre 2026",
                 "date_end": "02 de Octubre 2026",
                 "status": "Activo"
+            },
+            {
+                "name": "Evaluaciones | 5 evaluaciones a 5 mentores (5 aprobatorias)",
+                "date_start": "09 de Octubre 2026",
+                "date_end": "09 de Octubre 2026",
+                "status": "Completado"
             },
             {
                 "name": "Accesos | 1 cuenta creada en SuiteDO y 1 en UHE",

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Home, Questions, Platforms, OperatingExpenses, StrategicObjective, AIUsage, PeriodActivity } from './pages'
+import { Home, Questions, Platforms, OperatingExpenses, StrategicObjective, AIUsage } from './pages'
 import { Layout } from './components/Layout'
 import { Alert, ArrowRight, ChevronLeft, ChevronRight, Eye, Lock } from './components/icons'
 
@@ -46,11 +46,6 @@ export const App = () => {
             content: "platforms",
             title: "Uso de Plataformas",
             view: <Platforms />
-        },
-        {
-            content: "period-activity",
-            title: "Actividad del Periodo",
-            view: <PeriodActivity />
         },
         {
             content: "strategy",

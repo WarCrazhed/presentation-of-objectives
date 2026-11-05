@@ -62,7 +62,7 @@ export const AIUsage = () => {
     return (
         <div className="mx-auto flex max-w-[1400px] flex-col gap-5 px-4 py-10 sm:px-7 md:py-14">
             <SlideHeader
-                number="05"
+                number="04"
                 eyebrow="inteligencia artificial"
                 title="Uso de IA en el área"
                 description="Tareas desarrolladas con apoyo de IA durante septiembre y octubre 2026, y el tiempo que representaron frente al trabajo manual."

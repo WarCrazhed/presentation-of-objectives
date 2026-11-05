@@ -26,7 +26,7 @@ De dónde sale cada plataforma:
 | Plataforma | Fuente | Fecha que usa |
 |---|---|---|
 | Suitedo | `suitedo.diagnostic_applieds` | `start_datetime` |
-| Página Web | `humana11.resources` | `published_at` |
+| Página Web | `humana11.resources` + Comunidad: `humana11.posts`, `post_comments`, `post_reactions`, `post_comment_reactions` (solo agregados) | `published_at` / `created_at` |
 | UHE | `uhe.prg_programs` + `uhe.prg_modules` | `created_at` / `start_date` |
 | Talento | `talento.vacancies` + `talento.candidates` | `created_at` |
 | Criba de Mentores | `criba.mentors` + `criba.evaluations` | `created_at` / `suitedo_access_at` / `uhe_access_at` |
@@ -37,11 +37,11 @@ también está NULL en toda la tabla.
 
 ## 2. Ajusta el texto del periodo
 
-En `src/pages/PeriodActivity.jsx`, la prop `description` del `SlideHeader` nombra el periodo.
-Actualízala para que coincida con `$ARGUMENTS` (p. ej. «Registros de agosto y septiembre 2026
-en las plataformas del ecosistema.»). Si ya coincide, déjala como está.
+En `src/pages/Platforms.jsx`, la prop `description` del `SlideHeader` nombra el periodo.
+Actualízala para que coincida con `$ARGUMENTS` (p. ej. «Actividades y diagnósticos registrados
+en agosto y septiembre 2026 en el ecosistema.»). Si ya coincide, déjala como está.
 
-No toques nada más: `Home` y `Actividad del Periodo` derivan sus cifras de `platforms.js`
+No toques nada más: `Home` y `Uso de Plataformas` derivan sus cifras de `platforms.js`
 y se actualizan solas.
 
 ## 3. Verifica

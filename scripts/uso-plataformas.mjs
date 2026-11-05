@@ -141,6 +141,30 @@ const construir = (p) => {
                   ORDER BY published_at DESC`
         },
         {
+            clave: 'blogsBorrador',
+            // Diagnóstico: recursos dados de alta en el periodo que aún no tienen published_at.
+            sql: `SELECT COUNT(*) FROM humana11.resources
+                  WHERE published_at IS NULL AND ${rango('created_at')}`
+        },
+        {
+            clave: 'posts',
+            // Comunidad (feed interno de humana11web). Contenido personal de colaboradores:
+            // solo agregados por tipo, nunca título, cuerpo ni nombres. Sin borrados.
+            sql: `SELECT type, COUNT(*), COUNT(DISTINCT user_id), MIN(DATE(created_at)), MAX(DATE(created_at))
+                  FROM humana11.posts
+                  WHERE deleted_at IS NULL AND ${rango('created_at')}
+                  GROUP BY type`
+        },
+        {
+            clave: 'interaccion',
+            sql: `SELECT
+                    (SELECT COUNT(*) FROM humana11.post_comments WHERE deleted_at IS NULL AND ${rango('created_at')}),
+                    (SELECT COUNT(*) FROM humana11.post_reactions WHERE ${rango('created_at')}),
+                    (SELECT COUNT(*) FROM humana11.post_comment_reactions WHERE ${rango('created_at')}),
+                    (SELECT MIN(DATE(created_at)) FROM humana11.post_comments WHERE deleted_at IS NULL AND ${rango('created_at')}),
+                    (SELECT MAX(DATE(created_at)) FROM humana11.post_comments WHERE deleted_at IS NULL AND ${rango('created_at')})`
+        },
+        {
             clave: 'programas',
             // prg_programs.start_date está NULL en toda la tabla: se fecha por created_at.
             sql: `SELECT DATE(created_at), name FROM uhe.prg_programs
@@ -210,6 +234,38 @@ const construir = (p) => {
         date_end: null,
         status: 'Publicado'
     }))
+
+    /* Página Web — Comunidad (posts del feed interno), solo agregados */
+    const plural = (k, uno, varios) => `${k} ${Number(k) === 1 ? uno : varios}`
+    const porTipo = Object.fromEntries((datos.posts ?? []).map(([tipo, ...resto]) => [tipo, resto]))
+    const TIPOS_POST = [
+        ['user', 'publicación', 'publicaciones', 'de colaboradores'],
+        ['recognition', 'reconocimiento', 'reconocimientos', 'entre colaboradores'],
+        ['birthday', 'felicitación automática de cumpleaños', 'felicitaciones automáticas de cumpleaños', ''],
+        ['anniversary', 'felicitación automática de aniversario', 'felicitaciones automáticas de aniversario', '']
+    ]
+    for (const [tipo, uno, varios, sufijo] of TIPOS_POST) {
+        const [cuantos, autores, desdeP, hastaP] = porTipo[tipo] ?? ['0']
+        if (!Number(cuantos)) continue
+        const quien = ['user', 'recognition'].includes(tipo) ? ` (${plural(autores, 'autor', 'autores')})` : ''
+        web.push({
+            name: `Comunidad | ${plural(cuantos, uno, varios)}${sufijo ? ` ${sufijo}` : ''}${quien}`,
+            date_start: fecha(desdeP),
+            date_end: fecha(hastaP),
+            status: 'Publicado'
+        })
+    }
+    const [coms, reacc, reaccComs, desdeI, hastaI] = datos.interaccion?.[0] ?? ['0', '0', '0']
+    const nI = (v) => Number(v === 'NULL' ? 0 : v ?? 0)
+    if (nI(coms) + nI(reacc) + nI(reaccComs) > 0) {
+        web.push({
+            name: `Comunidad | ${plural(nI(coms), 'comentario', 'comentarios')} y ${plural(nI(reacc) + nI(reaccComs), 'reacción', 'reacciones')}`,
+            date_start: fecha(desdeI),
+            date_end: fecha(hastaI),
+            status: 'Activo'
+        })
+    }
+    const blogsBorrador = Number(datos.blogsBorrador?.[0]?.[0] ?? 0)
 
     /* UHE — programas creados + módulos que inician en el periodo */
     const uhe = [
@@ -281,9 +337,9 @@ const construir = (p) => {
     // Nombres que conviene revisar a ojo antes de presentar (no se tocan automáticamente).
     const revisar = [...suitedo, ...web, ...uhe, ...talento]
         .map((r) => r.name)
-        .filter((n) => /[A-ZÁÉÍÓÚÑ]{4,}/.test(n.replace(/^(Entrada Blog|Programa|Módulo|Vacante|Candidatos) \| /, '')))
+        .filter((n) => /[A-ZÁÉÍÓÚÑ]{4,}/.test(n.replace(/^(Entrada Blog|Comunidad|Programa|Módulo|Vacante|Candidatos) \| /, '')))
 
-    return { suitedo, web, uhe, talento, criba, descartados, revisar, corregidos, hoy }
+    return { suitedo, web, uhe, talento, criba, descartados, revisar, corregidos, hoy, blogsBorrador }
 }
 
 /* ----------------------------------------------------------------- archivo */
@@ -321,7 +377,7 @@ const generar = (datos, periodo) => {
     return `// Actividad de ${periodo.etiqueta}, consultada el ${datos.hoy} contra las BD del
 // ecosistema en 216.238.86.245 (suitedo, humana11, uhe, talento, criba). Solo lectura.
 //   Suitedo    → diagnostic_applieds con start_datetime en el periodo
-//   Página Web → resources con published_at en el periodo
+//   Página Web → resources con published_at en el periodo + posts/comentarios/reacciones de Comunidad (agregados)
 //   UHE        → prg_programs creados + prg_modules que inician en el periodo
 //   Talento    → vacancies creadas en el periodo + alta de candidates agregada
 //   Criba      → mentors, evaluations y accesos a SuiteDO/UHE en el periodo, solo agregados
@@ -361,7 +417,8 @@ const main = () => {
     console.log('')
     console.log('## Registros')
     console.log(`Suitedo      ${datos.suitedo.length}  (${datos.suitedo.filter((r) => r.status === 'En Proceso').length} en proceso, ${datos.suitedo.filter((r) => r.status === 'Completado').length} completados)`)
-    console.log(`Página Web   ${datos.web.length}`)
+    console.log(`Página Web   ${datos.web.length}  (${datos.web.filter((r) => r.name.startsWith('Entrada Blog')).length} blogs, ${datos.web.filter((r) => r.name.startsWith('Comunidad')).length} de Comunidad; ${datos.blogsBorrador} recursos creados sin publicar)`)
+    datos.web.filter((r) => r.name.startsWith('Comunidad')).forEach((r) => console.log(`  · ${r.name}`))
     console.log(`UHE          ${datos.uhe.length}  (${datos.uhe.filter((r) => r.name.startsWith('Programa')).length} programas, ${datos.uhe.filter((r) => r.name.startsWith('Módulo')).length} módulos)`)
     console.log(`Talento      ${datos.talento.length}`)
     console.log(`Criba        ${datos.criba.length}`)

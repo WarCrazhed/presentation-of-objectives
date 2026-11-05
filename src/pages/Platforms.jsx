@@ -32,7 +32,7 @@ export const Platforms = () => {
                 number="02"
                 eyebrow="plataformas"
                 title="Uso de plataformas"
-                description="Actividades y diagnósticos registrados en el ecosistema."
+                description="Actividades y diagnósticos registrados en octubre y noviembre 2026 en el ecosistema."
             >
                 <SearchField value={query} onChange={setQuery} placeholder="Buscar registro o estado…" />
             </SlideHeader>

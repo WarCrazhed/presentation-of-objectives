@@ -31,7 +31,7 @@ export const StrategicObjective = () => {
     return (
         <div className="mx-auto flex max-w-[1400px] flex-col gap-5 px-4 py-10 sm:px-7 md:py-14">
             <SlideHeader
-                number="04"
+                number="03"
                 eyebrow="objetivos"
                 title="Objetivos estratégicos"
                 description="Objetivos e iniciativas del departamento de Funcionalidad Tecnológica y los meses comprometidos."

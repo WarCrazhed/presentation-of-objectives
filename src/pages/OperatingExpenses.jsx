@@ -36,7 +36,7 @@ export const OperatingExpenses = () => {
         },
         {
             name: "Gemini API",
-            amount: 4.32,
+            amount: 100.00,
             currency: "MXN",
             period: "Variable",
             description: "Servicios de Inteligencia Artificial para aplicaciones.",
@@ -84,7 +84,7 @@ export const OperatingExpenses = () => {
     return (
         <div className="mx-auto flex max-w-[1400px] flex-col gap-5 px-4 py-10 sm:px-7 md:py-14">
             <SlideHeader
-                number="06"
+                number="05"
                 eyebrow="costos"
                 title="Gastos operativos"
                 description="Inversión y costos fijos del departamento."
