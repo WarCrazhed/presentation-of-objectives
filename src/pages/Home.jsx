@@ -7,13 +7,16 @@ import { tareasIA } from '../data/aiTasks';
 export const Home = () => {
     // Las cifras salen de las mismas fuentes que los slides, para que nunca se contradigan.
     const totalIniciativas = strategicObjectives.reduce((acc, o) => acc + o.initiatives.length, 0);
-    const totalRegistros = platforms.reduce((acc, p) => acc + p.records.length, 0);
+    // Suma por plataforma de las métricas de personas: alguien activo en dos plataformas cuenta dos veces.
+    const personasActivas = platforms.reduce(
+        (acc, p) => acc + p.metrics.filter((m) => m.personas).reduce((a, m) => a + m.value, 0), 0
+    );
     const horasAhorradas = tareasIA.reduce((acc, t) => acc + (t.manualHoras - t.iaHoras), 0);
 
     const resumen = [
         { value: strategicObjectives.length, label: 'objetivos' },
         { value: totalIniciativas, label: 'iniciativas' },
-        { value: totalRegistros, label: 'registros' },
+        { value: personasActivas, label: 'personas activas', title: 'Suma por plataforma del periodo' },
         { value: `${horasAhorradas} h`, label: 'ahorradas con IA', accent: true }
     ];
 
@@ -44,7 +47,7 @@ export const Home = () => {
 
                 <div className="mt-2 grid w-full grid-cols-2 overflow-hidden rounded-lg border border-line glass sm:grid-cols-4">
                     {resumen.map((item) => (
-                        <div key={item.label} className="flex flex-col gap-1 border-b border-line px-5 py-3.5 last:border-b-0 sm:border-b-0 sm:border-r sm:last:border-r-0">
+                        <div key={item.label} title={item.title} className="flex flex-col gap-1 border-b border-line px-5 py-3.5 last:border-b-0 sm:border-b-0 sm:border-r sm:last:border-r-0">
                             <p className={`num text-xl font-medium ${item.accent ? 'text-accent' : 'text-ink'}`}>{item.value}</p>
                             <p className="text-[11px] text-dim">{item.label}</p>
                         </div>

@@ -1,7 +1,7 @@
 import { Fragment, useState } from 'react';
 import { ChevronDown } from '../components/icons';
-import { tareasIA } from '../data/aiTasks';
-import { FootNote, SearchField, SlideHeader, Stat, StatStrip } from '../components/ui';
+import { periodoIA, resumenIAAnterior as ant, tareasIA } from '../data/aiTasks';
+import { Delta, FootNote, SearchField, SlideHeader, Stat, StatStrip } from '../components/ui';
 
 // Un tono por categoría, tomado de los tokens de src/index.css (claro y oscuro).
 const CAT_TONE = {
@@ -28,6 +28,8 @@ export const AIUsage = () => {
     const totalIA = tareasIA.reduce((acc, t) => acc + t.iaHoras, 0);
     const totalAhorro = totalManual - totalIA;
     const ahorroPct = Math.round((totalAhorro / totalManual) * 100);
+    const ahorroAnt = ant.manualHoras - ant.iaHoras;
+    const horas = (n) => `${n} h`;
 
     // Filtrado por búsqueda (tarea, plataforma o categoría).
     const q = query.trim().toLowerCase();
@@ -54,7 +56,11 @@ export const AIUsage = () => {
             const items = tareasIA.filter((t) => t.plataforma === p);
             const manual = items.reduce((acc, t) => acc + t.manualHoras, 0);
             const ia = items.reduce((acc, t) => acc + t.iaHoras, 0);
-            return { plataforma: p, n: items.length, manual, ia, pct: Math.round((manual - ia) / manual * 100) };
+            const prev = ant.porPlataforma[p];
+            return {
+                plataforma: p, n: items.length, manual, ia, pct: Math.round((manual - ia) / manual * 100),
+                prevAhorro: prev ? prev.manualHoras - prev.iaHoras : 0
+            };
         })
         .sort((a, b) => b.manual - a.manual);
     const maxManual = Math.max(...resumenPlataformas.map((p) => p.manual));
@@ -65,7 +71,7 @@ export const AIUsage = () => {
                 number="04"
                 eyebrow="inteligencia artificial"
                 title="Uso de IA en el área"
-                description="Tareas desarrolladas con apoyo de IA durante septiembre y octubre 2026, y el tiempo que representaron frente al trabajo manual."
+                description={`Tareas desarrolladas con apoyo de IA durante ${periodoIA.etiqueta}, y el tiempo que representaron frente al trabajo manual. Comparado con ${periodoIA.anterior}.`}
             >
                 <SearchField value={query} onChange={setQuery} placeholder="Buscar tarea, plataforma o categoría…" />
             </SlideHeader>
@@ -77,14 +83,23 @@ export const AIUsage = () => {
                     <p className="flex items-baseline gap-3">
                         <span className="num text-4xl font-medium tracking-tight text-accent">{totalAhorro} h</span>
                         <span className="num text-sm text-muted">−{ahorroPct}%</span>
+                        <Delta value={totalAhorro} prev={ahorroAnt} format={horas} />
                     </p>
                     <p className="text-xs text-dim">
                         <span className="num">{totalManual} h</span> estimadas en manual · <span className="num">{totalIA} h</span> con apoyo de IA
                     </p>
                 </div>
-                <Stat label="Tareas" value={tareasIA.length} />
-                <Stat label="Plataformas" value={resumenPlataformas.length} />
-                <Stat label="Equivale a" value={`${Math.round(totalAhorro / 8)} días`} hint="1 día = 8 h" />
+                <Stat label="Tareas" value={tareasIA.length} hint={<Delta value={tareasIA.length} prev={ant.tareas} />} />
+                <Stat
+                    label="Plataformas"
+                    value={resumenPlataformas.length}
+                    hint={<Delta value={resumenPlataformas.length} prev={Object.keys(ant.porPlataforma).length} />}
+                />
+                <Stat
+                    label="Equivale a"
+                    value={`${Math.round(totalAhorro / 8)} días`}
+                    hint={<>1 día = 8 h · <Delta value={Math.round(totalAhorro / 8)} prev={Math.round(ahorroAnt / 8)} format={(n) => `${n} d`} /></>}
+                />
             </StatStrip>
 
             {/* Horas por plataforma */}
@@ -94,11 +109,12 @@ export const AIUsage = () => {
                     <div className="flex items-center gap-3.5 text-[11px] text-dim">
                         <span className="inline-flex items-center gap-1.5"><span className="h-2 w-3.5 rounded-[2px] bg-line" />estimado manual</span>
                         <span className="inline-flex items-center gap-1.5"><span className="h-2 w-3.5 rounded-[2px] bg-accent" />con apoyo de IA</span>
+                        <span className="font-mono">▲▼ ahorro vs {periodoIA.anterior}</span>
                     </div>
                 </div>
                 <div className="flex flex-col gap-2.5">
                     {resumenPlataformas.map((p) => (
-                        <div key={p.plataforma} className="grid grid-cols-[9rem_1fr] items-center gap-3 sm:grid-cols-[9rem_1fr_11rem]">
+                        <div key={p.plataforma} className="grid grid-cols-[9rem_1fr] items-center gap-3 sm:grid-cols-[9rem_1fr_15rem]">
                             <div className="flex items-baseline gap-2 truncate">
                                 <span className="truncate text-xs">{p.plataforma}</span>
                                 <span className="num text-[10px] text-faint">{p.n}</span>
@@ -112,6 +128,9 @@ export const AIUsage = () => {
                                 <span className="text-faint">→</span>
                                 <span className="text-accent">{p.ia} h</span>
                                 <span className="text-dim">−{p.pct}%</span>
+                                <span className="ml-auto" title="Horas ahorradas vs periodo anterior">
+                                    <Delta value={p.manual - p.ia} prev={p.prevAhorro} format={horas} />
+                                </span>
                             </div>
                         </div>
                     ))}
@@ -181,7 +200,7 @@ export const AIUsage = () => {
             <div className="flex flex-col gap-3 rounded-lg border border-line glass p-5">
                 <h2 className="text-sm font-semibold">Mejora en el flujo de trabajo</h2>
                 <p className="text-xs leading-relaxed text-muted">
-                    El apoyo de IA permitió al área atender en septiembre y octubre <span className="num">{tareasIA.length}</span> tareas
+                    El apoyo de IA permitió al área atender en {periodoIA.etiqueta} <span className="num">{tareasIA.length}</span> tareas
                     en <span className="num">{resumenPlataformas.length}</span> plataformas del ecosistema, cubriendo seguridad,
                     funcionalidades nuevas, experiencia de usuario, deuda técnica y capacidades con IA.
                 </p>
@@ -200,7 +219,7 @@ export const AIUsage = () => {
                 </ul>
             </div>
 
-            <FootNote>estimaciones comparativas manual vs. asistido con IA · 1 día = 8 h</FootNote>
+            <FootNote>estimaciones comparativas manual vs. asistido con IA · 1 día = 8 h · variación contra {periodoIA.anterior}</FootNote>
         </div>
     );
 };

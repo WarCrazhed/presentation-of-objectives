@@ -11,6 +11,8 @@
  */
 import { execFileSync } from 'node:child_process'
 import { writeFileSync } from 'node:fs'
+import nspell from 'nspell'
+import diccionario from 'dictionary-es'
 import { fileURLToPath } from 'node:url'
 import path from 'node:path'
 
@@ -26,7 +28,7 @@ const MES_TITULO = MESES.map((m) => m[0].toUpperCase() + m.slice(1))
 /* ---------------------------------------------------------------- periodo */
 
 // "agosto + septiembre 2026" → { desde: 2026-08-01, hasta: 2026-10-01, etiqueta }
-export const parsePeriodo = (texto) => {
+export const parsePeriodo = (texto, hoy = new Date().toLocaleDateString('sv-SE')) => {
     const limpio = texto.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '')
     const anio = limpio.match(/\b(20\d{2})\b/)?.[1]
     if (!anio) throw new Error(`Falta el año en «${texto}». Ejemplo: "agosto + septiembre 2026".`)
@@ -43,10 +45,41 @@ export const parsePeriodo = (texto) => {
     const ultimo = indices[indices.length - 1]
     const dos = (n) => String(n + 1).padStart(2, '0')
 
+    const desde = `${anio}-${dos(primero)}-01`
+    const hasta = ultimo === 11 ? `${Number(anio) + 1}-01-01` : `${anio}-${dos(ultimo + 1)}-01`
+
+    // Periodo anterior: mismos meses de largo, justo antes (oct–nov → ago–sep).
+    const largo = ultimo - primero + 1
+    const ini = new Date(Date.UTC(Number(anio), primero - largo, 1))
+    const indAnt = Array.from({ length: largo }, (_, k) => new Date(Date.UTC(ini.getUTCFullYear(), ini.getUTCMonth() + k, 1)))
+    const iso = (d) => d.toISOString().slice(0, 10)
+    const dia = 86400000
+    const corto = (isoFecha) => {
+        const [, m, d] = isoFecha.split('-')
+        return `${Number(d)} ${MESES[Number(m) - 1].slice(0, 3)}`
+    }
+
+    // Si el periodo sigue abierto, las métricas se cortan a hoy y el anterior al mismo
+    // número de días; si no, oct–nov a medias se compararía contra ago–sep completo.
+    const manana = iso(new Date(Date.parse(hoy) + dia))
+    const abierto = manana > desde && manana < hasta
+    const corte = abierto ? manana : hasta
+    const dias = Math.round((Date.parse(corte) - Date.parse(desde)) / dia)
+    const antHasta = abierto ? iso(new Date(ini.getTime() + dias * dia)) : desde
+    const etiquetaAnt = indAnt.map((d) => MESES[d.getUTCMonth()]).join(' y ') + ` ${indAnt[largo - 1].getUTCFullYear()}`
+    const ultimoDia = (h) => iso(new Date(Date.parse(h) - dia))
+
     return {
+        anterior: {
+            desde: iso(ini),
+            hasta: antHasta,
+            etiqueta: abierto ? `${etiquetaAnt} (al ${corto(ultimoDia(antHasta))})` : etiquetaAnt
+        },
+        metricas: { desde, hasta: corte },
+        corte: abierto ? `al ${corto(hoy)}` : null,
         anio: Number(anio),
-        desde: `${anio}-${dos(primero)}-01`,
-        hasta: ultimo === 11 ? `${Number(anio) + 1}-01-01` : `${anio}-${dos(ultimo + 1)}-01`,
+        desde,
+        hasta,
         etiqueta: indices.map((i) => MESES[i]).join(' y ') + ` ${anio}`,
         meses: indices
     }
@@ -110,7 +143,12 @@ const CORRECCIONES = {
     'CLIMA- HOTEL COLLI': 'Clima - Hotel Colli',
     'DNC- HOTEL COLLI': 'DNC - Hotel Colli',
     'FERRA MERCADO FERRETERO - DIAGNÓSTICO INICIAL': 'FERRA MERCADO FERRETERO - Diagnóstico Inicial',
-    'Eje 5: Liderzago': 'Eje 5: Liderazgo'
+    'Eje 5: Liderzago': 'Eje 5: Liderazgo',
+    'DIAGNOSTICO INICIAL - DIFARVET': 'Diagnóstico inicial - Difarvet',
+    'DIAGNÓSTICO INICIAL - GRUPO PONS (Porcicultor /Alimentos)': 'Diagnóstico inicial - Grupo Pons (porcicultor / alimentos)',
+    'HUMANA 11 - DIAGNÓSTICO': 'Humana11 - Diagnóstico',
+    'BACHILLERATO - LENGUA Y COMUNICACIÓN I': 'Bachillerato - Lengua y Comunicación I',
+    'Masterclass - 07/10/2026 - Planeación Estegica': 'Masterclass - 07/10/2026 - Planeación Estratégica'
 }
 
 const corregidos = []
@@ -120,12 +158,115 @@ const corregir = (s) => {
     return fix ?? s
 }
 
+/* ---------------------------------------------------------------- erratas */
+
+const ortografia = nspell(diccionario)
+
+// Palabras válidas que el diccionario no conoce: marcas, clientes, siglas largas.
+const NOMBRES_PROPIOS = new Set([
+    'humana', 'humana11', 'suitedo', 'uhe', 'egafi', 'difarvet', 'pons', 'colli', 'ferra',
+    'masterclass', 'nps', 'nom', 'dnc', 'ia', 'porcicultor', 'bachillerato', 'online', 'coaching',
+    // mexicanismos que el diccionario (es-ES) no trae
+    'planeación', 'planeacion', 'gerencial'
+])
+
+const palabraOk = (w) => {
+    if (w.length <= 2 || /\d/.test(w)) return true
+    if (/^[A-ZÁÉÍÓÚÑ]+$/.test(w) && w.length <= 6) return true        // sigla
+    const minus = w.toLowerCase()
+    if (NOMBRES_PROPIOS.has(minus)) return true
+    const capital = minus[0].toUpperCase() + minus.slice(1)
+    return ortografia.correct(w) || ortografia.correct(minus) || ortografia.correct(capital)
+}
+
+// Devuelve las palabras dudosas de un texto (vacío si todo está bien).
+const erratas = (texto) => [...new Set((texto.match(/[\p{L}\d]+/gu) ?? []).filter((w) => !palabraOk(w)))]
+
 /* ---------------------------------------------------------------- consultas */
 
-const construir = (p) => {
-    const rango = (col) => `${col} >= '${p.desde}' AND ${col} < '${p.hasta}'`
+/*
+ * Métricas de uso: se consultan para el periodo y para el anterior, con la misma SQL.
+ * Todas son agregados (COUNT): ninguna devuelve nombres, correos ni textos libres.
+ */
+const sqlMetricas = (r) => {
+    const rango = (col) => `${col} >= '${r.desde}' AND ${col} < '${r.hasta}'`
+    return [
+        // Suitedo — diagnostic_participants.status está invertido: 0 = terminado.
+        { clave: 'aplicados', sql: `SELECT name FROM suitedo.diagnostic_applieds WHERE ${rango('start_datetime')}` },
+        {
+            clave: 'respondentes',
+            sql: `SELECT COUNT(DISTINCT diagnostic_participant_id) FROM suitedo.diagnostic_participant_answers
+                  WHERE ${rango('created_at')}`
+        },
+        {
+            clave: 'terminados',
+            // Sin fecha de término en la BD: se toma la última respuesta del participante.
+            sql: `SELECT COUNT(*) FROM (
+                    SELECT p.id FROM suitedo.diagnostic_participants p
+                    JOIN suitedo.diagnostic_participant_answers a ON a.diagnostic_participant_id = p.id
+                    WHERE p.status = 0 AND a.created_at >= '${r.desde}'
+                    GROUP BY p.id
+                    HAVING MAX(a.created_at) < '${r.hasta}'
+                  ) t`
+        },
+        // UHE
+        {
+            clave: 'alumnos',
+            sql: `SELECT COUNT(DISTINCT pid) FROM (
+                    SELECT prg_participant_id pid FROM uhe.prg_participant_tc_quiz_attempts WHERE ${rango('created_at')}
+                    UNION SELECT prg_participant_id FROM uhe.prg_participant_tc_survey_attempts WHERE ${rango('created_at')}
+                    UNION SELECT prg_participant_id FROM uhe.prg_participant_tc_files WHERE ${rango('created_at')}
+                    UNION SELECT prg_participant_id FROM uhe.prg_participant_module_progress WHERE ${rango('updated_at')}
+                    UNION SELECT a.prg_participant_id FROM uhe.prg_participant_session_attendances a
+                          JOIN uhe.prg_sessions s ON s.id = a.prg_session_id
+                          WHERE a.attended = 1 AND ${rango('s.start_date')}
+                  ) t`
+        },
+        { clave: 'inscripciones', sql: `SELECT COUNT(*) FROM uhe.prg_participants WHERE ${rango('created_at')}` },
+        { clave: 'certificados', sql: `SELECT COUNT(*) FROM uhe.prg_participant_certificates WHERE ${rango('created_at')}` },
+        { clave: 'programasN', sql: `SELECT COUNT(*) FROM uhe.prg_programs WHERE ${rango('created_at')}` },
+        { clave: 'modulosN', sql: `SELECT COUNT(*) FROM uhe.prg_modules WHERE ${rango('start_date')}` },
+        // Talento — assessment_candidates.completed_at nunca se escribe: se usa status + start_datetime.
+        { clave: 'candidatos', sql: `SELECT COUNT(*) FROM talento.candidates WHERE ${rango('created_at')}` },
+        { clave: 'vacantesN', sql: `SELECT COUNT(*) FROM talento.vacancies WHERE ${rango('created_at')}` },
+        {
+            clave: 'evaluados',
+            sql: `SELECT COUNT(*) FROM talento.assessment_candidates
+                  WHERE status = 'completed' AND ${rango('start_datetime')}`
+        },
+        {
+            clave: 'encuestas',
+            sql: `SELECT COUNT(*) FROM talento.diagnostic_applied_responses
+                  WHERE status = 'completed' AND ${rango('completed_at')}`
+        },
+        // Página Web — blogs + Comunidad (posts de colaboradores y reconocimientos; sin automáticos).
+        { clave: 'blogsN', sql: `SELECT COUNT(*) FROM humana11.resources WHERE published_at IS NOT NULL AND ${rango('published_at')}` },
+        {
+            clave: 'posts',
+            sql: `SELECT COUNT(*), COUNT(DISTINCT user_id) FROM humana11.posts
+                  WHERE deleted_at IS NULL AND type IN ('user', 'recognition') AND ${rango('created_at')}`
+        },
+        { clave: 'comentarios', sql: `SELECT COUNT(*) FROM humana11.post_comments WHERE deleted_at IS NULL AND ${rango('created_at')}` },
+        {
+            clave: 'reacciones',
+            sql: `SELECT (SELECT COUNT(*) FROM humana11.post_reactions WHERE ${rango('created_at')})
+                       + (SELECT COUNT(*) FROM humana11.post_comment_reactions WHERE ${rango('created_at')})`
+        },
+        // Criba — personas solo agregadas.
+        { clave: 'mentores', sql: `SELECT COUNT(*) FROM criba.mentors WHERE ${rango('created_at')}` },
+        { clave: 'evaluaciones', sql: `SELECT COUNT(*), COUNT(DISTINCT mentor_id) FROM criba.evaluations WHERE ${rango('created_at')}` },
+        {
+            clave: 'accesos',
+            sql: `SELECT COALESCE(SUM(${rango('suitedo_access_at')}), 0) + COALESCE(SUM(${rango('uhe_access_at')}), 0)
+                  FROM criba.mentors`
+        }
+    ]
+}
 
-    const datos = consultar([
+// Registros con nombre (solo del periodo actual): lo que se lista en cada tarjeta.
+const sqlRegistros = (r) => {
+    const rango = (col) => `${col} >= '${r.desde}' AND ${col} < '${r.hasta}'`
+    return [
         {
             clave: 'suitedo',
             // Se agrupa por nombre: una misma aplicación puede repetirse (p. ej. NOM-035 x3).
@@ -143,32 +284,12 @@ const construir = (p) => {
         {
             clave: 'blogsBorrador',
             // Diagnóstico: recursos dados de alta en el periodo que aún no tienen published_at.
-            sql: `SELECT COUNT(*) FROM humana11.resources
-                  WHERE published_at IS NULL AND ${rango('created_at')}`
-        },
-        {
-            clave: 'posts',
-            // Comunidad (feed interno de humana11web). Contenido personal de colaboradores:
-            // solo agregados por tipo, nunca título, cuerpo ni nombres. Sin borrados.
-            sql: `SELECT type, COUNT(*), COUNT(DISTINCT user_id), MIN(DATE(created_at)), MAX(DATE(created_at))
-                  FROM humana11.posts
-                  WHERE deleted_at IS NULL AND ${rango('created_at')}
-                  GROUP BY type`
-        },
-        {
-            clave: 'interaccion',
-            sql: `SELECT
-                    (SELECT COUNT(*) FROM humana11.post_comments WHERE deleted_at IS NULL AND ${rango('created_at')}),
-                    (SELECT COUNT(*) FROM humana11.post_reactions WHERE ${rango('created_at')}),
-                    (SELECT COUNT(*) FROM humana11.post_comment_reactions WHERE ${rango('created_at')}),
-                    (SELECT MIN(DATE(created_at)) FROM humana11.post_comments WHERE deleted_at IS NULL AND ${rango('created_at')}),
-                    (SELECT MAX(DATE(created_at)) FROM humana11.post_comments WHERE deleted_at IS NULL AND ${rango('created_at')})`
+            sql: `SELECT COUNT(*) FROM humana11.resources WHERE published_at IS NULL AND ${rango('created_at')}`
         },
         {
             clave: 'programas',
             // prg_programs.start_date está NULL en toda la tabla: se fecha por created_at.
-            sql: `SELECT DATE(created_at), name FROM uhe.prg_programs
-                  WHERE ${rango('created_at')} ORDER BY created_at`
+            sql: `SELECT DATE(created_at), name FROM uhe.prg_programs WHERE ${rango('created_at')} ORDER BY created_at`
         },
         {
             clave: 'modulos',
@@ -177,43 +298,34 @@ const construir = (p) => {
         },
         {
             clave: 'vacantes',
-            // published_at está NULL en todas las filas y updated_at trae un update masivo:
-            // created_at es la única columna fiable para fechar una vacante.
-            sql: `SELECT DATE(created_at), status, name FROM talento.vacancies
-                  WHERE ${rango('created_at')} ORDER BY created_at`
-        },
-        {
-            clave: 'candidatos',
-            sql: `SELECT COUNT(*), MIN(DATE(created_at)), MAX(DATE(created_at))
-                  FROM talento.candidates WHERE ${rango('created_at')}`
-        },
-        {
-            clave: 'mentores',
-            // Personas: se reportan agregadas, nunca con nombre.
-            sql: `SELECT COUNT(*), SUM(self_registered_at IS NOT NULL), MIN(DATE(created_at)), MAX(DATE(created_at))
-                  FROM criba.mentors WHERE ${rango('created_at')}`
-        },
-        {
-            clave: 'evaluaciones',
-            sql: `SELECT COUNT(*), COUNT(DISTINCT mentor_id), SUM(decision = 'yes'), MIN(DATE(created_at)), MAX(DATE(created_at))
-                  FROM criba.evaluations WHERE ${rango('created_at')}`
-        },
-        {
-            clave: 'accesos',
-            // Alta de cuentas en SuiteDO / UHE hecha por criba (aprovisionamiento de mentores).
-            sql: `SELECT SUM(${rango('suitedo_access_at')}), SUM(${rango('uhe_access_at')}),
-                         MIN(DATE(LEAST(COALESCE(suitedo_access_at, uhe_access_at), COALESCE(uhe_access_at, suitedo_access_at)))),
-                         MAX(DATE(GREATEST(COALESCE(suitedo_access_at, uhe_access_at), COALESCE(uhe_access_at, suitedo_access_at))))
-                  FROM criba.mentors
-                  WHERE ${rango('suitedo_access_at')} OR ${rango('uhe_access_at')}`
+            // published_at está NULL en todas las filas y updated_at trae un update masivo.
+            sql: `SELECT DATE(created_at), status, name FROM talento.vacancies WHERE ${rango('created_at')} ORDER BY created_at`
         },
         { clave: 'hoy', sql: `SELECT CURDATE()` }
+    ]
+}
+
+const construir = (p) => {
+    const sufijo = (bloques, s) => bloques.map((b) => ({ ...b, clave: b.clave + s }))
+    const datos = consultar([
+        ...sqlRegistros(p),
+        ...sufijo(sqlMetricas(p.metricas), '_act'),
+        ...sufijo(sqlMetricas(p.anterior), '_ant')
     ])
 
     const hoy = datos.hoy?.[0]?.[0] ?? new Date().toISOString().slice(0, 10)
     const descartados = []
+    const nulo = (v) => (v === undefined || v === 'NULL' ? 0 : Number(v))
+    const celda = (clave, col = 0) => nulo(datos[clave]?.[0]?.[col])
 
-    /* Suitedo — diagnósticos aplicados */
+    // Estado por fechas ISO: aún no empieza / ya terminó / en curso.
+    const estado = (ini, fin) => {
+        if (ini && ini > hoy) return 'Programado'
+        if (fin && fin !== 'NULL' && fin < hoy) return 'Completado'
+        return 'En curso'
+    }
+
+    /* Registros */
     const suitedo = []
     for (const [nombre, apps, ini, fin] of datos.suitedo ?? []) {
         const limpio = corregir(limpiar(nombre))
@@ -223,11 +335,10 @@ const construir = (p) => {
             name: n > 1 ? `${limpio} (${n} aplicaciones)` : limpio,
             date_start: fecha(ini, false),
             date_end: fecha(fin, false),
-            status: fin && fin < hoy ? 'Completado' : 'En Proceso'
+            status: estado(ini, fin)
         })
     }
 
-    /* Página Web — entradas de blog */
     const web = (datos.blogs ?? []).map(([pub, titulo]) => ({
         name: `Entrada Blog | ${corregir(limpiar(titulo))}`,
         date_start: fecha(pub),
@@ -235,118 +346,94 @@ const construir = (p) => {
         status: 'Publicado'
     }))
 
-    /* Página Web — Comunidad (posts del feed interno), solo agregados */
-    const plural = (k, uno, varios) => `${k} ${Number(k) === 1 ? uno : varios}`
-    const porTipo = Object.fromEntries((datos.posts ?? []).map(([tipo, ...resto]) => [tipo, resto]))
-    const TIPOS_POST = [
-        ['user', 'publicación', 'publicaciones', 'de colaboradores'],
-        ['recognition', 'reconocimiento', 'reconocimientos', 'entre colaboradores'],
-        ['birthday', 'felicitación automática de cumpleaños', 'felicitaciones automáticas de cumpleaños', ''],
-        ['anniversary', 'felicitación automática de aniversario', 'felicitaciones automáticas de aniversario', '']
-    ]
-    for (const [tipo, uno, varios, sufijo] of TIPOS_POST) {
-        const [cuantos, autores, desdeP, hastaP] = porTipo[tipo] ?? ['0']
-        if (!Number(cuantos)) continue
-        const quien = ['user', 'recognition'].includes(tipo) ? ` (${plural(autores, 'autor', 'autores')})` : ''
-        web.push({
-            name: `Comunidad | ${plural(cuantos, uno, varios)}${sufijo ? ` ${sufijo}` : ''}${quien}`,
-            date_start: fecha(desdeP),
-            date_end: fecha(hastaP),
-            status: 'Publicado'
-        })
-    }
-    const [coms, reacc, reaccComs, desdeI, hastaI] = datos.interaccion?.[0] ?? ['0', '0', '0']
-    const nI = (v) => Number(v === 'NULL' ? 0 : v ?? 0)
-    if (nI(coms) + nI(reacc) + nI(reaccComs) > 0) {
-        web.push({
-            name: `Comunidad | ${plural(nI(coms), 'comentario', 'comentarios')} y ${plural(nI(reacc) + nI(reaccComs), 'reacción', 'reacciones')}`,
-            date_start: fecha(desdeI),
-            date_end: fecha(hastaI),
-            status: 'Activo'
-        })
-    }
-    const blogsBorrador = Number(datos.blogsBorrador?.[0]?.[0] ?? 0)
-
-    /* UHE — programas creados + módulos que inician en el periodo */
     const uhe = [
         ...(datos.programas ?? []).map(([alta, nombre]) => ({
             name: `Programa | ${corregir(limpiar(nombre))}`,
             date_start: fecha(alta),
             date_end: null,
-            status: 'Activo'
+            status: 'En curso'
         })),
         ...(datos.modulos ?? []).map(([ini, fin, nombre]) => ({
             name: `Módulo | ${corregir(limpiar(nombre))}`,
             date_start: fecha(ini),
             date_end: fecha(fin),
-            status: 'Activo'
+            status: estado(ini, fin)
         }))
     ]
 
-    /* Talento — vacantes + alta agregada de candidatos */
-    const ESTADO_VACANTE = { published: 'Activo', closed: 'Cerrado', draft: 'En Proceso' }
-    const talento = (datos.vacantes ?? []).map(([alta, estado, nombre]) => ({
+    const ESTADO_VACANTE = { published: 'Activo', closed: 'Cerrado', draft: 'Borrador' }
+    const talento = (datos.vacantes ?? []).map(([alta, est, nombre]) => ({
         name: `Vacante | ${corregir(limpiar(nombre))}`,
         date_start: fecha(alta),
         date_end: null,
-        status: ESTADO_VACANTE[estado] ?? 'Activo'
+        status: ESTADO_VACANTE[est] ?? 'Activo'
     }))
 
-    const [total, desdeC, hastaC] = datos.candidatos?.[0] ?? ['0']
-    if (Number(total) > 0) {
-        talento.push({
-            name: `Candidatos | ${total} nuevos candidatos registrados`,
-            date_start: fecha(desdeC),
-            date_end: fecha(hastaC),
-            status: 'Activo'
-        })
+    /* Métricas: { label, value, prev, hint?, destacada?, personas? } */
+    const m = (label, clave, col = 0, extra = {}) => ({
+        label, value: celda(`${clave}_act`, col), prev: celda(`${clave}_ant`, col), ...extra
+    })
+    const sinPruebas = (clave) => (datos[clave] ?? []).filter(([nombre]) => !esPrueba(limpiar(nombre ?? ''))).length
+
+    const metricas = {
+        suitedo: [
+            m('Personas que respondieron', 'respondentes', 0, { destacada: true, personas: true }),
+            m('Cuestionarios terminados', 'terminados'),
+            { label: 'Diagnósticos aplicados', value: sinPruebas('aplicados_act'), prev: sinPruebas('aplicados_ant') }
+        ],
+        uhe: [
+            m('Alumnos activos', 'alumnos', 0, { destacada: true, personas: true, hint: 'con actividad, asistencia o avance' }),
+            m('Inscripciones nuevas', 'inscripciones'),
+            m('Certificados emitidos', 'certificados'),
+            m('Módulos iniciados', 'modulosN'),
+            m('Programas nuevos', 'programasN')
+        ],
+        talento: [
+            m('Candidatos nuevos', 'candidatos', 0, { destacada: true, personas: true }),
+            m('Evaluaciones completadas', 'evaluados', 0, { hint: 'assessment center' }),
+            m('Encuestas respondidas', 'encuestas', 0, { personas: true }),
+            m('Vacantes abiertas', 'vacantesN')
+        ],
+        web: [
+            m('Posts en Comunidad', 'posts', 0, { destacada: true, hint: 'publicaciones y reconocimientos' }),
+            m('Personas que publicaron', 'posts', 1, { personas: true }),
+            m('Comentarios', 'comentarios'),
+            m('Reacciones', 'reacciones'),
+            m('Blogs publicados', 'blogsN')
+        ],
+        criba: [
+            m('Mentores nuevos', 'mentores', 0, { personas: true }),
+            m('Evaluaciones a mentores', 'evaluaciones'),
+            m('Cuentas creadas', 'accesos', 0, { hint: 'en SuiteDO y UHE' })
+        ]
     }
 
-    /* Criba-Mentores — altas, evaluaciones y accesos, solo agregados */
-    const criba = []
-    const n = (v) => Number(v === 'NULL' ? 0 : v ?? 0)
-    const cuentas = (v) => `${n(v)} ${n(v) === 1 ? 'cuenta creada' : 'cuentas creadas'}`
-    const [altas, auto, desdeM, hastaM] = datos.mentores?.[0] ?? ['0']
-    if (n(altas) > 0) {
-        criba.push({
-            name: `Mentores | ${altas} nuevos mentores registrados` + (n(auto) ? ` (${n(auto)} por autorregistro)` : ''),
-            date_start: fecha(desdeM),
-            date_end: fecha(hastaM),
-            status: 'Activo'
-        })
-    }
-    const [evals, evaluados, aprobadas, desdeE, hastaE] = datos.evaluaciones?.[0] ?? ['0']
-    if (n(evals) > 0) {
-        criba.push({
-            name: `Evaluaciones | ${evals} evaluaciones a ${evaluados} mentores (${n(aprobadas)} aprobatorias)`,
-            date_start: fecha(desdeE),
-            date_end: fecha(hastaE),
-            status: 'Completado'
-        })
-    }
-    const [enSuitedo, enUhe, desdeA, hastaA] = datos.accesos?.[0] ?? ['0', '0']
-    if (n(enSuitedo) + n(enUhe) > 0) {
-        criba.push({
-            name: `Accesos | ${cuentas(enSuitedo)} en SuiteDO y ${n(enUhe)} en UHE`,
-            date_start: fecha(desdeA),
-            date_end: fecha(hastaA),
-            status: 'Activo'
-        })
+    // Revisión de redacción: mayúsculas sostenidas y palabras fuera del diccionario.
+    const PREFIJO = /^(Entrada Blog|Programa|Módulo|Vacante) \| /
+    // Una palabra en mayúsculas de 7+ letras o dos seguidas: «EGAFI Ventas» pasa, «GRUPO PONS» no.
+    const GRITO = /(?<!\p{L})(\p{Lu}{7,}|\p{Lu}{3,}[\s\-]+\p{Lu}{3,})(?!\p{Ll})/u
+    const revisar = []
+    for (const r of [...suitedo, ...web, ...uhe, ...talento]) {
+        const texto = r.name.replace(PREFIJO, '').replace(/ \(\d+ aplicaciones\)$/, '')
+        const motivos = []
+        if (GRITO.test(texto)) motivos.push('mayúsculas')
+        const dudosas = erratas(texto)
+        if (dudosas.length) motivos.push(`¿errata?: ${dudosas.join(', ')}`)
+        if (motivos.length) revisar.push(`${texto}  [${motivos.join(' · ')}]`)
     }
 
-    // Nombres que conviene revisar a ojo antes de presentar (no se tocan automáticamente).
-    const revisar = [...suitedo, ...web, ...uhe, ...talento]
-        .map((r) => r.name)
-        .filter((n) => /[A-ZÁÉÍÓÚÑ]{4,}/.test(n.replace(/^(Entrada Blog|Comunidad|Programa|Módulo|Vacante|Candidatos) \| /, '')))
-
-    return { suitedo, web, uhe, talento, criba, descartados, revisar, corregidos, hoy, blogsBorrador }
+    return {
+        registros: { suitedo, web, uhe, talento, criba: [] },
+        metricas, descartados, revisar, corregidos, hoy,
+        blogsBorrador: celda('blogsBorrador')
+    }
 }
 
 /* ----------------------------------------------------------------- archivo */
 
 const PLATAFORMAS = [
     { id: 1, name: 'Suitedo', img: 'https://suitedo.com/resources/suitedo-logo.png', description: 'Plataforma de desarrollo organizacional', clave: 'suitedo' },
-    { id: 2, name: 'Página Web', img: 'https://humana11.com/img/logos/humana11.webp', description: 'Página web de Humana11', clave: 'web' },
+    { id: 2, name: 'Página Web', img: 'https://humana11.com/img/logos/humana11.webp', description: 'Página web y Comunidad de Humana11', clave: 'web' },
     { id: 3, name: 'UHE', img: 'https://universidadhumanaempresaria.com/UHE/isotipoUHE_Sinfondo.png', description: 'Universidad Humana Empresaria', clave: 'uhe' },
     { id: 4, name: 'Talento', img: 'https://talento11.com/img/talento.png', description: 'Reclutamiento y assessment psicométrico', clave: 'talento' },
     { id: 5, name: 'Criba de Mentores', img: 'https://humana11.com/img/logos/humana11.webp', description: 'Padrón y evaluación de mentores', clave: 'criba' }
@@ -362,26 +449,31 @@ const generar = (datos, periodo) => {
         '            }'
     ].join('\n')
 
+    const objeto = (x) => `{ ${Object.entries(x).filter(([, v]) => v !== null).map(([k, v]) => `${k}: ${JSON.stringify(v)}`).join(', ')} }`
+    const metrica = (x) => `            ${objeto(x)}`
+
     const bloques = PLATAFORMAS.map((p) => [
         '    {',
         `        id: ${p.id},`,
         `        name: ${JSON.stringify(p.name)},`,
         `        img: ${JSON.stringify(p.img)},`,
         `        description: ${JSON.stringify(p.description)},`,
+        '        metrics: [',
+        datos.metricas[p.clave].map(metrica).join(',\n'),
+        '        ],',
         '        records: [',
-        datos[p.clave].map(registro).join(',\n'),
+        datos.registros[p.clave].map(registro).join(',\n'),
         '        ]',
         '    }'
     ].join('\n')).join(',\n')
 
-    return `// Actividad de ${periodo.etiqueta}, consultada el ${datos.hoy} contra las BD del
-// ecosistema en 216.238.86.245 (suitedo, humana11, uhe, talento, criba). Solo lectura.
-//   Suitedo    → diagnostic_applieds con start_datetime en el periodo
-//   Página Web → resources con published_at en el periodo + posts/comentarios/reacciones de Comunidad (agregados)
-//   UHE        → prg_programs creados + prg_modules que inician en el periodo
-//   Talento    → vacancies creadas en el periodo + alta de candidates agregada
-//   Criba      → mentors, evaluations y accesos a SuiteDO/UHE en el periodo, solo agregados
+    return `// Actividad de ${periodo.etiqueta}, comparada con ${periodo.anterior.etiqueta}. Consultada el ${datos.hoy}
+// contra las BD del ecosistema en 216.238.86.245. Solo lectura, métricas agregadas.
+//   metrics → cifras de uso del periodo (value) y del periodo anterior (prev)
+//   records → elementos con nombre del periodo: diagnósticos, blogs, programas, módulos, vacantes
 // Generado por scripts/uso-plataformas.mjs — no editar a mano si vas a regenerarlo.
+export const periodo = ${objeto({ etiqueta: periodo.etiqueta, corte: periodo.corte, anterior: periodo.anterior.etiqueta })};
+
 export const platforms = [
 ${bloques}
 ];
@@ -389,6 +481,12 @@ ${bloques}
 }
 
 /* -------------------------------------------------------------------- main */
+
+const delta = (v, prev) => {
+    if (!prev) return v ? 'nuevo' : '='
+    const pct = Math.round(((v - prev) / prev) * 100)
+    return pct === 0 ? '=' : `${pct > 0 ? '+' : ''}${pct}%`
+}
 
 const main = () => {
     const args = process.argv.slice(2)
@@ -402,6 +500,8 @@ const main = () => {
 
     const periodo = parsePeriodo(texto)
     console.log(`Periodo: ${periodo.etiqueta}  [${periodo.desde} → ${periodo.hasta})`)
+    if (periodo.corte) console.log(`Métricas: ${periodo.metricas.desde} → ${periodo.metricas.hasta}  (periodo abierto, ${periodo.corte})`)
+    console.log(`Compara: ${periodo.anterior.etiqueta}  [${periodo.anterior.desde} → ${periodo.anterior.hasta})`)
 
     const datos = construir(periodo)
     const contenido = generar(datos, periodo)
@@ -413,17 +513,18 @@ const main = () => {
         console.log(`Escrito ${path.relative(RAIZ, DESTINO)}`)
     }
 
-    const total = datos.suitedo.length + datos.web.length + datos.uhe.length + datos.talento.length + datos.criba.length
     console.log('')
-    console.log('## Registros')
-    console.log(`Suitedo      ${datos.suitedo.length}  (${datos.suitedo.filter((r) => r.status === 'En Proceso').length} en proceso, ${datos.suitedo.filter((r) => r.status === 'Completado').length} completados)`)
-    console.log(`Página Web   ${datos.web.length}  (${datos.web.filter((r) => r.name.startsWith('Entrada Blog')).length} blogs, ${datos.web.filter((r) => r.name.startsWith('Comunidad')).length} de Comunidad; ${datos.blogsBorrador} recursos creados sin publicar)`)
-    datos.web.filter((r) => r.name.startsWith('Comunidad')).forEach((r) => console.log(`  · ${r.name}`))
-    console.log(`UHE          ${datos.uhe.length}  (${datos.uhe.filter((r) => r.name.startsWith('Programa')).length} programas, ${datos.uhe.filter((r) => r.name.startsWith('Módulo')).length} módulos)`)
-    console.log(`Talento      ${datos.talento.length}`)
-    console.log(`Criba        ${datos.criba.length}`)
-    datos.criba.forEach((r) => console.log(`  · ${r.name}`))
-    console.log(`TOTAL        ${total}`)
+    console.log('## Métricas (actual · anterior · variación)')
+    for (const p of PLATAFORMAS) {
+        console.log(p.name)
+        for (const x of datos.metricas[p.clave]) {
+            console.log(`  ${x.destacada ? '★' : ' '} ${x.label.padEnd(28)} ${String(x.value).padStart(5)} · ${String(x.prev).padStart(5)} · ${delta(x.value, x.prev)}`)
+        }
+        console.log(`    registros con nombre: ${datos.registros[p.clave].length}`)
+    }
+    const personas = Object.values(datos.metricas).flat().filter((x) => x.personas).reduce((a, x) => a + x.value, 0)
+    console.log(`Personas activas (suma por plataforma): ${personas}`)
+    console.log(`Recursos web creados sin publicar: ${datos.blogsBorrador}`)
 
     if (datos.descartados.length) {
         console.log('')
@@ -437,12 +538,12 @@ const main = () => {
     }
     if (datos.revisar.length) {
         console.log('')
-        console.log('## Revisar redacción (mayúsculas sostenidas o capturas raras)')
+        console.log('## Revisar redacción')
         datos.revisar.forEach((n) => console.log(`- ${n}`))
     }
-    if (!total) {
+    if (!personas && !Object.values(datos.registros).flat().length) {
         console.log('')
-        console.log('AVISO: el periodo no devolvió ningún registro.')
+        console.log('AVISO: el periodo no devolvió actividad.')
     }
 }
 

@@ -15,11 +15,12 @@ Presentación interna del área de **Funcionalidad Tecnológica** (ecosistema Hu
 - `pnpm preview` — previsualizar el build.
 - `pnpm lint` — ESLint sobre todo el repo.
 
-> Nota: el lockfile actual es `package-lock.json` (npm). Usa el gestor que tengas configurado; el proyecto es estándar Vite.
+> Nota: el lockfile es `pnpm-lock.yaml` y `node_modules` lo instala pnpm; `npm install` falla sobre ese árbol. Usa pnpm.
 
 ### Datos de «Uso de Plataformas»
 - `/update-tasks <meses> <año>` — comando del repo (`.claude/commands/update-tasks.md`). Regenera `src/data/platforms.js` con la actividad real del ecosistema. Ejemplo: `/update-tasks agosto + septiembre 2026`.
 - Por debajo corre `node scripts/uso-plataformas.mjs "<periodo>"`, que entra por SSH al server de BD (`216.238.86.245`) y ejecuta **solo `SELECT`** contra `suitedo`, `humana11`, `uhe`, `talento` y `criba`. Criba (mentores) se reporta solo en cifras agregadas, nunca con nombres de personas. Un guardia en el script aborta cualquier sentencia que no empiece en `SELECT`.
+- Cada plataforma trae `metrics` (uso agregado del periodo vs el anterior, con corte a hoy si el periodo sigue abierto) y `records` (elementos con nombre). `periodo` también se exporta y la slide lo lee. La revisión de erratas usa `nspell` + `dictionary-es` (dev).
 - `src/data/platforms.js` es **generado**: edítalo a mano solo si no vas a regenerarlo. Las correcciones de redacción permanentes van en el mapa `CORRECCIONES` del script, no en el archivo de salida.
 
 ## Arquitectura

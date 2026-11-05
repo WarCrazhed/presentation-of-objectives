@@ -1,15 +1,20 @@
 import { Bot, Cloud, Diskette, Mail, Sparkle, Users } from '../components/icons';
-import { FootNote, SlideHeader, Stat, StatStrip } from '../components/ui';
+import { Delta, FootNote, SlideHeader, Stat, StatStrip } from '../components/ui';
 
 // Tipo de cambio para los servicios cobrados en dólares (FIX Banxico).
 const USD_MXN = 17.978;
 const USD_MXN_FECHA = '7 oct 2026';
+
+// Cada concepto trae `prev`: el monto del reporte anterior, en su misma moneda.
+// Al actualizar el mes: pasa `amount` a `prev`, captura el nuevo `amount` y mueve PERIODO.
+const PERIODO = { actual: 'noviembre 2026', anterior: 'octubre 2026' };
 
 export const OperatingExpenses = () => {
     const expenses = [
         {
             name: "Servicio en la nube Vultr",
             amount: 86.40,
+            prev: 86.40,
             currency: "USD",
             period: "Mensual",
             description: "Alojamiento de plataformas, base de datos y archivos.",
@@ -19,6 +24,7 @@ export const OperatingExpenses = () => {
         {
             name: "Nómina",
             amount: 35000.00,
+            prev: 35000.00,
             currency: "MXN",
             period: "Mensual",
             description: "Compensación del equipo de Funcionalidad Tecnológica.",
@@ -28,6 +34,7 @@ export const OperatingExpenses = () => {
         {
             name: "Resend (Envío de correos)",
             amount: 340.00,
+            prev: 340.00,
             currency: "MXN",
             period: "Mensual",
             description: "Servicio de infraestructura de correo electrónico.",
@@ -37,6 +44,7 @@ export const OperatingExpenses = () => {
         {
             name: "Gemini API",
             amount: 100.00,
+            prev: 4.32,
             currency: "MXN",
             period: "Variable",
             description: "Servicios de Inteligencia Artificial para aplicaciones.",
@@ -46,6 +54,7 @@ export const OperatingExpenses = () => {
         {
             name: "Claude Max (2 cuentas)",
             amount: 3680.00,
+            prev: 3680.00,
             currency: "MXN",
             period: "Mensual",
             description: "Asistente de IA para desarrollo (Claude Code). 2 cuentas del área.",
@@ -55,6 +64,7 @@ export const OperatingExpenses = () => {
         {
             name: "R2 Object Storage (S3 compatible)",
             amount: 0,
+            prev: 0,
             currency: "USD",
             period: "Mensual",
             description: "Almacenamiento de objetos en la nube.",
@@ -67,15 +77,18 @@ export const OperatingExpenses = () => {
 
     // Todo se suma en pesos: los montos en USD se convierten con el FIX.
     const toMXN = (e) => (e.currency === "USD" ? e.amount * USD_MXN : e.amount);
+    const prevMXN = (e) => (e.currency === "USD" ? e.prev * USD_MXN : e.prev);
+    const pesos = (n) => `$${money(n)}`;
 
     const recurrentes = expenses.filter((e) => e.period !== "Único");
     const unicos = expenses.filter((e) => e.period === "Único");
 
     const totalMonthlyMXN = recurrentes.reduce((acc, curr) => acc + toMXN(curr), 0);
+    const prevMonthlyMXN = recurrentes.reduce((acc, curr) => acc + prevMXN(curr), 0);
     const totalOneTimeMXN = unicos.reduce((acc, curr) => acc + toMXN(curr), 0);
-    const totalIA = expenses
-        .filter((e) => e.name.startsWith('Gemini') || e.name.startsWith('Claude'))
-        .reduce((acc, e) => acc + toMXN(e), 0);
+    const esIA = (e) => e.name.startsWith('Gemini') || e.name.startsWith('Claude');
+    const totalIA = expenses.filter(esIA).reduce((acc, e) => acc + toMXN(e), 0);
+    const prevIA = expenses.filter(esIA).reduce((acc, e) => acc + prevMXN(e), 0);
 
     // Barras de magnitud, un solo tono, ordenadas de mayor a menor.
     const maxAmount = Math.max(...recurrentes.map(toMXN));
@@ -87,7 +100,7 @@ export const OperatingExpenses = () => {
                 number="05"
                 eyebrow="costos"
                 title="Gastos operativos"
-                description="Inversión y costos fijos del departamento."
+                description={`Inversión y costos fijos del departamento en ${PERIODO.actual}, comparados con ${PERIODO.anterior}.`}
             />
 
             <StatStrip className="grid-cols-2 lg:grid-cols-4">
@@ -96,17 +109,22 @@ export const OperatingExpenses = () => {
                     <p className="flex items-baseline gap-2.5">
                         <span className="num text-4xl font-medium tracking-tight">${money(totalMonthlyMXN)}</span>
                         <span className="num text-sm text-muted">MXN</span>
+                        <Delta value={totalMonthlyMXN} prev={prevMonthlyMXN} format={pesos} invert />
                     </p>
                     <p className="text-xs text-dim">
-                        <span className="num">{recurrentes.length}</span> conceptos recurrentes
+                        <span className="num">{recurrentes.length}</span> conceptos recurrentes · {PERIODO.anterior}: <span className="num">{pesos(prevMonthlyMXN)}</span>
                     </p>
                 </div>
                 <Stat label="Gasto único" value={`$${money(totalOneTimeMXN)}`} hint={`${unicos.length} concepto`} />
-                <Stat label="Anualizado" value={`$${money(totalMonthlyMXN * 12)}`} hint="proyección" />
+                <Stat
+                    label="Anualizado"
+                    value={`$${money(totalMonthlyMXN * 12)}`}
+                    hint={<>proyección · <Delta value={totalMonthlyMXN * 12} prev={prevMonthlyMXN * 12} format={pesos} invert /></>}
+                />
                 <Stat
                     label="Herramientas IA"
                     value={`$${money(totalIA)}`}
-                    hint={`${(totalIA / totalMonthlyMXN * 100).toFixed(1)}% del mes`}
+                    hint={<>{(totalIA / totalMonthlyMXN * 100).toFixed(1)}% del mes · <Delta value={totalIA} prev={prevIA} format={pesos} invert /></>}
                     accent
                 />
             </StatStrip>
@@ -131,14 +149,15 @@ export const OperatingExpenses = () => {
             </div>
 
             <div className="overflow-x-auto rounded-lg border border-line glass">
-                <table className="w-full min-w-[860px] border-collapse">
+                <table className="w-full min-w-[960px] border-collapse">
                     <thead>
                         <tr className="bg-panel-2 font-mono text-[10px] uppercase tracking-wide text-dim">
                             <th scope="col" className="border-b border-line px-4 py-2 text-left font-normal">Concepto</th>
                             <th scope="col" className="border-b border-line px-2 py-2 text-left font-normal">Descripción</th>
                             <th scope="col" className="border-b border-line px-2 py-2 text-left font-normal">Periodicidad</th>
                             <th scope="col" className="border-b border-line px-2 py-2 text-left font-normal">Estado</th>
-                            <th scope="col" className="border-b border-line px-4 py-2 text-right font-normal">Monto MXN</th>
+                            <th scope="col" className="border-b border-line px-2 py-2 text-right font-normal">{PERIODO.anterior}</th>
+                            <th scope="col" className="border-b border-line px-4 py-2 text-right font-normal">{PERIODO.actual} (MXN)</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -155,6 +174,10 @@ export const OperatingExpenses = () => {
                                     <span className="inline-flex rounded bg-panel-2 px-2 py-0.5 text-[10px] text-muted">{expense.period}</span>
                                 </td>
                                 <td className={`px-2 py-2 text-[11px] ${expense.status ? 'text-muted' : 'text-faint'}`}>{expense.status || '—'}</td>
+                                <td className="num whitespace-nowrap px-2 py-2 text-right text-xs text-muted">
+                                    {pesos(prevMXN(expense))}
+                                    <span className="block"><Delta value={toMXN(expense)} prev={prevMXN(expense)} format={pesos} invert /></span>
+                                </td>
                                 <td className="num px-4 py-2 text-right text-xs">
                                     ${money(toMXN(expense))}
                                     {expense.currency === "USD" && (
@@ -167,13 +190,14 @@ export const OperatingExpenses = () => {
                     <tfoot>
                         <tr className="bg-panel-2">
                             <td className="border-t border-line px-4 py-2.5 text-xs font-semibold" colSpan={4}>Total mensual</td>
+                            <td className="num border-t border-line px-2 py-2.5 text-right text-xs text-muted">{pesos(prevMonthlyMXN)}</td>
                             <td className="num border-t border-line px-4 py-2.5 text-right text-xs text-accent">${money(totalMonthlyMXN)}</td>
                         </tr>
                     </tfoot>
                 </table>
             </div>
 
-            <FootNote>montos en mxn · usd convertidos a ${USD_MXN} (fix banxico, {USD_MXN_FECHA}) · el gasto único no suma al total mensual</FootNote>
+            <FootNote>montos en mxn · usd convertidos a ${USD_MXN} (fix banxico, {USD_MXN_FECHA}) · el gasto único no suma al total mensual · en gastos, ▲ es más costo</FootNote>
         </div>
     );
 };

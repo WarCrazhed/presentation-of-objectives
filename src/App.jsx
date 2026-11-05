@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Home, Questions, Platforms, OperatingExpenses, StrategicObjective, AIUsage } from './pages'
 import { Layout } from './components/Layout'
-import { Alert, ArrowRight, ChevronLeft, ChevronRight, Eye, Lock } from './components/icons'
+import { Alert, ArrowRight, ChevronLeft, ChevronRight, Eye, EyeOff, Lock } from './components/icons'
 
 const pad = (n) => String(n).padStart(2, '0')
 
@@ -10,6 +10,7 @@ export const App = () => {
     const [isAuthenticated, setIsAuthenticated] = useState(() => sessionStorage.getItem('h11_auth') === 'true')
     const [password, setPassword] = useState('')
     const [error, setError] = useState(false)
+    const [showPassword, setShowPassword] = useState(false)
 
     useEffect(() => {
         sessionStorage.setItem('h11_slide', String(currentSlide))
@@ -97,7 +98,7 @@ export const App = () => {
                                 <div className="relative">
                                     <input
                                         id="h11-password"
-                                        type="password"
+                                        type={showPassword ? 'text' : 'password'}
                                         required
                                         autoFocus
                                         className={`w-full rounded-lg border bg-canvas px-3.5 py-3 pr-10 text-sm tracking-widest text-ink placeholder-dim focus:outline-none ${error ? 'border-danger' : 'border-line focus:border-accent'}`}
@@ -105,7 +106,15 @@ export const App = () => {
                                         value={password}
                                         onChange={(e) => setPassword(e.target.value)}
                                     />
-                                    <Eye className="pointer-events-none absolute right-3 top-1/2 size-4 -translate-y-1/2 text-dim" />
+                                    <button
+                                        type="button"
+                                        onClick={() => setShowPassword((v) => !v)}
+                                        aria-label={showPassword ? 'Ocultar contraseña' : 'Mostrar contraseña'}
+                                        aria-pressed={showPassword}
+                                        className="absolute right-1.5 top-1/2 flex size-8 -translate-y-1/2 items-center justify-center rounded-md text-dim transition-colors hover:text-ink focus-visible:text-ink focus-visible:outline focus-visible:outline-1 focus-visible:outline-accent"
+                                    >
+                                        {showPassword ? <EyeOff className="size-4" /> : <Eye className="size-4" />}
+                                    </button>
                                 </div>
                             </div>
 

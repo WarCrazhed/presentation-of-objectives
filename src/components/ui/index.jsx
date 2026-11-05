@@ -41,8 +41,33 @@ const statusTone = {
     Completado: 'text-ok bg-ok-bg',
     Publicado: 'text-info bg-info-bg',
     Activo: 'text-teal bg-teal-bg',
-    'En Proceso': 'text-warn bg-warn-bg',
+    'En curso': 'text-warn bg-warn-bg',
+    Programado: 'bg-panel-2 text-muted',
     Cerrado: 'text-danger bg-danger-bg'
+}
+
+/*
+ * Variación contra el periodo anterior. Flecha + texto (no solo color).
+ * Con base chica (< 10) se muestra la diferencia absoluta: «+23» dice más que «+1150%».
+ */
+export const Delta = ({ value, prev, format = String, invert = false }) => {
+    const diff = value - prev
+    let tone = 'text-dim'
+    let label = '= igual'
+    if (!prev && value) {
+        tone = 'text-info'
+        label = 'nuevo'
+    } else if (diff) {
+        // invert: para gastos, subir es malo.
+        tone = (diff > 0) !== invert ? 'text-ok' : 'text-danger'
+        const cifra = prev < 10 ? format(Math.abs(diff)) : `${Math.abs(Math.round((diff / prev) * 100))}%`
+        label = `${diff > 0 ? '▲ +' : '▼ −'}${cifra}`
+    }
+    return (
+        <span className={`num whitespace-nowrap font-mono text-[10px] ${tone}`} title={`Periodo anterior: ${format(prev)}`}>
+            {label}
+        </span>
+    )
 }
 
 export const StatusChip = ({ status }) => (

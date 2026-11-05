@@ -1,4 +1,27 @@
 // Tareas de septiembre–octubre 2026 apoyadas con IA. Horas: estimaciones comparativas (manual vs. asistido con IA).
+export const periodoIA = { etiqueta: "septiembre y octubre 2026", anterior: "julio y agosto 2026" };
+
+/*
+ * Resumen del periodo anterior, para comparar. Sale de la versión de este archivo del
+ * reporte de jul–ago (commit 0c910b3). Al cargar un periodo nuevo: calcula este resumen
+ * con la lista que vas a reemplazar, pégalo aquí y actualiza periodoIA.
+ */
+export const resumenIAAnterior = {
+    tareas: 77,
+    manualHoras: 686,
+    iaHoras: 223,
+    porPlataforma: {
+        "SuiteDO": { tareas: 31, manualHoras: 311, iaHoras: 100 },
+        "Humana11-Frontend": { tareas: 4, manualHoras: 28, iaHoras: 10 },
+        "Humana11-Web": { tareas: 2, manualHoras: 14, iaHoras: 5 },
+        "Humana11-Admin": { tareas: 9, manualHoras: 106, iaHoras: 34 },
+        "Humana11": { tareas: 2, manualHoras: 18, iaHoras: 6 },
+        "Talento": { tareas: 13, manualHoras: 97, iaHoras: 32 },
+        "UHE": { tareas: 15, manualHoras: 104, iaHoras: 33 },
+        "Otros": { tareas: 1, manualHoras: 8, iaHoras: 3 }
+    }
+};
+
 export const tareasIA = [
     // SuiteDO
     { plataforma: "SuiteDO", tarea: "Implementar el nuevo diagnóstico NineBox (9box)", cat: "Funcionalidad", manualHoras: 40, iaHoras: 12 },

@@ -67,6 +67,14 @@ export const Eye = (props) => (
     </Icon>
 )
 
+export const EyeOff = (props) => (
+    <Icon {...props}>
+        <path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6-10-6-10-6z" />
+        <circle cx="12" cy="12" r="2.6" />
+        <path d="M4 4l16 16" />
+    </Icon>
+)
+
 export const Alert = (props) => (
     <Icon {...props} strokeWidth={1.9}>
         <circle cx="12" cy="12" r="9" />
